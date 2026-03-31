@@ -1,3 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@theme {
+  /* Primär: Kupfer-Gold */
+  --color-primary-50:  #faf5ee;
+  --color-primary-100: #f3e8d6;
+  --color-primary-200: #e8d0b0;
+  --color-primary-300: #dab880;
+  --color-primary-400: #cca264;
+  --color-primary-500: #C28E58;
+  --color-primary-600: #a87540;
+  --color-primary-700: #8a5e34;
+  --color-primary-800: #6e4b2b;
+  --color-primary-900: #563b22;
+
+  /* Sekundär: Salbei-Grün */
+  --color-secondary-50:  #f4f8f5;
+  --color-secondary-100: #e4efe8;
+  --color-secondary-200: #c8dfd1;
+  --color-secondary-300: #A8C2B0;
+  --color-secondary-400: #88a892;
+  --color-secondary-500: #6a9176;
+  --color-secondary-600: #52755d;
+  --color-secondary-700: #405c49;
+  --color-secondary-800: #304537;
+  --color-secondary-900: #223027;
+
+  /* Hintergrund: Creme-Weiß */
+  --color-background: #F9F7F2;
+
+  /* Oberflächen: Leinen-Beige */
+  --color-surface: #E5DCD0;
+
+  /* Text: Dunkles Taupe */
+  --color-content: #4A433D;
+}
+
