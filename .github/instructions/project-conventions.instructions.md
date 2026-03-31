@@ -8,22 +8,22 @@ applyTo: "src/app/**"
 
 Place all **page-level components** in `src/app/views/`. This includes:
 - Full-page route views
-- Layout shells (app shell, auth layout, etc.)
+- Layout (app layout, auth layout, etc.)
 - Sidebars and navigation wrappers
 
 Each view gets its own subfolder mirror the route hierarchy:
 
 ```
 src/app/views/
-  dashboard/
-    dashboard.ts
-    dashboard.html
-  settings/
-    settings.ts
-    settings.html
-  shell/
-    shell.ts          ← app layout (top nav + sidebar + router-outlet)
-    shell.html
+  layout/
+    layout.ts          ← app layout (top nav + sidebar + router-outlet)
+    layout.html
+  start/
+    start.ts
+    start.html
+  users/
+    users.ts
+    users.html
 ```
 
 Wire up views in `app.routes.ts` using **lazy-loaded routes**:
@@ -33,15 +33,15 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./views/shell/shell').then(m => m.Shell),
+      import('./views/layout/layout').then(m => m.Layout)
     children: [
       {
-        path: 'dashboard',
+        path: 'users',
         loadComponent: () =>
-          import('./views/dashboard/dashboard').then(m => m.Dashboard),
-      },
-    ],
-  },
+          import('./views/users/users').then(m => m.Users)
+      }
+    ]
+  }
 ];
 ```
 
