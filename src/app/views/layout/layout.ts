@@ -13,7 +13,7 @@ export class Layout {
   protected readonly sidebarMinimized = signal(false);
 
   protected readonly navItems: NavItem[] = [
-    { label: 'Kunden', icon: 'user_attributes', route: '/kunden' },
+    { label: 'Kunden', icon: 'user_attributes', route: '/home/kunden' },
     { label: 'Termine', icon: 'calendar_month', route: '/termine' },
     { label: 'Quittungen', icon: 'receipt', route: '/quittungen' },
     { label: 'Massagen', icon: 'massage', route: '/massagen' },

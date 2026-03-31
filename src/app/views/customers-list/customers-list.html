@@ -1,0 +1,38 @@
+<p-table
+  [value]="customers()"
+  [paginator]="true"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  styleClass="p-datatable-sm"
+>
+  <ng-template #header>
+    <tr>
+      <th pSortableColumn="lastName">Nachname <p-sortIcon field="lastName" /></th>
+      <th pSortableColumn="firstName">Vorname <p-sortIcon field="firstName" /></th>
+      <th pSortableColumn="city">Ort <p-sortIcon field="city" /></th>
+      <th pSortableColumn="zipCode">PLZ <p-sortIcon field="zipCode" /></th>
+      <th>Adresse</th>
+      <th>E-Mail</th>
+      <th>Telefon</th>
+      <th>Mobil</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-customer>
+    <tr>
+      <td>{{ customer.lastName }}</td>
+      <td>{{ customer.firstName }}</td>
+      <td>{{ customer.city }}</td>
+      <td>{{ customer.zipCode }}</td>
+      <td>{{ customer.address }}</td>
+      <td>{{ customer.email }}</td>
+      <td>{{ customer.phone }}</td>
+      <td>{{ customer.mobile }}</td>
+    </tr>
+  </ng-template>
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="8" class="text-center py-8 text-content/50">Keine Kunden gefunden.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
