@@ -107,3 +107,26 @@ This project uses **Tailwind CSS v4**. It is imported globally via `@import 'tai
 ### PrimeNG & Tailwind
 
 Use PrimeNG components for complex UI elements (forms, data tables, dialogs, overlays). Style their wrappers and surrounding layout with Tailwind classes. Avoid writing CSS overrides for PrimeNG internals.
+
+---
+
+## Icons
+
+### Always use Material Symbols Outlined
+
+- Use **only** [Material Symbols Outlined](https://fonts.google.com/icons) for icons. The font is loaded globally via `index.html`.
+- Render icons with a `<span>` using the `material-symbols-outlined` class and the icon ligature as text content.
+- Do **not** use any other icon library (e.g. Font Awesome, Heroicons, PrimeIcons).
+
+```html
+<!-- ✅ Correct -->
+<span class="material-symbols-outlined">home</span>
+<span class="material-symbols-outlined">settings</span>
+
+<!-- ❌ Wrong -->
+<i class="pi pi-home"></i>
+<i class="fa fa-home"></i>
+```
+
+- Size and color with Tailwind: `text-xl`, `text-primary-500`, etc.
+- For accessibility, add `aria-hidden="true"` on decorative icons and pair with a visually-hidden label when the icon conveys meaning.
