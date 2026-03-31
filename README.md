@@ -18,6 +18,23 @@ Reliefo Therapy App Client
 * Massagen
   * Neue Massage, Massage bearbeiten, Massage löschen
 
+## Farbkonzept (Gemini)
+
+| Bereich | Farbe | HEX-Code | Beschreibung / Anwendung |
+| --- | --- | --- | --- |
+| Primär | Kupfer-Gold | #C28E58 | Hauptfarbe für Buttons, das Logo und wichtige Highlights. |
+| Sekundär | Salbei-Grün | #A8C2B0 | Für die fließenden Linien, Statusanzeigen oder sanfte Akzente. |
+| Hintergrund | Creme-Weiß | #F9F7F2 | Haupt-Hintergrund der App (wirkt weicher und edler als Reinweiß). |
+| Oberflächen | Leinen-Beige | #E5DCD0 | Für Karten-Elemente (Cards), Trennlinien oder Eingabefelder. |
+| Text | Dunkles Taupe | #4A433D | Für Texte; bietet hohen Kontrast bei natürlicherer Anmutung als Schwarz. |
+
+Design-Empfehlungen für die Umsetzung:
+
+* **Primärfarbe (Brand):** Ich empfehle den Kupfer-Gold-Ton (#C59467) deines Logos als Primärfarbe für wichtige Schaltflächen zu verwenden.
+* **Weißraum:** Nutze das Warme Elfenbein großzügig. Es spiegelt die hellen Handtücher und das Licht im Bild wider und lässt die App „atmen".
+* **Abgerundete Ecken:** Passend zum verspielten Logo und der weichen Polsterung der Liege sollten alle UI-Elemente (Buttons, Bilder) stark abgerundete Ecken (z. B. 16px oder mehr) haben.
+* **Schriftart:** Eine serifenlose, leicht „puffy" wirkende Schriftart würde den verspielten Charakter des Logos im Interface fortführen.
+
 ## Angular CLI
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
