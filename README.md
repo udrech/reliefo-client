@@ -4,7 +4,7 @@ Reliefo Therapy App Client
 
 ## App Struktur und Pfade
 
-* Benutzer
+* Kunden
   * Termine
   * Quittungen
   * Krankengeschichte
