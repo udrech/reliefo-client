@@ -1,9 +1,19 @@
+<div class="flex justify-end mb-4">
+  <a
+    routerLink="/kunden/neu"
+    class="flex items-center gap-2 px-4 py-2 bg-primary-500 text-white rounded hover:bg-primary-600 transition-colors"
+    aria-label="Neuen Kunden erfassen"
+  >
+    <span class="material-symbols-outlined text-xl" aria-hidden="true">add</span>
+    <span>Neuer Kunde</span>
+  </a>
+</div>
+
 <p-table
   [value]="customers()"
   [paginator]="true"
   [rows]="10"
   [rowsPerPageOptions]="[10, 25, 50]"
-  styleClass="p-datatable-sm"
 >
   <ng-template #header>
     <tr>
@@ -15,6 +25,8 @@
       <th>E-Mail</th>
       <th>Telefon</th>
       <th>Mobil</th>
+      <th></th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template #body let-customer>
@@ -27,11 +39,31 @@
       <td>{{ customer.email }}</td>
       <td>{{ customer.phone }}</td>
       <td>{{ customer.mobile }}</td>
+      <td class="w-10">
+        <button
+          type="button"
+          class="p-2 rounded-full hover:bg-surface-100 text-content/70 hover:text-primary-500 transition-colors"
+          [routerLink]="['/kunden', customer.id]"
+          aria-label="Kunde bearbeiten"
+        >
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
+        </button>
+      </td>
+      <td class="w-10">
+        <button
+          type="button"
+          class="p-2 rounded-full hover:bg-surface-100 text-content/70 hover:text-red-500 transition-colors"
+          (click)="deleteCustomer(customer.id)"
+          aria-label="Kunde löschen"
+        >
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
+        </button>
+      </td>
     </tr>
   </ng-template>
   <ng-template #emptymessage>
     <tr>
-      <td colspan="8" class="text-center py-8 text-content/50">Keine Kunden gefunden.</td>
+      <td colspan="10" class="text-center py-8 text-content/50">Keine Kunden gefunden.</td>
     </tr>
   </ng-template>
 </p-table>

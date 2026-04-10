@@ -12,4 +12,20 @@ export class CustomerService {
   getAll(): Observable<Customer[]> {
     return this.http.get<Customer[]>(this.apiUrl);
   }
+
+  getById(id: number): Observable<Customer> {
+    return this.http.get<Customer>(`${this.apiUrl}/${id}`);
+  }
+
+  create(customer: Omit<Customer, 'id' | 'createdAt' | 'updatedAt'>): Observable<Customer> {
+    return this.http.post<Customer>(this.apiUrl, customer);
+  }
+
+  update(id: number, customer: Omit<Customer, 'id' | 'createdAt' | 'updatedAt'>): Observable<Customer> {
+    return this.http.put<Customer>(`${this.apiUrl}/${id}`, customer);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

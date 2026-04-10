@@ -6,13 +6,23 @@ export const routes: Routes = [
     loadComponent: () => import('./views/start/start').then((m) => m.Start),
   },
   {
-    path: 'home',
+    path: '',
     loadComponent: () => import('./views/layout/layout').then((m) => m.Layout),
     children: [
       {
         path: 'kunden',
         loadComponent: () =>
           import('./views/customers-list/customers-list').then((m) => m.CustomersList),
+      },
+      {
+        path: 'kunden/neu',
+        loadComponent: () =>
+          import('./views/customers-form/customers-form').then((m) => m.CustomersForm),
+      },
+      {
+        path: 'kunden/:id',
+        loadComponent: () =>
+          import('./views/customers-form/customers-form').then((m) => m.CustomersForm),
       },
     ],
   },

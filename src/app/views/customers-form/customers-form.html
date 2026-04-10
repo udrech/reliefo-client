@@ -1,0 +1,74 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="p-6 max-w-2xl">
+  <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Kunde' : 'Kunde bearbeiten' }}</h2>
+
+  <div class="grid gap-y-4">
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="lastName" class="text-right font-medium">
+        Nachname <span aria-hidden="true">*</span>
+      </label>
+      <input pInputText id="lastName" formControlName="lastName" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="firstName" class="text-right font-medium">
+        Vorname <span aria-hidden="true">*</span>
+      </label>
+      <input pInputText id="firstName" formControlName="firstName" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="address" class="text-right font-medium">Adresse</label>
+      <input pInputText id="address" formControlName="address" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="zipCode" class="text-right font-medium">PLZ</label>
+      <input pInputText id="zipCode" formControlName="zipCode" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="city" class="text-right font-medium">Ort</label>
+      <input pInputText id="city" formControlName="city" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="country" class="text-right font-medium">Land</label>
+      <input pInputText id="country" formControlName="country" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="email" class="text-right font-medium">E-Mail</label>
+      <input pInputText id="email" formControlName="email" type="email" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="phone" class="text-right font-medium">Telefon</label>
+      <input pInputText id="phone" formControlName="phone" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="mobile" class="text-right font-medium">Mobil</label>
+      <input pInputText id="mobile" formControlName="mobile" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="socialSecurityNumber" class="text-right font-medium">SV-Nummer</label>
+      <input pInputText id="socialSecurityNumber" formControlName="socialSecurityNumber" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="healthInsuranceProvider" class="text-right font-medium">Krankenkasse</label>
+      <input pInputText id="healthInsuranceProvider" formControlName="healthInsuranceProvider" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="healthInsuranceId" class="text-right font-medium">KV-Nummer</label>
+      <input pInputText id="healthInsuranceId" formControlName="healthInsuranceId" class="w-full" />
+    </div>
+  </div>
+
+  <div class="flex gap-3 mt-8 justify-end">
+    <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
+    <p-button label="Speichern" type="submit" [disabled]="form.invalid" />
+  </div>
+</form>
