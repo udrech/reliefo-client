@@ -2,7 +2,11 @@
 
 Reliefo Therapy App Client
 
-## App Struktur und Pfade
+## ToDo
+
+* ...
+
+## App Struktur
 
 * Kunden
   * Termine
@@ -17,6 +21,15 @@ Reliefo Therapy App Client
   * Neue Quittung, Quittung löschen
 * Massagen
   * Neue Massage, Massage bearbeiten, Massage löschen
+
+## App Navigation
+
+/login
+/kunden
+/massagen
+/quittungen
+/start
+/termine
 
 ## Farbkonzept (Gemini)
 
@@ -55,6 +68,7 @@ Angular CLI includes powerful code scaffolding tools. To generate a new componen
 
 ```bash
 ng generate component component-name
+ng generate component component-name --skip-tests
 ```
 
 For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
