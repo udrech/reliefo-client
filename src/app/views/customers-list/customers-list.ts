@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../models/customer';
 
 @Component({
   selector: 'app-customers-list',
-  imports: [TableModule, RouterLink],
+  imports: [TableModule, ButtonModule, TooltipModule, RouterLink],
   templateUrl: './customers-list.html',
   styleUrl: './customers-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

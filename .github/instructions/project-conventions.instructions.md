@@ -106,7 +106,14 @@ This project uses **Tailwind CSS v4**. It is imported globally via `@import 'tai
 
 ### PrimeNG & Tailwind
 
-Use PrimeNG components for complex UI elements (forms, data tables, dialogs, overlays). Style their wrappers and surrounding layout with Tailwind classes. Avoid writing CSS overrides for PrimeNG internals.
+**Always prefer PrimeNG components** over native HTML equivalents whenever a PrimeNG component exists. This includes buttons (`p-button`), text inputs (`pInputText`), dropdowns, checkboxes, dialogs, data tables, overlays, and more. Only fall back to plain HTML elements when no suitable PrimeNG component is available.
+
+- Use `p-button` instead of `<button>` or `<a>` for all actions and navigation triggers.
+- Use `pInputText` directive on `<input>` elements for text fields.
+- Use `[text]="true"` and `[rounded]="true"` on `p-button` for icon-only action buttons.
+- Use `severity` (`secondary`, `danger`, etc.) on `p-button` to express intent.
+
+Style PrimeNG component wrappers and surrounding layout with Tailwind classes. Avoid writing CSS overrides for PrimeNG internals.
 
 ---
 
