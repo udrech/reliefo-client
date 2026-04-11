@@ -10,6 +10,11 @@ export const routes: Routes = [
     loadComponent: () => import('./views/layout/layout').then((m) => m.Layout),
     children: [
       {
+        path: 'termine',
+        loadComponent: () =>
+          import('./views/appointments-list/appointments-list').then((m) => m.AppointmentsList),
+      },
+      {
         path: 'kunden',
         loadComponent: () =>
           import('./views/customers-list/customers-list').then((m) => m.CustomersList),
