@@ -22,6 +22,11 @@ export const routes: Routes = [
       {
         path: 'kunden/:id',
         loadComponent: () =>
+          import('./views/customers-detail/customers-detail').then((m) => m.CustomersDetail),
+      },
+      {
+        path: 'kunden/:id/bearbeiten',
+        loadComponent: () =>
           import('./views/customers-form/customers-form').then((m) => m.CustomersForm),
       },
     ],

@@ -21,13 +21,13 @@
   </ng-template>
   <ng-template #body let-customer>
     <tr>
-      <td>{{ customer.lastName }}</td>
+      <td><a [routerLink]="['/kunden', customer.id]" class="hover:underline">{{ customer.lastName }}</a></td>
       <td>{{ customer.firstName }}</td>
       <td>{{ customer.mobile }}</td>
       <td>{{ customer.phone }}</td>
       <td>{{ customer.email }}</td>
       <td class="w-10">
-        <p-button [text]="true" [rounded]="true" severity="secondary" [routerLink]="['/kunden', customer.id]" ariaLabel="Kunde bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
+        <p-button [text]="true" [rounded]="true" severity="secondary" [routerLink]="['/kunden', customer.id, 'bearbeiten']" ariaLabel="Kunde bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
         </p-button>
       </td>
