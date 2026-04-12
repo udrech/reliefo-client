@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TableModule } from 'primeng/table';
@@ -7,7 +7,7 @@ import { Appointment } from '../../models/appointment';
 
 @Component({
   selector: 'app-appointments-list',
-  imports: [DatePipe, NgClass, TableModule, RouterLink],
+  imports: [DatePipe, TableModule, RouterLink],
   templateUrl: './appointments-list.html',
   styleUrl: './appointments-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
