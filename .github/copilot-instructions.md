@@ -54,3 +54,28 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+## Data Loading
+
+- **Always use `toSignal()`** to load data — never use `subscribe()` in components.
+- Do NOT use `ngOnInit()`, `constructor()`, or manual `subscribe()` calls to fetch data.
+- Do NOT use `signal<T>([])` combined with `subscribe()` — this is an anti-pattern.
+- When data depends on route params, pipe through `ActivatedRoute` reactively so the data reloads automatically on param changes.
+- Always provide `{ initialValue: [] }` (or a sensible typed default) to avoid `undefined` in templates.
+
+```typescript
+// ✅ Simple list — reloads when service changes
+readonly items = toSignal(this.myService.getAll(), { initialValue: [] });
+
+// ✅ Route-param dependent — reloads on every param change
+readonly item = toSignal(
+  inject(ActivatedRoute).params.pipe(
+    switchMap(params => this.myService.getById(+params['id']))
+  )
+);
+
+// ❌ Wrong — manual subscription
+ngOnInit(): void {
+  this.myService.getAll().subscribe(data => this.items.set(data));
+}
+```

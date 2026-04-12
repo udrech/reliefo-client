@@ -84,6 +84,42 @@ src/app/models/
 
 ---
 
+## Data Loading
+
+**Always use `toSignal()`** to load data in components and views. Never call `subscribe()` inside a component.
+
+### Rules
+
+- Do NOT use `ngOnInit()` or `constructor()` to trigger data subscriptions.
+- Do NOT combine `signal<T>([])` with a manual `subscribe()` call.
+- Always pass `{ initialValue: [] }` (or an appropriate typed default) so templates never receive `undefined`.
+- When data depends on route parameters, derive the Observable from `ActivatedRoute` so Angular reloads automatically whenever the params change — no manual trigger needed.
+
+### Patterns
+
+```typescript
+// ✅ Simple list
+readonly customers = toSignal(
+  inject(CustomerService).getAll(),
+  { initialValue: [] }
+);
+
+// ✅ Route-param dependent (reloads on every navigation)
+readonly customer = toSignal(
+  inject(ActivatedRoute).params.pipe(
+    switchMap(params => inject(CustomerService).getById(+params['id']))
+  )
+);
+
+// ❌ Anti-pattern — manual subscription
+protected readonly customers = signal<Customer[]>([]);
+ngOnInit(): void {
+  this.customerService.getAll().subscribe(data => this.customers.set(data));
+}
+```
+
+---
+
 ## Styling
 
 ### Always use Tailwind CSS classes
