@@ -164,3 +164,124 @@ export class AppointmentsList {
   }
 }
 ```
+
+## Vergleich der Lade-Ansätze
+
+### Übersicht
+
+| Ansatz | Wo | Lifecycle | Angular-Stil | Empfehlung |
+| --- | --- | --- | --- | --- |
+| `constructor()` | Klassen-Konstruktor | Vor der Initialisierung | Klassisch | ⚠️ Vermeiden für async |
+| `implements OnInit` + `ngOnInit()` | Lifecycle-Hook | Nach der Initialisierung | Klassisch | ✅ OK, aber veraltet |
+| `toSignal()` | Klassenfeld | Reaktiv / deklarativ | Modern | ✅✅ Bevorzugt |
+| `signal<T>([])` + `ngOnInit()` | Hybrid | Nach der Initialisierung | Teilweise modern | ⚠️ Mischform |
+
+---
+
+### 1. `constructor()` — Laden im Konstruktor
+
+```typescript
+constructor() {
+  this.customerService.getAll().pipe(takeUntilDestroyed()).subscribe(...);
+}
+```
+
+**Was passiert:** Der Konstruktor wird aufgerufen, sobald Angular die Klasse instanziiert — noch bevor Inputs oder der DOM verfügbar sind.
+
+**`takeUntilDestroyed()`** wird benötigt, weil das Observable sonst nach der Zerstörung der Komponente weiter feuern würde (Memory Leak). Im `constructor()` ist `DestroyRef` automatisch verfügbar.
+
+**Vorteile:**
+- Kein Interface (`OnInit`) nötig
+- `takeUntilDestroyed()` funktioniert ohne expliziten `DestroyRef`
+
+**Nachteile:**
+- Konstruktoren sollten keine Seiteneffekte haben (Best Practice)
+- Inputs sind noch nicht gesetzt — gefährlich bei parameterabhängigem Laden
+
+---
+
+### 2. `implements OnInit` + `ngOnInit()` — Klassischer Lifecycle-Hook
+
+```typescript
+export class CustomersForm implements OnInit {
+  ngOnInit(): void {
+    this.customerService.getById(id).subscribe(...);
+  }
+}
+```
+
+**Was passiert:** `ngOnInit()` ist ein Angular Lifecycle-Hook, der **nach** dem Setzen der Inputs ausgeführt wird. `implements OnInit` ist ein TypeScript-Interface, das sicherstellt, dass die Methode korrekt implementiert ist.
+
+**`implements OnInit`** ist rein ein TypeScript-Vertrag (Interface). Angular ruft `ngOnInit()` unabhängig davon auf — aber das Interface hilft dem Compiler, Tippfehler (`ngOniNit`) zu erkennen.
+
+**Vorteile:**
+- Inputs sind verfügbar
+- Klar strukturiert und verständlich
+
+**Nachteile:**
+- Imperativ: man muss manuell abonnieren und den State setzen
+- Erfordert manuelle Cleanup-Logik (`takeUntilDestroyed()` oder `unsubscribe`)
+
+---
+
+### 3. `toSignal()` — Moderner, reaktiver Ansatz ✅ Empfohlen
+
+```typescript
+export class CustomersDetail {
+  customer = toSignal(
+    this.route.params.pipe(
+      switchMap(params => this.customerService.getById(+params['id']))
+    )
+  );
+}
+```
+
+**Was passiert:** `toSignal()` konvertiert ein Observable direkt in ein Signal. Angular verwaltet das Abonnement automatisch — kein manuelles `subscribe()`, kein `unsubscribe()`, kein Lifecycle-Hook nötig.
+
+**Vorteile:**
+- Vollständig deklarativ — kein Boilerplate
+- Automatisches Cleanup durch Angular
+- Reaktiv: aktualisiert sich automatisch bei Route-Änderungen
+- Kompatibel mit `ChangeDetectionStrategy.OnPush`
+
+**Nachteile:**
+- Muss im Injection-Kontext aufgerufen werden (Klassenfeld oder `constructor`)
+- Returntyp ist `Signal<T | undefined>` (sofern kein `initialValue` angegeben)
+
+---
+
+### 4. `signal<Appointment[]>([])` + `ngOnInit()` — Hybridansatz
+
+```typescript
+protected readonly appointments = signal<Appointment[]>([]);
+
+ngOnInit(): void {
+  this.appointmentService.getAll().subscribe((data) => this.appointments.set(data));
+}
+```
+
+**Was passiert:** Ein Signal wird manuell mit einem leeren Array initialisiert. In `ngOnInit()` wird das Observable abonniert und das Signal mit den Daten befüllt.
+
+**`signal<Appointment[]>([])`** erstellt ein beschreibbares Signal mit dem Typ `Appointment[]` und dem Startwert `[]`. Der Typ wird explizit angegeben, weil TypeScript `[]` allein nicht als `Appointment[]` inferieren kann.
+
+**Vorteile:**
+- Template rendert sofort mit leerem Array (kein `undefined`)
+- Vertraut für Entwickler, die Signals kennen aber Observables vermeiden wollen
+
+**Nachteile:**
+- Mischform: imperatives `subscribe()` mit reaktivem Signal
+- Kein automatisches Cleanup — erfordert `takeUntilDestroyed()`
+- `toSignal()` macht dasselbe eleganter
+
+---
+
+### Fazit: Welchen Ansatz verwenden?
+
+In modernem Angular (v17+) ist **`toSignal()`** der bevorzugte Ansatz:
+
+```typescript
+// Empfohlen: deklarativ, kein Boilerplate, automatisches Cleanup
+readonly data = toSignal(this.myService.getAll(), { initialValue: [] });
+```
+
+`ngOnInit()` bleibt sinnvoll, wenn Inputs vor dem Laden benötigt werden und `toSignal()` nicht passt. `constructor()` sollte für Datenladen vermieden werden.
