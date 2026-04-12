@@ -191,12 +191,14 @@ constructor() {
 **`takeUntilDestroyed()`** wird benötigt, weil das Observable sonst nach der Zerstörung der Komponente weiter feuern würde (Memory Leak). Im `constructor()` ist `DestroyRef` automatisch verfügbar.
 
 **Vorteile:**
-- Kein Interface (`OnInit`) nötig
-- `takeUntilDestroyed()` funktioniert ohne expliziten `DestroyRef`
+
+* Kein Interface (`OnInit`) nötig
+* `takeUntilDestroyed()` funktioniert ohne expliziten `DestroyRef`
 
 **Nachteile:**
-- Konstruktoren sollten keine Seiteneffekte haben (Best Practice)
-- Inputs sind noch nicht gesetzt — gefährlich bei parameterabhängigem Laden
+
+* Konstruktoren sollten keine Seiteneffekte haben (Best Practice)
+* Inputs sind noch nicht gesetzt — gefährlich bei parameterabhängigem Laden
 
 ---
 
@@ -215,12 +217,14 @@ export class CustomersForm implements OnInit {
 **`implements OnInit`** ist rein ein TypeScript-Vertrag (Interface). Angular ruft `ngOnInit()` unabhängig davon auf — aber das Interface hilft dem Compiler, Tippfehler (`ngOniNit`) zu erkennen.
 
 **Vorteile:**
-- Inputs sind verfügbar
-- Klar strukturiert und verständlich
+
+* Inputs sind verfügbar
+* Klar strukturiert und verständlich
 
 **Nachteile:**
-- Imperativ: man muss manuell abonnieren und den State setzen
-- Erfordert manuelle Cleanup-Logik (`takeUntilDestroyed()` oder `unsubscribe`)
+
+* Imperativ: man muss manuell abonnieren und den State setzen
+* Erfordert manuelle Cleanup-Logik (`takeUntilDestroyed()` oder `unsubscribe`)
 
 ---
 
@@ -239,14 +243,16 @@ export class CustomersDetail {
 **Was passiert:** `toSignal()` konvertiert ein Observable direkt in ein Signal. Angular verwaltet das Abonnement automatisch — kein manuelles `subscribe()`, kein `unsubscribe()`, kein Lifecycle-Hook nötig.
 
 **Vorteile:**
-- Vollständig deklarativ — kein Boilerplate
-- Automatisches Cleanup durch Angular
-- Reaktiv: aktualisiert sich automatisch bei Route-Änderungen
-- Kompatibel mit `ChangeDetectionStrategy.OnPush`
+
+* Vollständig deklarativ — kein Boilerplate
+* Automatisches Cleanup durch Angular
+* Reaktiv: aktualisiert sich automatisch bei Route-Änderungen
+* Kompatibel mit `ChangeDetectionStrategy.OnPush`
 
 **Nachteile:**
-- Muss im Injection-Kontext aufgerufen werden (Klassenfeld oder `constructor`)
-- Returntyp ist `Signal<T | undefined>` (sofern kein `initialValue` angegeben)
+
+* Muss im Injection-Kontext aufgerufen werden (Klassenfeld oder `constructor`)
+* Returntyp ist `Signal<T | undefined>` (sofern kein `initialValue` angegeben)
 
 ---
 
@@ -265,13 +271,15 @@ ngOnInit(): void {
 **`signal<Appointment[]>([])`** erstellt ein beschreibbares Signal mit dem Typ `Appointment[]` und dem Startwert `[]`. Der Typ wird explizit angegeben, weil TypeScript `[]` allein nicht als `Appointment[]` inferieren kann.
 
 **Vorteile:**
-- Template rendert sofort mit leerem Array (kein `undefined`)
-- Vertraut für Entwickler, die Signals kennen aber Observables vermeiden wollen
+
+* Template rendert sofort mit leerem Array (kein `undefined`)
+* Vertraut für Entwickler, die Signals kennen aber Observables vermeiden wollen
 
 **Nachteile:**
-- Mischform: imperatives `subscribe()` mit reaktivem Signal
-- Kein automatisches Cleanup — erfordert `takeUntilDestroyed()`
-- `toSignal()` macht dasselbe eleganter
+
+* Mischform: imperatives `subscribe()` mit reaktivem Signal
+* Kein automatisches Cleanup — erfordert `takeUntilDestroyed()`
+* `toSignal()` macht dasselbe eleganter
 
 ---
 
