@@ -108,3 +108,59 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ### Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Vergleich Lade-Logik
+
+```typecript
+export class CustomersList {
+  private readonly customerService = inject(CustomerService);
+
+  constructor() {
+    this.customerService.getAll().pipe(takeUntilDestroyed()).subscribe((data) => this.customers.set(data));
+  }
+}
+```
+
+```typescript
+export class CustomersForm implements OnInit {
+  private readonly customerService = inject(CustomerService);
+  private readonly route = inject(ActivatedRoute);
+
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const id = idParam ? Number(idParam) : null;
+    if (id) {
+      this.customerId = id;
+      this.isNew.set(false);
+      this.customerService.getById(id).subscribe((customer) => {
+        this.form.patchValue(customer);
+      });
+    }
+  }
+}
+```
+
+```typescript
+export class CustomersDetail {
+  private readonly route = inject(ActivatedRoute);
+  private readonly customerService = inject(CustomerService);
+
+  customer = toSignal(
+    this.route.params.pipe(
+      switchMap(params => this.customerService.getById(+params['id']))
+    )
+  );
+}
+```
+
+```typescript
+export class AppointmentsList {
+  private readonly appointmentService = inject(AppointmentService);
+
+  protected readonly appointments = signal<Appointment[]>([]);
+
+  ngOnInit(): void {
+    this.appointmentService.getAll().subscribe((data) => this.appointments.set(data));
+  }
+}
+```
