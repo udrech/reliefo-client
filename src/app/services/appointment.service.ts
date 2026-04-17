@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Appointment } from '../models/appointment';
 import { environment } from '../../environments/environment';
-import { Customer } from '../models/customer';
 
 @Injectable({ providedIn: 'root' })
 export class AppointmentService {
