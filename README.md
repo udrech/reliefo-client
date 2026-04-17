@@ -4,7 +4,7 @@ Reliefo Therapy App Client
 
 ## ToDo
 
-* ...
+* Buttons in Table sind nicht schön rund
 
 ## App Struktur
 
