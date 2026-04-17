@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { CustomerService } from '../../services/customer.service';
-import { Customer } from '../../models/customer';
 
 @Component({
   selector: 'app-customers-list',
@@ -13,18 +14,21 @@ import { Customer } from '../../models/customer';
   styleUrl: './customers-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomersList implements OnInit {
+export class CustomersList {
   private readonly customerService = inject(CustomerService);
 
-  protected readonly customers = signal<Customer[]>([]);
+  private readonly refresh = signal(0);
 
-  ngOnInit(): void {
-    this.customerService.getAll().subscribe((data) => this.customers.set(data));
-  }
+  protected readonly customers = toSignal(
+    toObservable(this.refresh).pipe(
+      switchMap(() => this.customerService.getAll())
+    ),
+    { initialValue: [] }
+  );
 
   protected deleteCustomer(id: number): void {
     this.customerService.delete(id).subscribe(() => {
-      this.customers.update((list) => list.filter((c) => c.id !== id));
+      this.refresh.update((v) => v + 1);
     });
   }
 }

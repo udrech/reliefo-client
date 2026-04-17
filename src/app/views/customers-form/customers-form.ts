@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { of, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CustomerService } from '../../services/customer.service';
@@ -12,13 +15,25 @@ import { CustomerService } from '../../services/customer.service';
   styleUrl: './customers-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomersForm implements OnInit {
+export class CustomersForm {
   private readonly customerService = inject(CustomerService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  private customerId: number | null = null;
-  protected readonly isNew = signal(true);
+  private readonly routeId = toSignal(
+    this.route.paramMap.pipe(map((params) => params.get('id')))
+  );
+
+  protected readonly isNew = computed(() => !this.routeId());
+
+  private readonly customer = toSignal(
+    this.route.paramMap.pipe(
+      switchMap((params) => {
+        const id = params.get('id');
+        return id ? this.customerService.getById(Number(id)) : of(null);
+      })
+    )
+  );
 
   protected readonly form = new FormGroup({
     lastName: new FormControl('', { validators: Validators.required, nonNullable: true }),
@@ -35,23 +50,21 @@ export class CustomersForm implements OnInit {
     healthInsuranceId: new FormControl<string | null>(null),
   });
 
-  ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    const id = idParam ? Number(idParam) : null;
-    if (id) {
-      this.customerId = id;
-      this.isNew.set(false);
-      this.customerService.getById(id).subscribe((customer) => {
-        this.form.patchValue(customer);
-      });
-    }
+  constructor() {
+    effect(() => {
+      const customer = this.customer();
+      if (customer) {
+        untracked(() => this.form.patchValue(customer));
+      }
+    });
   }
 
   protected save(): void {
     if (this.form.invalid) return;
     const value = this.form.getRawValue();
-    if (this.customerId) {
-      this.customerService.update(this.customerId, value).subscribe(() => {
+    const id = this.routeId();
+    if (id) {
+      this.customerService.update(Number(id), value).subscribe(() => {
         this.router.navigate(['/kunden']);
       });
     } else {
