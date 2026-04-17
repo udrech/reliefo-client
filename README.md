@@ -6,6 +6,20 @@ Reliefo Therapy App Client
 
 * Buttons in Table sind nicht schön rund
 
+## Ideen
+
+* Falsche URL -> 404 Seite mit Link zurück zur Startseite
+
+## Bezeichnungen
+
+| Tabelle | NG Klasse | NG Interface | Bezeichnung (deutsch, für Benutzer sichtbar) |
+| --- | --- | --- | --- |
+| appointments | AppointmentsXy | Appointment | Termine |
+| customers | CustomersXy | Customer | Kunden |
+| medical_histories | MedicalHistoriesXy | MedicalHistory | Krankengeschichte |
+| receipts | ReceiptsXy | Receipt | Quittungen |
+| therapies | TherapiesXy | Therapy | Massagen |
+
 ## App Struktur
 
 * Kunden
