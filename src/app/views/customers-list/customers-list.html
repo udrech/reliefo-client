@@ -22,7 +22,7 @@
   <ng-template #body let-customer>
     <tr>
       <td><a [routerLink]="['/kunden', customer.id]" class="hover:underline">{{ customer.lastName }}</a></td>
-      <td>{{ customer.firstName }}</td>
+      <td><a [routerLink]="['/kunden', customer.id]" class="hover:underline">{{ customer.firstName }}</a></td>
       <td>{{ customer.mobile }}</td>
       <td>{{ customer.phone }}</td>
       <td>{{ customer.email }}</td>
