@@ -10,11 +10,6 @@ export const routes: Routes = [
     loadComponent: () => import('./views/layout/layout').then((m) => m.Layout),
     children: [
       {
-        path: 'termine',
-        loadComponent: () =>
-          import('./views/appointments-list/appointments-list').then((m) => m.AppointmentsList),
-      },
-      {
         path: 'kunden',
         loadComponent: () =>
           import('./views/customers-list/customers-list').then((m) => m.CustomersList),
@@ -33,6 +28,16 @@ export const routes: Routes = [
         path: 'kunden/:id/bearbeiten',
         loadComponent: () =>
           import('./views/customers-form/customers-form').then((m) => m.CustomersForm),
+      },
+      {
+        path: 'termine',
+        loadComponent: () =>
+          import('./views/appointments-list/appointments-list').then((m) => m.AppointmentsList),
+      },
+      {
+        path: 'massagen',
+        loadComponent: () =>
+          import('./views/therapies-list/therapies-list').then((m) => m.TherapiesList),
       },
     ],
   },

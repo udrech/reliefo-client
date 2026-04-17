@@ -1,0 +1,26 @@
+<p-table
+  [value]="therapies()"
+>
+  <ng-template #header>
+    <tr>
+      <th>Name</th>
+      <th>Beschreibung</th>
+      <th>Dauer</th>
+      <th>Preis (CHF)</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-therapy>
+    <tr>
+      <td>{{ therapy.name }}</td>
+      <td>{{ therapy.description }}</td>
+      <td>{{ therapy.duration }}</td>
+      <td>{{ therapy.price }}</td>
+    </tr>
+  </ng-template>
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="10" class="text-center py-8 text-content/50">Keine Massagen gefunden.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
