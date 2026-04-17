@@ -35,6 +35,11 @@ export const routes: Routes = [
           import('./views/appointments-list/appointments-list').then((m) => m.AppointmentsList),
       },
       {
+        path: 'quittungen',
+        loadComponent: () =>
+          import('./views/receipts-list/receipts-list').then((m) => m.ReceiptsList),
+      },
+      {
         path: 'massagen',
         loadComponent: () =>
           import('./views/therapies-list/therapies-list').then((m) => m.TherapiesList),

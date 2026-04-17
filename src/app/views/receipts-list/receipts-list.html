@@ -1,0 +1,21 @@
+<p-table
+  [value]="receipts()"
+>
+  <ng-template #header>
+    <tr>
+      <th>Kunde</th>
+      <th>Erstellt</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-receipt>
+    <tr>
+      <td><a [routerLink]="['/kunden', receipt.customer.id]" class="hover:underline">{{ receipt.customer.lastName }} {{ receipt.customer.firstName }}</a></td>
+      <td>{{ receipt.receiptTimestamp | date:'dd.MM.yyyy' }}</td>
+    </tr>
+  </ng-template>
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="10" class="text-center py-8 text-content/50">Keine Quittungen gefunden.</td>
+    </tr>
+  </ng-template>
+</p-table>
