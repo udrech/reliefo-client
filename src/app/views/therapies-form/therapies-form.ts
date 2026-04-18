@@ -10,7 +10,11 @@ import { TherapyService } from '../../services/therapy.service';
 
 @Component({
   selector: 'app-therapies-form',
-  imports: [ReactiveFormsModule, InputTextModule, ButtonModule],
+  imports: [
+    ButtonModule,
+    InputTextModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './therapies-form.html',
   styleUrl: './therapies-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

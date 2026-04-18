@@ -9,7 +9,12 @@ import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-customers-list',
-  imports: [TableModule, ButtonModule, TooltipModule, RouterLink],
+  imports: [
+    ButtonModule,
+    RouterLink,
+    TableModule,
+    TooltipModule,
+  ],
   templateUrl: './customers-list.html',
   styleUrl: './customers-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

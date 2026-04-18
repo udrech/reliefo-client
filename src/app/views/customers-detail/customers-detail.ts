@@ -8,7 +8,10 @@ import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-customers-detail',
-  imports: [DatePipe,TabsModule],
+  imports: [
+    DatePipe,
+    TabsModule,
+  ],
   templateUrl: './customers-detail.html',
   styleUrl: './customers-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -8,7 +8,11 @@ import { BillService } from '../../services/bill.service';
 
 @Component({
   selector: 'app-bills-list',
-  imports: [DatePipe, RouterLink, TableModule],
+  imports: [
+    DatePipe,
+    RouterLink,
+    TableModule,
+  ],
   templateUrl: './bills-list.html',
   styleUrl: './bills-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

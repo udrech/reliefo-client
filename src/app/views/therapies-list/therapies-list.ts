@@ -8,7 +8,11 @@ import { TherapyService } from '../../services/therapy.service';
 
 @Component({
   selector: 'app-therapies-list',
-  imports: [ButtonModule, TableModule, RouterLink],
+  imports: [
+    ButtonModule,
+    RouterLink,
+    TableModule,
+  ],
   templateUrl: './therapies-list.html',
   styleUrl: './therapies-list.css',
 })

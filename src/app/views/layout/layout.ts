@@ -4,7 +4,10 @@ import { NavItem } from '../../models/nav-item';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, RouterLink],
+  imports: [
+    RouterLink,
+    RouterOutlet,
+  ],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

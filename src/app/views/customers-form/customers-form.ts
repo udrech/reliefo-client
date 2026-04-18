@@ -10,7 +10,11 @@ import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-customers-form',
-  imports: [ReactiveFormsModule, InputTextModule, ButtonModule],
+  imports: [
+    ButtonModule,
+    InputTextModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './customers-form.html',
   styleUrl: './customers-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

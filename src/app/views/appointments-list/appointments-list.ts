@@ -7,7 +7,11 @@ import { Appointment } from '../../models/appointment';
 
 @Component({
   selector: 'app-appointments-list',
-  imports: [DatePipe, TableModule, RouterLink],
+  imports: [
+    DatePipe,
+    RouterLink,
+    TableModule,
+  ],
   templateUrl: './appointments-list.html',
   styleUrl: './appointments-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
