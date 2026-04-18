@@ -5,6 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { firstValueFrom, of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { TherapyService } from '../../services/therapy.service';
@@ -13,6 +14,7 @@ import { TherapyService } from '../../services/therapy.service';
   selector: 'app-therapies-form',
   imports: [
     ButtonModule,
+    DatePickerModule,
     InputTextModule,
     ReactiveFormsModule,
   ],
@@ -49,7 +51,7 @@ export class TherapiesForm {
     description: new FormControl('', { nonNullable: true }),
     duration: new FormControl(0, { nonNullable: true }),
     price: new FormControl(0, { nonNullable: true }),
-    validFrom: new FormControl(new Date(), { nonNullable: true }),
+    validFrom: new FormControl<Date>(new Date(), { nonNullable: true }),
   });
 
   constructor() {

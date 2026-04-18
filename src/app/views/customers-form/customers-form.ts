@@ -6,6 +6,7 @@ import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { DatePickerModule } from 'primeng/datepicker';
 
 import { CustomerService } from '../../services/customer.service';
 
@@ -13,6 +14,7 @@ import { CustomerService } from '../../services/customer.service';
   selector: 'app-customers-form',
   imports: [
     ButtonModule,
+    DatePickerModule,
     InputTextModule,
     ReactiveFormsModule,
   ],
