@@ -9,6 +9,8 @@ Reliefo Therapy App Client
 ## Ideen
 
 * Falsche URL -> 404 Seite mit Link zurück zur Startseite
+* Termine heute -> gelb markieren
+* Geburtstag heute -> evtl. Banner
 
 ## Bezeichnungen
 
