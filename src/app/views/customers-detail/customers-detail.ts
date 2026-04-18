@@ -6,13 +6,16 @@ import { switchMap } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 
 import { AppointmentsList } from '../../components/appointments-list/appointments-list';
+import { BillsList } from '../../components/bills-list/bills-list';
 import { AppointmentService } from '../../services/appointment.service';
+import { BillService } from '../../services/bill.service';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-customers-detail',
   imports: [
     AppointmentsList,
+    BillsList,
     DatePipe,
     TabsModule,
   ],
@@ -24,6 +27,7 @@ export class CustomersDetail {
   private readonly route = inject(ActivatedRoute);
   private readonly customerService = inject(CustomerService);
   private readonly appointmentService = inject(AppointmentService);
+  private readonly billService = inject(BillService);
 
   customer = toSignal(
     this.route.params.pipe(
@@ -34,6 +38,13 @@ export class CustomersDetail {
   appointments = toSignal(
     this.route.params.pipe(
       switchMap(params => this.appointmentService.getByCustomerId(+params['id']))
+    ),
+    { initialValue: [] }
+  );
+
+  bills = toSignal(
+    this.route.params.pipe(
+      switchMap(params => this.billService.getByCustomerId(+params['id']))
     ),
     { initialValue: [] }
   );
