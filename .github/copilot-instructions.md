@@ -6,6 +6,28 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
+- **Sort import statements in this order (keep on single lines):**
+  1. `@angular/core`
+  2. `@angular/common`
+  3. `@angular/router`
+  4. `@angular/core/rxjs-interop`
+  5. `rxjs`
+  6. All `primeng/*` modules
+  7. Local model imports
+  8. Local service imports
+
+```typescript
+// ✅ Correct import order (single line imports)
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
+import { TabsModule } from 'primeng/tabs';
+
+import { Appointment } from '../../models/appointment';
+import { AppointmentService } from '../../services/appointment.service';
+```
 
 ## Angular Best Practices
 

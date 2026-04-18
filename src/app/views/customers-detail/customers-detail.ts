@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
+
 import { CustomerService } from '../../services/customer.service';
 
 @Component({

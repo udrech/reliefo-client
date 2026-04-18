@@ -1,9 +1,10 @@
-import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TableModule } from 'primeng/table';
-import { AppointmentService } from '../../services/appointment.service';
+
 import { Appointment } from '../../models/appointment';
+import { AppointmentService } from '../../services/appointment.service';
 
 @Component({
   selector: 'app-appointments-list',
