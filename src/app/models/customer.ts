@@ -13,6 +13,6 @@ export interface Customer {
   socialSecurityNumber: string | null;
   healthInsuranceProvider: string | null;
   healthInsuranceId: string | null;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

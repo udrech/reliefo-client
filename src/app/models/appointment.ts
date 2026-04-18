@@ -5,7 +5,7 @@ export interface Appointment {
   customerId: number;
   therapyId: number;
   therapy: Therapy;
-  appointmentTimestamp: string;
-  createdAt: string;
-  updatedAt: string;
+  appointmentTimestamp: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
