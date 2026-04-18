@@ -43,6 +43,7 @@ export class CustomersForm {
   protected readonly form = new FormGroup({
     lastName: new FormControl('', { validators: Validators.required, nonNullable: true }),
     firstName: new FormControl('', { validators: Validators.required, nonNullable: true }),
+    dateOfBirth: new FormControl<Date | null>(null),
     address: new FormControl<string | null>(null),
     city: new FormControl<string | null>(null),
     zipCode: new FormControl<string | null>(null),
