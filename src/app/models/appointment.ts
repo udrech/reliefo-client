@@ -1,4 +1,4 @@
-import { Therapy } from './therapy';
+import { Therapy, TherapyRaw } from './therapy';
 
 export interface Appointment {
   id: number;
@@ -8,4 +8,14 @@ export interface Appointment {
   appointmentTimestamp: Date;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface AppointmentRaw {
+  id: number;
+  customerId: number;
+  therapyId: number;
+  therapy: TherapyRaw;
+  appointmentTimestamp: string;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -81,6 +81,29 @@ src/app/models/
 
 - Use `interface` for object shapes; use `type` for unions, intersections, or aliases.
 - Do **not** define models inline inside service or component files.
+- For every model that has `Date` fields, define a corresponding `Raw` type in the same file where all `Date` fields are replaced with `string`. Name it `<ModelName>Raw` (e.g. `CustomerRaw`). Nested model references must also use their `Raw` counterpart.
+
+```typescript
+// ✅ Correct
+export interface Appointment {
+  id: number;
+  appointmentTimestamp: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  therapy: Therapy;
+}
+
+export interface AppointmentRaw {
+  id: number;
+  appointmentTimestamp: string;
+  createdAt: string;
+  updatedAt: string;
+  therapy: TherapyRaw;
+}
+```
+
+- Use the `Raw` type as the generic argument when calling `HttpClient` methods, then convert with `map()` in the service using `convertFromApi()` / `convertToApi()` helpers.
+- Never let `Date`↔`string` conversion happen inside components or templates.
 
 ---
 
