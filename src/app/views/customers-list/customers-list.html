@@ -12,6 +12,7 @@
     <tr>
       <th pSortableColumn="lastName">Nachname <p-sortIcon field="lastName" /></th>
       <th pSortableColumn="firstName">Vorname <p-sortIcon field="firstName" /></th>
+      <th>Geburtsdatum</th>
       <th>Mobil</th>
       <th>Telefon</th>
       <th>E-Mail</th>
@@ -23,6 +24,7 @@
     <tr>
       <td><a [routerLink]="['/kunden', customer.id]" class="hover:underline">{{ customer.lastName }}</a></td>
       <td><a [routerLink]="['/kunden', customer.id]" class="hover:underline">{{ customer.firstName }}</a></td>
+      <td>{{ customer.dateOfBirth | date: 'dd.MM.yyyy' }}</td>
       <td>{{ customer.mobile }}</td>
       <td>{{ customer.phone }}</td>
       <td>{{ customer.email }}</td>

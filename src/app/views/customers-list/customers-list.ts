@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
@@ -12,6 +13,7 @@ import { CustomerService } from '../../services/customer.service';
   selector: 'app-customers-list',
   imports: [
     ButtonModule,
+    DatePipe,
     RouterLink,
     TableModule,
     TooltipModule,
