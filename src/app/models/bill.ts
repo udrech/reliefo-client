@@ -1,10 +1,10 @@
 import { Customer } from "./customer";
 
-export interface Receipt {
+export interface Bill {
   id: number;
   customerId: number;
   customer: Customer;
-  receiptTimestamp: string;
+  billTimestamp: string;
   file: string;
   data: string;
   createdAt: string;

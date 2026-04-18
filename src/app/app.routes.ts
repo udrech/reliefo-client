@@ -37,7 +37,7 @@ export const routes: Routes = [
       {
         path: 'quittungen',
         loadComponent: () =>
-          import('./views/receipts-list/receipts-list').then((m) => m.ReceiptsList),
+          import('./views/bills-list/bills-list').then((m) => m.BillsList),
       },
       {
         path: 'massagen',

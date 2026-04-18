@@ -12,29 +12,43 @@ Reliefo Therapy App Client
 
 ## Bezeichnungen
 
+* Die App wird allgemein für Therapien entwickelt.
+* Im Konkreten Anwendungsfall sind das Massagen.
+* Aus Gewohnheit werden Rechnungen als Quittungen bezeichnet, da sie den Kunden ausgehändigt werden.
+* Für den Benutzer sichtbar wird überall Massagen und Quittungen statt Therapien und Rechnungen verwendet. Im Hintergrund (Code, API) bleiben die neutraleren Begriffe Therapien und Rechnungen bestehen.
+
 | Tabelle | NG Klasse | NG Interface | Bezeichnung (deutsch, für Benutzer sichtbar) |
 | --- | --- | --- | --- |
 | appointments | AppointmentsXy | Appointment | Termine |
 | customers | CustomersXy | Customer | Kunden |
 | medical_histories | MedicalHistoriesXy | MedicalHistory | Krankengeschichte |
-| receipts | ReceiptsXy | Receipt | Quittungen |
+| bills | BillsXy | Bill | Quittungen |
 | therapies | TherapiesXy | Therapy | Massagen |
 
 ## App Struktur
 
 * Kunden
   * Termine
+    * Neuer Termin
+    * Termin bearbeiten
+    * Termin löschen
   * Quittungen
+    * Neue Quittung
+    * Quittung löschen
   * Krankengeschichte
-  * Neuer Termin, Termin bearbeiten, Termin löschen
-  * Neue Quittung, Quittung löschen
-  * Neuer KG Eintrag, KG Eintrag bearbeiten, KG Eintrag löschen
+    * Neuer KG Eintrag
+    * KG Eintrag bearbeiten
+    * KG Eintrag löschen
 * Termine
-  * Neuer Termin, Termin bearbeiten, Termin löschen
+  * Termin bearbeiten
+  * Termin löschen
 * Quittungen
-  * Neue Quittung, Quittung löschen
+  * Quittung löschen
 * Massagen
-  * Neue Massage, Massage bearbeiten, Massage löschen
+  * Neue Massage
+  * Neue Version
+  * Massage bearbeiten
+  * Massage löschen
 
 ## App Navigation
 
