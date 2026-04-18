@@ -3,8 +3,8 @@ export interface Therapy {
   therapyId: number;
   name: string;
   nameOnBill: string;
-  description: string;
-  duration: number;
+  description: string | null;
+  duration: number | null; // in minutes
   price: number;
   validFrom: Date;
   createdAt: Date;
@@ -16,8 +16,8 @@ export interface TherapyRaw {
   therapyId: number;
   name: string;
   nameOnBill: string;
-  description: string;
-  duration: number;
+  description: string | null;
+  duration: number | null; // in minutes
   price: number;
   validFrom: string;
   createdAt: string;

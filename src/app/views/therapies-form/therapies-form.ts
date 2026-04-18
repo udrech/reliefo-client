@@ -48,8 +48,8 @@ export class TherapiesForm {
     therapyId: new FormControl(0, { nonNullable: true }),
     name: new FormControl('', { validators: Validators.required, nonNullable: true }),
     nameOnBill: new FormControl('', { validators: Validators.required, nonNullable: true }),
-    description: new FormControl('', { nonNullable: true }),
-    duration: new FormControl(0, { nonNullable: true }),
+    description: new FormControl<string | null>(null),
+    duration: new FormControl<number | null>(null),
     price: new FormControl(0, { nonNullable: true }),
     validFrom: new FormControl<Date>(new Date(), { nonNullable: true }),
   });
