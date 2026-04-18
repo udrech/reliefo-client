@@ -12,7 +12,6 @@ export class BillService {
   convertFromApi(bill: BillRaw): Bill {
     return {
       ...bill,
-      billTimestamp: new Date(bill.billTimestamp),
       createdAt: new Date(bill.createdAt),
       updatedAt: new Date(bill.updatedAt),
       customer: {
@@ -27,7 +26,6 @@ export class BillService {
   convertToApi(bill: Omit<Bill, 'id' | 'createdAt' | 'updatedAt'>): Omit<BillRaw, 'id' | 'createdAt' | 'updatedAt'> {
     return {
       ...bill,
-      billTimestamp: bill.billTimestamp.toISOString(),
       customer: {
         ...bill.customer,
         dateOfBirth: bill.customer.dateOfBirth ? bill.customer.dateOfBirth.toISOString() : null,
@@ -39,6 +37,12 @@ export class BillService {
 
   getAll(): Observable<Bill[]> {
     return this.http.get<BillRaw[]>(this.apiUrl).pipe(
+      map(bills => bills.map(this.convertFromApi))
+    );
+  }
+
+  getByCustomerId(customerId: number): Observable<Bill[]> {
+    return this.http.get<BillRaw[]>(`${this.apiUrl}/customer/${customerId}`).pipe(
       map(bills => bills.map(this.convertFromApi))
     );
   }
