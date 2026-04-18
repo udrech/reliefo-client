@@ -42,4 +42,10 @@ export class AppointmentService {
       map(appointments => appointments.map(this.convertFromApi))
     );
   }
+
+  getByCustomerId(customerId: number): Observable<Appointment[]> {
+    return this.http.get<AppointmentRaw[]>(`${this.apiUrl}/customer/${customerId}`).pipe(
+      map(appointments => appointments.map(this.convertFromApi))
+    );
+  }
 }
