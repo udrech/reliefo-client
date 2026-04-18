@@ -27,12 +27,12 @@
       <td>{{ customer.phone }}</td>
       <td>{{ customer.email }}</td>
       <td class="w-10">
-        <p-button [text]="true" [rounded]="true" severity="secondary" [routerLink]="['/kunden', customer.id, 'bearbeiten']" ariaLabel="Kunde bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
+        <p-button [text]="true" severity="secondary" [routerLink]="['/kunden', customer.id, 'bearbeiten']" ariaLabel="Kunde bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
         </p-button>
       </td>
       <td class="w-10">
-        <p-button [text]="true" [rounded]="true" severity="danger" (onClick)="deleteCustomer(customer.id)" ariaLabel="Kunde löschen" pTooltip="Löschen" tooltipPosition="top">
+        <p-button [text]="true" severity="danger" (onClick)="deleteCustomer(customer.id)" ariaLabel="Kunde löschen" pTooltip="Löschen" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
         </p-button>
       </td>
