@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="p-6 max-w-2xl">
+  <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neue Massage' : 'Massage bearbeiten' }}</h2>
+
+  <div class="grid gap-y-4">
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="therapyId" class="text-right font-medium">Massage ID</label>
+      <input pInputText id="therapyId" formControlName="therapyId" class="w-full" [disabled]="!isNew()" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="name" class="text-right font-medium">
+        Bezeichnung <span aria-hidden="true">*</span>
+      </label>
+      <input pInputText id="name" formControlName="name" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="nameOnBill" class="text-right font-medium">
+        Bezeichnung auf Quittung <span aria-hidden="true">*</span>
+      </label>
+      <input pInputText id="nameOnBill" formControlName="nameOnBill" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="description" class="text-right font-medium">
+        Beschreibung <span aria-hidden="true">*</span>
+      </label>
+      <input pInputText id="description" formControlName="description" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="duration" class="text-right font-medium">Dauer</label>
+      <input pInputText id="duration" formControlName="duration" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="price" class="text-right font-medium">Preis</label>
+      <input pInputText id="price" formControlName="price" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="validFrom" class="text-right font-medium">Gültig von</label>
+      <input pInputText id="validFrom" formControlName="validFrom" class="w-full" />
+    </div>
+  </div>
+
+  <div class="flex gap-3 mt-8 justify-end">
+    <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
+    <p-button label="Speichern" type="submit" [disabled]="form.invalid" />
+  </div>
+</form>

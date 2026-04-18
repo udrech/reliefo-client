@@ -44,6 +44,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./views/therapies-list/therapies-list').then((m) => m.TherapiesList),
       },
+      {
+        path: 'massagen/neu',
+        loadComponent: () =>
+          import('./views/therapies-form/therapies-form').then((m) => m.TherapiesForm),
+      },
+      {
+        path: 'massagen/:id/bearbeiten',
+        loadComponent: () =>
+          import('./views/therapies-form/therapies-form').then((m) => m.TherapiesForm),
+      },
     ],
   },
 ];

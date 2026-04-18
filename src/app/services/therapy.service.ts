@@ -12,4 +12,20 @@ export class TherapyService {
   getAll(): Observable<Therapy[]> {
     return this.http.get<Therapy[]>(this.apiUrl);
   }
+
+  getById(id: number): Observable<Therapy> {
+    return this.http.get<Therapy>(`${this.apiUrl}/${id}`);
+  }
+
+  create(therapy: Omit<Therapy, 'id' | 'createdAt' | 'updatedAt'>): Observable<Therapy> {
+    return this.http.post<Therapy>(this.apiUrl, therapy);
+  }
+
+  update(id: number, therapy: Omit<Therapy, 'id' | 'createdAt' | 'updatedAt'>): Observable<Therapy> {
+    return this.http.put<Therapy>(`${this.apiUrl}/${id}`, therapy);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
