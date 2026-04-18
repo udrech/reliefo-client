@@ -1,9 +1,18 @@
+<div class="flex justify-end mb-4">
+  <p-button routerLink="/massagen/neu" ariaLabel="Neue Massage erfassen">
+    <span class="material-symbols-outlined text-xl" aria-hidden="true">add</span>
+    <span>Neue Massage</span>
+  </p-button>
+</div>
+
 <p-table
   [value]="therapies()"
 >
   <ng-template #header>
     <tr>
-      <th>Name</th>
+      <th>Massage ID</th>
+      <th>Bezeichnung</th>
+      <th>Bezeichnung auf Quittung</th>
       <th>Beschreibung</th>
       <th>Dauer</th>
       <th>Preis (CHF)</th>
@@ -11,7 +20,9 @@
   </ng-template>
   <ng-template #body let-therapy>
     <tr>
+      <td>{{ therapy.therapyId }}</td>
       <td>{{ therapy.name }}</td>
+      <td>{{ therapy.nameOnBill }}</td>
       <td>{{ therapy.description }}</td>
       <td>{{ therapy.duration }}</td>
       <td>{{ therapy.price }}</td>

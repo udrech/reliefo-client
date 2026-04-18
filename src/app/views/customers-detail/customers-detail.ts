@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -7,7 +8,7 @@ import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-customers-detail',
-  imports: [TabsModule],
+  imports: [DatePipe,TabsModule],
   templateUrl: './customers-detail.html',
   styleUrl: './customers-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

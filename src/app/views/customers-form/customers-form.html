@@ -17,6 +17,13 @@
     </div>
 
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="dateOfBirth" class="text-right font-medium">
+        Geburtsdatum <span aria-hidden="true">*</span>
+      </label>
+      <input pInputText id="dateOfBirth" formControlName="dateOfBirth" type="date" class="w-full" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <label for="address" class="text-right font-medium">Adresse</label>
       <input pInputText id="address" formControlName="address" class="w-full" />
     </div>

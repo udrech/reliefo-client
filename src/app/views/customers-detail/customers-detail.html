@@ -18,6 +18,10 @@
               <span>{{ customer()?.firstName }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+              <span class="text-right font-medium">Geburtsdatum</span>
+              <span>{{ customer()?.dateOfBirth | date:'dd.MM.yyyy' }}</span>
+            </div>
+            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Adresse</span>
               <span>{{ customer()?.address }}</span>
             </div>

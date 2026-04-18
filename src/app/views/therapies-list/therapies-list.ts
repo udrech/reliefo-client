@@ -1,13 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-// import { RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TherapyService } from '../../services/therapy.service';
 
 @Component({
   selector: 'app-therapies-list',
-  imports: [TableModule],
+  imports: [ButtonModule, TableModule, RouterLink],
   templateUrl: './therapies-list.html',
   styleUrl: './therapies-list.css',
 })
