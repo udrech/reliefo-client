@@ -41,9 +41,25 @@ export class BillService {
     );
   }
 
+  getById(id: number): Observable<Bill> {
+    return this.http.get<BillRaw>(`${this.apiUrl}/${id}`).pipe(
+      map(this.convertFromApi)
+    );
+  }
+
   getByCustomerId(customerId: number): Observable<Bill[]> {
     return this.http.get<BillRaw[]>(`${this.apiUrl}/customer/${customerId}`).pipe(
       map(bills => bills.map(this.convertFromApi))
     );
+  }
+
+  create(bill: Omit<Bill, 'id' | 'createdAt' | 'updatedAt'>): Observable<Bill> {
+    return this.http.post<BillRaw>(this.apiUrl, this.convertToApi(bill)).pipe(
+      map(this.convertFromApi)
+    );
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

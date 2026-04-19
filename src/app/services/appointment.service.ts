@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Appointment, AppointmentRaw } from '../models/appointment';
 import { environment } from '../../environments/environment';
+import { App } from '../app';
 
 @Injectable({ providedIn: 'root' })
 export class AppointmentService {
@@ -43,9 +44,31 @@ export class AppointmentService {
     );
   }
 
+  getById(id: number): Observable<Appointment> {
+    return this.http.get<AppointmentRaw>(`${this.apiUrl}/${id}`).pipe(
+      map(this.convertFromApi)
+    );
+  }
+
   getByCustomerId(customerId: number): Observable<Appointment[]> {
     return this.http.get<AppointmentRaw[]>(`${this.apiUrl}/customer/${customerId}`).pipe(
       map(appointments => appointments.map(this.convertFromApi))
     );
+  }
+
+  create(appointment: Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'>): Observable<Appointment> {
+    return this.http.post<AppointmentRaw>(this.apiUrl, this.convertToApi(appointment)).pipe(
+      map(this.convertFromApi)
+    );
+  }
+
+  update(id: number, appointment: Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'>): Observable<Appointment> {
+    return this.http.put<AppointmentRaw>(`${this.apiUrl}/${id}`, this.convertToApi(appointment)).pipe(
+      map(this.convertFromApi)
+    );
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
