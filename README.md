@@ -4,7 +4,9 @@ Reliefo Therapy App Client
 
 ## ToDo
 
-* Buttons in Table sind nicht schön rund
+* Aktives Menü-Item markieren
+* Löschen mit Rückfrage
+* Fehlermeldung wenn Löschen nicht möglich ist
 
 ## Ideen
 
