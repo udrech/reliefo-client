@@ -2,16 +2,22 @@
   <ng-template #header>
     <tr>
       <th>Erstellt</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template #body let-bill>
     <tr>
       <td>{{ bill.createdAt | date:'dd.MM.yyyy' }}</td>
+      <td class="w-10">
+        <p-button [text]="true" severity="danger" (onClick)="deleteBill(bill.id)" ariaLabel="Quittung löschen" pTooltip="Löschen" tooltipPosition="top">
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
+        </p-button>
+      </td>
     </tr>
   </ng-template>
   <ng-template #emptymessage>
     <tr>
-      <td colspan="2" class="text-center py-8 text-content/50">Keine Rechnungen gefunden.</td>
+      <td colspan="2" class="text-center py-8 text-content/50">Keine Quittungen gefunden.</td>
     </tr>
   </ng-template>
 </p-table>

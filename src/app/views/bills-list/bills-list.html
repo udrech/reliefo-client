@@ -5,17 +5,23 @@
     <tr>
       <th>Kunde</th>
       <th>Erstellt</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template #body let-bill>
     <tr>
       <td><a [routerLink]="['/kunden', bill.customer.id]" class="hover:underline">{{ bill.customer.lastName }} {{ bill.customer.firstName }}</a></td>
       <td>{{ bill.createdAt | date:'dd.MM.yyyy' }}</td>
+      <td class="w-10">
+        <p-button [text]="true" severity="danger" (onClick)="deleteBill(bill.id)" ariaLabel="Quittung löschen" pTooltip="Löschen" tooltipPosition="top">
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
+        </p-button>
+      </td>
     </tr>
   </ng-template>
   <ng-template #emptymessage>
     <tr>
-      <td colspan="10" class="text-center py-8 text-content/50">Keine Rechnungen gefunden.</td>
+      <td colspan="10" class="text-center py-8 text-content/50">Keine Quittungen gefunden.</td>
     </tr>
   </ng-template>
 </p-table>

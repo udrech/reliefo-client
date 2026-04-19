@@ -8,6 +8,8 @@
       <th>Therapie</th>
       <th>Dauer (Minuten)</th>
       <th>Preis (CHF)</th>
+      <th></th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template #body let-appointment>
@@ -17,6 +19,16 @@
       <td>{{ appointment.therapy.name }}</td>
       <td>{{ appointment.therapy.duration }}</td>
       <td>{{ appointment.therapy.price | number:'1.2-2' }}</td>
+      <td class="w-10">
+        <p-button [text]="true" severity="secondary" [routerLink]="['/appointments', appointment.id, 'bearbeiten']" ariaLabel="Kunde bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
+        </p-button>
+      </td>
+      <td class="w-10">
+        <p-button [text]="true" severity="danger" (onClick)="deleteAppointment(appointment.id)" ariaLabel="Kunde löschen" pTooltip="Löschen" tooltipPosition="top">
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
+        </p-button>
+      </td>
     </tr>
   </ng-template>
   <ng-template #emptymessage>
