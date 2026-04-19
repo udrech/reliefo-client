@@ -25,7 +25,7 @@ import { AppointmentService } from '../../services/appointment.service';
 export class AppointmentsList {
   private readonly appointmentService = inject(AppointmentService);
 
-  protected readonly appointments = input<Appointment[]>([]);
+  readonly appointments = input<Appointment[]>([]);
 
   protected deleteAppointment(id: number): void {
     // this.appointmentService.delete(id).subscribe(() => this.refresh$.next());

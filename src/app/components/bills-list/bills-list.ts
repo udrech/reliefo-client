@@ -22,7 +22,7 @@ import { BillService } from '../../services/bill.service';
 export class BillsList {
   private readonly billService = inject(BillService);
 
-  protected readonly bills = input<Bill[]>([]);
+  readonly bills = input<Bill[]>([]);
 
   protected deleteBill(id: number): void {
     // this.billService.delete(id).subscribe(() => this.refresh$.next());
