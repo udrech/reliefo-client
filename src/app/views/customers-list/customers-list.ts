@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { startWith, switchMap, Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -25,18 +25,17 @@ import { CustomerService } from '../../services/customer.service';
 export class CustomersList {
   private readonly customerService = inject(CustomerService);
 
-  private readonly refresh = signal(0);
+  private readonly refresh$ = new Subject<void>();
 
   protected readonly customers = toSignal(
-    toObservable(this.refresh).pipe(
+    this.refresh$.pipe(
+      startWith(null),
       switchMap(() => this.customerService.getAll())
     ),
     { initialValue: [] }
   );
 
   protected deleteCustomer(id: number): void {
-    this.customerService.delete(id).subscribe(() => {
-      this.refresh.update((v) => v + 1);
-    });
+    this.customerService.delete(id).subscribe(() => this.refresh$.next());
   }
 }

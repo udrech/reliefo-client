@@ -1,8 +1,8 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { startWith, switchMap, Subject } from 'rxjs';
 import { TableModule } from 'primeng/table';
 
 import { BillService } from '../../services/bill.service';
@@ -21,12 +21,17 @@ import { BillService } from '../../services/bill.service';
 export class BillsList {
   private readonly billService = inject(BillService);
 
-  private readonly refresh = signal(0);
+  private readonly refresh$ = new Subject<void>();
 
   protected readonly bills = toSignal(
-    toObservable(this.refresh).pipe(
+    this.refresh$.pipe(
+      startWith(null),
       switchMap(() => this.billService.getAll())
     ),
     { initialValue: [] }
   );
+
+  protected deleteBill(id: number): void {
+    this.billService.delete(id).subscribe(() => this.refresh$.next());
+  }
 }
