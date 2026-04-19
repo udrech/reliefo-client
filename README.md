@@ -144,8 +144,8 @@ For more information on using the Angular CLI, including detailed command refere
 
 ```bash
 ng build --configuration production
-rm -rf ../../dotnet/reliefo-api/wwwroot/*
-cp -r dist/reliefo-client/browser/* ../../dotnet/reliefo-api/wwwroot/
+rm -rf ../reliefo-api/wwwroot/*
+cp -r dist/reliefo-client/browser/* ../reliefo-api/wwwroot/
 ```
 
 ## Vergleich Lade-Logik
