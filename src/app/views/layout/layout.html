@@ -10,8 +10,13 @@
     @for (item of navItems; track item.route) {
       <a
         [routerLink]="item.route"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
         [title]="item.label"
         class="flex items-center gap-3 px-4 py-5 hover:bg-primary-100 hover:text-primary-800 transition-colors whitespace-nowrap"
+        [class.bg-primary-100]="rla.isActive"
+        [class.text-primary-800]="rla.isActive"
       >
         <span class="material-symbols-outlined shrink-0" aria-hidden="true">{{ item.icon }}</span>
         @if (!sidebarMinimized()) {

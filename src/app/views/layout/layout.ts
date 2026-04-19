@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { NavItem } from '../../models/nav-item';
 
@@ -7,6 +7,7 @@ import { NavItem } from '../../models/nav-item';
   selector: 'app-layout',
   imports: [
     RouterLink,
+    RouterLinkActive,
     RouterOutlet,
   ],
   templateUrl: './layout.html',

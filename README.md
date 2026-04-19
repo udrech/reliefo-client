@@ -4,7 +4,6 @@ Reliefo Therapy App Client
 
 ## ToDo
 
-* Aktives Menü-Item markieren
 * Löschen mit Rückfrage
 * Fehlermeldung wenn Löschen nicht möglich ist
 
