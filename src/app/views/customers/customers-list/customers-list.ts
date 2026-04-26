@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { CustomerService } from '../../services/customer.service';
+import { CustomerService } from '@/services/customer.service';
 
 @Component({
   selector: 'app-customers-list',

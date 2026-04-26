@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 
-import { CustomerService } from '../../services/customer.service';
+import { CustomerService } from '@/services/customer.service';
 
 @Component({
   selector: 'app-customers-form',

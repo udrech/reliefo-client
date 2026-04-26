@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 
-import { TherapyService } from '../../services/therapy.service';
+import { TherapyService } from '@/services/therapy.service';
 
 @Component({
   selector: 'app-therapies-form',
