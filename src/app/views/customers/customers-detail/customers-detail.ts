@@ -5,11 +5,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 
-import { AppointmentsList } from '@/components/appointments-list/appointments-list';
-import { BillsList } from '@/components/bills-list/bills-list';
 import { AppointmentService } from '@/services/appointment.service';
 import { BillService } from '@/services/bill.service';
 import { CustomerService } from '@/services/customer.service';
+
+import { AppointmentsList } from '@/views/customers/appointments-list/appointments-list';
+import { BillsList } from '@/views/customers/bills-list/bills-list';
 
 @Component({
   selector: 'app-customers-detail',

@@ -5,8 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { Appointment } from '../../models/appointment';
-import { AppointmentService } from '../../services/appointment.service';
+import { Appointment } from '@/models/appointment';
+import { AppointmentService } from '@/services/appointment.service';
 
 @Component({
   selector: 'app-appointments-list',

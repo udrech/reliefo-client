@@ -4,8 +4,8 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { Bill } from '../../models/bill';
-import { BillService } from '../../services/bill.service';
+import { Bill } from '@/models/bill';
+import { BillService } from '@/services/bill.service';
 
 @Component({
   selector: 'app-bills-list',
