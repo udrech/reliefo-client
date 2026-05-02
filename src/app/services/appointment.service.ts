@@ -16,12 +16,12 @@ export class AppointmentService {
       appointmentTimestamp: new Date(appointment.appointmentTimestamp),
       createdAt: new Date(appointment.createdAt),
       updatedAt: new Date(appointment.updatedAt),
-      therapy: {
+      therapy: appointment.therapy ? {
         ...appointment.therapy,
         validFrom: new Date(appointment.therapy.validFrom),
         createdAt: new Date(appointment.therapy.createdAt),
         updatedAt: new Date(appointment.therapy.updatedAt),
-      },
+      } : undefined,
     };
   }
 

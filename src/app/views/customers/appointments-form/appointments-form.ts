@@ -82,26 +82,41 @@ export class AppointmentsForm {
     if (this.form.invalid) return;
     const { therapyId, appointmentTimestamp } = this.form.getRawValue();
     const id = this.appointmentId();
-    const customerId = Number(this.customerId());
+    const customerId = this.customerId();
+    
+    if (!customerId) return;
 
     const payload = {
-      customerId,
+      customerId: Number(customerId),
       therapyId: therapyId!,
       appointmentTimestamp: appointmentTimestamp!,
     };
 
     if (id) {
-      this.appointmentService.update(Number(id), payload).subscribe(() => {
-        this.router.navigate(['/kunden', customerId]);
+      this.appointmentService.update(Number(id), payload).subscribe({
+        next: () => {
+          this.router.navigate(['/kunden', String(customerId)]);
+        },
+        error: (err) => {
+          console.error('Update failed:', err);
+        },
       });
     } else {
-      this.appointmentService.create(payload).subscribe(() => {
-        this.router.navigate(['/kunden', customerId]);
+      this.appointmentService.create(payload).subscribe({
+        next: () => {
+          this.router.navigate(['/kunden', String(customerId)]);
+        },
+        error: (err) => {
+          console.error('Create failed:', err);
+        },
       });
     }
   }
 
   protected cancel(): void {
-    this.router.navigate(['/kunden', this.customerId()]);
+    const customerId = this.customerId();
+    if (customerId) {
+      this.router.navigate(['/kunden', String(customerId)]);
+    }
   }
 }
