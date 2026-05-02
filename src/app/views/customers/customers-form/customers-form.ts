@@ -5,8 +5,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { CustomerService } from '@/services/customer.service';
 
@@ -27,11 +27,11 @@ export class CustomersForm {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  private readonly routeId = toSignal(
+  private readonly customerId = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('id')))
   );
 
-  protected readonly isNew = computed(() => !this.routeId());
+  protected readonly isNew = computed(() => !this.customerId());
 
   private readonly customer = toSignal(
     this.route.paramMap.pipe(
@@ -70,7 +70,7 @@ export class CustomersForm {
   protected save(): void {
     if (this.form.invalid) return;
     const value = this.form.getRawValue();
-    const id = this.routeId();
+    const id = this.customerId();
     if (id) {
       this.customerService.update(Number(id), value).subscribe(() => {
         this.router.navigate(['/kunden']);
