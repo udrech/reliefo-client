@@ -22,8 +22,8 @@
   </ng-template>
   <ng-template #body let-customer>
     <tr>
-      <td><a [routerLink]="['/kunden', customer.id]" class="hover:underline">{{ customer.lastName }}</a></td>
-      <td><a [routerLink]="['/kunden', customer.id]" class="hover:underline">{{ customer.firstName }}</a></td>
+      <td><a [routerLink]="['/kunden', customer.id]" class="font-bold">{{ customer.lastName }}</a></td>
+      <td><a [routerLink]="['/kunden', customer.id]" class="font-bold">{{ customer.firstName }}</a></td>
       <td>{{ customer.dateOfBirth | date: 'dd.MM.yyyy' }}</td>
       <td>{{ customer.mobile }}</td>
       <td>{{ customer.phone }}</td>
