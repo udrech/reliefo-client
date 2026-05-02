@@ -25,6 +25,16 @@ export const routes: Routes = [
           import('./views/customers/customers-detail/customers-detail').then((m) => m.CustomersDetail),
       },
       {
+        path: 'kunden/:id/termine/neu',
+        loadComponent: () =>
+          import('./views/customers/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
+      },
+      {
+        path: 'kunden/:id/termine/:appointmentId/bearbeiten',
+        loadComponent: () =>
+          import('./views/customers/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
+      },
+      {
         path: 'kunden/:id/bearbeiten',
         loadComponent: () =>
           import('./views/customers/customers-form/customers-form').then((m) => m.CustomersForm),

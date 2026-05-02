@@ -1,0 +1,43 @@
+<h1 class="text-3xl font-bold mb-6">
+  {{ customer()?.firstName }} {{ customer()?.lastName }}
+</h1>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="p-6 max-w-2xl">
+  <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Termin' : 'Termin bearbeiten' }}</h2>
+
+  <div class="grid gap-y-4">
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="therapyId" class="text-right font-medium">
+        Massage <span aria-hidden="true">*</span>
+      </label>
+      <p-select
+        id="therapyId"
+        formControlName="therapyId"
+        [options]="therapies()"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Massage auswählen"
+        class="w-full"
+      />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="appointmentTimestamp" class="text-right font-medium">
+        Datum &amp; Uhrzeit <span aria-hidden="true">*</span>
+      </label>
+      <p-datepicker
+        id="appointmentTimestamp"
+        formControlName="appointmentTimestamp"
+        class="w-full"
+        dateFormat="dd.mm.yy"
+        [showTime]="true"
+        hourFormat="24"
+      />
+    </div>
+  </div>
+
+  <div class="flex gap-3 mt-8 justify-end">
+    <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
+    <p-button label="Speichern" type="submit" [disabled]="form.invalid" />
+  </div>
+</form>

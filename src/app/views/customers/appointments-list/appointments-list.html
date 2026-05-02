@@ -1,3 +1,10 @@
+<div class="flex justify-end mb-4">
+  <p-button [routerLink]="['/kunden', customerId(), 'termine', 'neu']" ariaLabel="Neuen Termin erfassen">
+    <span class="material-symbols-outlined text-xl" aria-hidden="true">add</span>
+    <span>Neuer Termin</span>
+  </p-button>
+</div>
+
 <p-table
   [value]="appointments()"
 >
@@ -20,7 +27,7 @@
       <td>{{ appointment.therapy.duration }}</td>
       <td>{{ appointment.therapy.price | number:'1.2-2' }}</td>
       <td class="w-10">
-        <p-button [text]="true" severity="secondary" [routerLink]="['/appointments', appointment.id, 'bearbeiten']" ariaLabel="Kunde bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
+        <p-button [text]="true" severity="secondary" [routerLink]="['/kunden', customerId(), 'termine', appointment.id, 'bearbeiten']" ariaLabel="Termin bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
         </p-button>
       </td>

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { Appointment, AppointmentRaw } from '../models/appointment';
+import { Appointment, AppointmentRaw, AppointmentPayload, AppointmentPayloadRaw } from '../models/appointment';
 import { environment } from '../../environments/environment';
 import { App } from '../app';
 
@@ -25,16 +25,11 @@ export class AppointmentService {
     };
   }
 
-  convertToApi(appointment: Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'>): Omit<AppointmentRaw, 'id' | 'createdAt' | 'updatedAt'> {
+  convertToApi(appointment: AppointmentPayload): AppointmentPayloadRaw {
     return {
-      ...appointment,
+      customerId: appointment.customerId,
+      therapyId: appointment.therapyId,
       appointmentTimestamp: appointment.appointmentTimestamp.toISOString(),
-      therapy: {
-        ...appointment.therapy,
-        validFrom: appointment.therapy.validFrom.toISOString(),
-        createdAt: appointment.therapy.createdAt.toISOString(),
-        updatedAt: appointment.therapy.updatedAt.toISOString(),
-      },
     };
   }
 
@@ -56,15 +51,15 @@ export class AppointmentService {
     );
   }
 
-  create(appointment: Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'>): Observable<Appointment> {
+  create(appointment: AppointmentPayload): Observable<Appointment> {
     return this.http.post<AppointmentRaw>(this.apiUrl, this.convertToApi(appointment)).pipe(
-      map(this.convertFromApi)
+      map(appointment => this.convertFromApi(appointment))
     );
   }
 
-  update(id: number, appointment: Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'>): Observable<Appointment> {
+  update(id: number, appointment: AppointmentPayload): Observable<Appointment> {
     return this.http.put<AppointmentRaw>(`${this.apiUrl}/${id}`, this.convertToApi(appointment)).pipe(
-      map(this.convertFromApi)
+      map(appointment => this.convertFromApi(appointment))
     );
   }
 

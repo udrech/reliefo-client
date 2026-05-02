@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -25,9 +28,15 @@ import { AppointmentService } from '@/services/appointment.service';
 export class AppointmentsList {
   private readonly appointmentService = inject(AppointmentService);
 
+  private readonly refresh$ = new Subject<void>();
+
   readonly appointments = input<Appointment[]>([]);
 
+  protected readonly customerId = toSignal(
+    inject(ActivatedRoute).paramMap.pipe(map((params) => params.get('id')))
+  );
+
   protected deleteAppointment(id: number): void {
-    // this.appointmentService.delete(id).subscribe(() => this.refresh$.next());
+    this.appointmentService.delete(id).subscribe(() => this.refresh$.next());
   }
 }
