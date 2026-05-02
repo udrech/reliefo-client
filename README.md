@@ -6,6 +6,9 @@ Reliefo Therapy App Client
 
 * Löschen mit Rückfrage
 * Fehlermeldung wenn Löschen nicht möglich ist
+* Tabellen: Zeilenhöhe immer gleich
+* Layout immer gleich class="card" ?
+* Kundenname-Header als Component
 
 ## Ideen
 
