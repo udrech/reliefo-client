@@ -1,3 +1,4 @@
+import { Appointment } from "./appointment";
 import { Customer, CustomerRaw } from "./customer";
 
 export interface Bill {
@@ -18,4 +19,9 @@ export interface BillRaw {
   data: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface BillPayload {
+  customerId: number;
+  appointments: Appointment[];
 }

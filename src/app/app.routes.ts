@@ -10,6 +10,11 @@ export const routes: Routes = [
     loadComponent: () => import('./views/layout/layout').then((m) => m.Layout),
     children: [
       {
+        path: '',
+        redirectTo: 'kunden',
+        pathMatch: 'full',
+      },
+      {
         path: 'kunden',
         loadComponent: () =>
           import('./views/customers/customers-list/customers-list').then((m) => m.CustomersList),
@@ -48,6 +53,11 @@ export const routes: Routes = [
         path: 'quittungen',
         loadComponent: () =>
           import('./views/bills/bills-list/bills-list').then((m) => m.BillsList),
+      },
+      {
+        path: 'quittungen/:id',
+        loadComponent: () =>
+          import('./views/bills/bills-detail/bills-detail').then((m) => m.BillsDetail),
       },
       {
         path: 'massagen',

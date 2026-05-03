@@ -1,0 +1,20 @@
+<div class="p-6 max-w-2xl">
+  <div class="grid gap-y-4">
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Kunde</span>
+      <span>{{ customer()?.firstName }} {{ customer()?.lastName }}</span>
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Dateiname</span>
+      <span>{{ bill()?.file }}</span>
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Data</span>
+      <span>{{ bill()?.data }}</span>
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Erstellt am</span>
+      <span>{{ bill()?.createdAt | date:'dd.MM.yyyy HH:mm' }}</span>
+    </div>
+  </div>
+</div>
