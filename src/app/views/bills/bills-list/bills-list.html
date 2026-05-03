@@ -10,7 +10,7 @@
   </ng-template>
   <ng-template #body let-bill>
     <tr>
-      <td><a [routerLink]="['/kunden', bill.customer.id]" class="hover:underline">{{ bill.customer.lastName }} {{ bill.customer.firstName }}</a></td>
+      <td><a [routerLink]="['/kunden', bill.customer.id]" class="font-bold">{{ bill.customer.lastName }} {{ bill.customer.firstName }}</a></td>
       <td>{{ bill.createdAt | date:'dd.MM.yyyy' }}</td>
       <td class="w-10">
         <p-button [text]="true" severity="danger" (onClick)="deleteBill(bill.id)" ariaLabel="Quittung löschen" pTooltip="Löschen" tooltipPosition="top">
