@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { startWith, switchMap, Subject } from 'rxjs';
+import { switchMap, Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -29,11 +29,14 @@ export class CustomersList {
 
   protected readonly customers = toSignal(
     this.refresh$.pipe(
-      startWith(null),
       switchMap(() => this.customerService.getAll())
     ),
     { initialValue: [] }
   );
+
+  constructor() {
+    this.refresh$.next();
+  }
 
   protected deleteCustomer(id: number): void {
     this.customerService.delete(id).subscribe(() => this.refresh$.next());

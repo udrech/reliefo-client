@@ -27,11 +27,14 @@ export class TherapiesList {
 
   protected readonly therapies = toSignal(
     this.refresh$.pipe(
-      startWith(null),
       switchMap(() => this.therapyService.getAll())
     ),
     { initialValue: [] }
   );
+
+  constructor() {
+    this.refresh$.next();
+  }
 
   protected deleteTherapy(id: number): void {
     this.therapyService.delete(id).subscribe(() => this.refresh$.next());
