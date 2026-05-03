@@ -4,17 +4,17 @@ Reliefo Therapy App Client
 
 ## ToDo
 
+* Termine mit CheckBox zum selektieren
+* Funktion "Quittung erstellen" aus Terminen heraus
+* Quittung Detail Ansicht
 * Löschen mit Rückfrage
 * Fehlermeldung wenn Löschen nicht möglich ist
-* Tabellen: Zeilenhöhe immer gleich
-* Layout immer gleich class="card" ?
-* Kundenname-Header als Component
-
-## Ideen
-
-* Falsche URL -> 404 Seite mit Link zurück zur Startseite
+* Therapien erstellen, bearbeiten, löschen
 * Termine heute -> gelb markieren
 * Geburtstag heute -> evtl. Banner
+* Layout immer gleich class="card" ?
+* Kundenname-Header als Component
+* Falsche URL -> 404 Seite mit Link zurück zur Startseite
 
 ## Bezeichnungen
 
