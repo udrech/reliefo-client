@@ -25,11 +25,11 @@ import { TherapyService } from '@/services/therapy.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentsForm {
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly appointmentService = inject(AppointmentService);
   private readonly customerService = inject(CustomerService);
   private readonly therapyService = inject(TherapyService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
 
   private readonly customerId = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('id')))
