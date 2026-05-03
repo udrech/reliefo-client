@@ -31,13 +31,6 @@ export class CustomersDetail {
   private readonly customerService = inject(CustomerService);
   private readonly billService = inject(BillService);
 
-  protected readonly activeTab = toSignal(
-    this.route.queryParamMap.pipe(
-      map(params => this.getTabValue(params.get('tab') || 'kunde'))
-    ),
-    { initialValue: 0 }
-  );
-
   private getTabValue(tab: string): number {
     switch (tab) {
       case 'termine':
@@ -50,20 +43,27 @@ export class CustomersDetail {
     }
   }
 
-  customer = toSignal(
+  protected readonly activeTab = toSignal(
+    this.route.queryParamMap.pipe(
+      map(params => this.getTabValue(params.get('tab') || 'kunde'))
+    ),
+    { initialValue: 0 }
+  );
+
+  protected readonly customer = toSignal(
     this.route.params.pipe(
       switchMap(params => this.customerService.getById(+params['id']))
     )
   );
 
-  appointments = toSignal(
+  protected readonly appointments = toSignal(
     this.route.params.pipe(
       switchMap(params => this.appointmentService.getByCustomerId(+params['id']))
     ),
     { initialValue: [] }
   );
 
-  bills = toSignal(
+  protected readonly bills = toSignal(
     this.route.params.pipe(
       switchMap(params => this.billService.getByCustomerId(+params['id']))
     ),
