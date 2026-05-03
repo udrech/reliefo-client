@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith, switchMap, Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { TherapyService } from '@/services/therapy.service';
 
@@ -13,6 +14,7 @@ import { TherapyService } from '@/services/therapy.service';
     ButtonModule,
     RouterLink,
     TableModule,
+    TooltipModule,
   ],
   templateUrl: './therapies-list.html',
   styleUrl: './therapies-list.css',
