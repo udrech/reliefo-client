@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { RouterLink } from '@angular/router';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, combineLatest, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -28,12 +28,15 @@ import { AppointmentService } from '@/services/appointment.service';
 export class AppointmentsList {
   private readonly appointmentService = inject(AppointmentService);
 
-  private readonly refresh$ = new Subject<void>();
+  private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
-  readonly appointments = input<Appointment[]>([]);
+  readonly customerId = input<number>();
 
-  protected readonly customerId = toSignal(
-    inject(ActivatedRoute).paramMap.pipe(map((params) => params.get('id')))
+  protected readonly appointments = toSignal(
+    combineLatest([toObservable(this.customerId), this.refresh$]).pipe(
+      switchMap(([id]) => id ? this.appointmentService.getByCustomerId(id) : of([]))
+    ),
+    { initialValue: [] }
   );
 
   protected deleteAppointment(id: number): void {
