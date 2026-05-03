@@ -2,14 +2,14 @@
   <h1 class="text-3xl font-bold mb-6">
     {{ customer()?.firstName }} {{ customer()?.lastName }}
   </h1>
-  <p-tabs value="0">
+  <p-tabs [value]="activeTab()">
     <p-tablist>
-      <p-tab value="0">Kunde</p-tab>
-      <p-tab value="1">Termine</p-tab>
-      <p-tab value="2">Quittungen</p-tab>
+      <p-tab [value]="0">Kunde</p-tab>
+      <p-tab [value]="1">Termine</p-tab>
+      <p-tab [value]="2">Quittungen</p-tab>
     </p-tablist>
     <p-tabpanels>
-      <p-tabpanel value="0">
+      <p-tabpanel [value]="0">
         <div class="p-6 max-w-2xl">
           <div class="grid gap-y-4">
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
@@ -67,9 +67,9 @@
           </div>
         </div>
       </p-tabpanel>
-      <p-tabpanel value="1">
+      <p-tabpanel [value]="1">
         <app-appointments-list [appointments]="appointments()" /></p-tabpanel>
-      <p-tabpanel value="2">
+      <p-tabpanel [value]="2">
         <app-bills-list [bills]="bills()" />
       </p-tabpanel>
     </p-tabpanels>

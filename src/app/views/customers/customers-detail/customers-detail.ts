@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { switchMap, map } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 
 import { AppointmentService } from '@/services/appointment.service';
@@ -26,9 +26,29 @@ import { BillsList } from '@/views/customers/bills-list/bills-list';
 })
 export class CustomersDetail {
   private readonly route = inject(ActivatedRoute);
-  private readonly customerService = inject(CustomerService);
+  private readonly router = inject(Router);
   private readonly appointmentService = inject(AppointmentService);
+  private readonly customerService = inject(CustomerService);
   private readonly billService = inject(BillService);
+
+  protected readonly activeTab = toSignal(
+    this.route.queryParamMap.pipe(
+      map(params => this.getTabValue(params.get('tab') || 'kunde'))
+    ),
+    { initialValue: 0 }
+  );
+
+  private getTabValue(tab: string): number {
+    switch (tab) {
+      case 'termine':
+        return 1;
+      case 'quittungen':
+        return 2;
+      case 'kunde':
+      default:
+        return 0;
+    }
+  }
 
   customer = toSignal(
     this.route.params.pipe(

@@ -95,7 +95,7 @@ export class AppointmentsForm {
     if (id) {
       this.appointmentService.update(Number(id), payload).subscribe({
         next: () => {
-          this.router.navigate(['/kunden', String(customerId)]);
+          this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
         },
         error: (err) => {
           console.error('Update failed:', err);
@@ -104,7 +104,7 @@ export class AppointmentsForm {
     } else {
       this.appointmentService.create(payload).subscribe({
         next: () => {
-          this.router.navigate(['/kunden', String(customerId)]);
+          this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
         },
         error: (err) => {
           console.error('Create failed:', err);
