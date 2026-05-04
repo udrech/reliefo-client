@@ -4,8 +4,6 @@ Reliefo Therapy App Client
 
 ## ToDo
 
-* Termine mit CheckBox zum selektieren
-* Funktion "Quittung erstellen" aus Terminen heraus
 * Quittung Detail Ansicht
 * Löschen mit Rückfrage
 * Fehlermeldung wenn Löschen nicht möglich ist
