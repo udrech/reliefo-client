@@ -39,7 +39,7 @@
         </p-button>
       </td>
       <td class="w-10">
-        <p-button [text]="true" severity="danger" (onClick)="deleteAppointment(appointment.id)" ariaLabel="Kunde löschen" pTooltip="Löschen" tooltipPosition="top">
+        <p-button [text]="true" severity="danger" (onClick)="deleteAppointment(appointment.id, $event)" ariaLabel="Termin löschen" pTooltip="Löschen" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
         </p-button>
       </td>
@@ -51,4 +51,5 @@
     </tr>
   </ng-template>
 </p-table>
+<p-confirmpopup />
 <p-toast position="bottom-center" />
