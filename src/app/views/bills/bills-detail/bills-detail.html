@@ -5,12 +5,12 @@
       <span>{{ customer()?.lastName }} {{ customer()?.firstName }}</span>
     </div>
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Dateiname</span>
+      <span class="text-right font-medium">Dateiname (intern)</span>
       <span>{{ bill()?.file }}</span>
     </div>
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <span class="text-right font-medium">Data</span>
-      <span>{{ bill()?.data }}</span>
+      <pre>{{ bill()?.data }}</pre>
     </div>
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <span class="text-right font-medium">Erstellt am</span>
