@@ -4,6 +4,7 @@
   <ng-template #header>
     <tr>
       <th>Kunde</th>
+      <th>Quittung-Nr.</th>
       <th>Erstellt</th>
       <th></th>
     </tr>
@@ -11,7 +12,8 @@
   <ng-template #body let-bill>
     <tr>
       <td><a [routerLink]="['/kunden', bill.customer.id]" class="font-bold">{{ bill.customer.lastName }} {{ bill.customer.firstName }}</a></td>
-      <td><a [routerLink]="['/quittungen', bill.id]" class="font-bold">{{ bill.createdAt | date:'dd.MM.yyyy' }}</a></td>
+      <td><a [routerLink]="['/quittungen', bill.id]" class="font-bold">{{ bill.customerBillNumber }}</a></td>
+      <td>{{ bill.createdAt | date:'dd.MM.yyyy HH:mm' }}</td>
       <td class="w-10">
         <p-button [text]="true" severity="danger" (onClick)="deleteBill(bill.id)" ariaLabel="Quittung löschen" pTooltip="Löschen" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>

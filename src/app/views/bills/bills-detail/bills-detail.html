@@ -5,6 +5,10 @@
       <span>{{ customer()?.lastName }} {{ customer()?.firstName }}</span>
     </div>
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Rechnungsnummer</span>
+      <span>{{ bill()?.customerBillNumber }}</span>
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <span class="text-right font-medium">Dateiname (intern)</span>
       <span>{{ bill()?.file }}</span>
     </div>
@@ -14,7 +18,15 @@
     </div>
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <span class="text-right font-medium">Erstellt am</span>
-      <span>{{ bill()?.createdAt | date:'dd.MM.yyyy HH:mm' }}</span>
+      <span>{{ bill()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Erstellt am</span>
+      <span>{{ bill()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Bearbeitet am</span>
+      <span>{{ bill()?.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
     </div>
   </div>
 </div>

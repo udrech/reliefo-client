@@ -1,11 +1,14 @@
+import { Customer } from './customer';
 import { Therapy, TherapyRaw } from './therapy';
 
 // wird im Formular verwendet
 export interface Appointment {
   id: number;
   customerId: number;
+  customer?: Customer;
   therapyId: number;
   therapy?: Therapy;
+  billId?: number | null;
   appointmentTimestamp: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -15,8 +18,10 @@ export interface Appointment {
 export interface AppointmentRaw {
   id: number;
   customerId: number;
+  customer?: Customer;
   therapyId: number;
   therapy?: TherapyRaw;
+  billId?: number | null;
   appointmentTimestamp: string;
   createdAt: string;
   updatedAt: string;
@@ -26,6 +31,7 @@ export interface AppointmentRaw {
 export interface AppointmentPayload {
   customerId: number;
   therapyId: number;
+  billId?: number | null;
   appointmentTimestamp: Date;
 }
 
@@ -33,5 +39,6 @@ export interface AppointmentPayload {
 export interface AppointmentPayloadRaw {
   customerId: number;
   therapyId: number;
+  billId?: number | null;
   appointmentTimestamp: string;
 }

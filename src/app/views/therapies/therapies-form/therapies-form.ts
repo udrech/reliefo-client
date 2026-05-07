@@ -45,13 +45,13 @@ export class TherapiesForm {
   );
 
   protected readonly form = new FormGroup({
-    therapyId: new FormControl(0, { nonNullable: true }),
     name: new FormControl('', { validators: Validators.required, nonNullable: true }),
     nameOnBill: new FormControl('', { validators: Validators.required, nonNullable: true }),
     description: new FormControl<string | null>(null),
     duration: new FormControl<number | null>(null),
     price: new FormControl(0, { nonNullable: true }),
     validFrom: new FormControl<Date>(new Date(), { nonNullable: true }),
+    validTo: new FormControl<Date | null>(null),
   });
 
   constructor() {

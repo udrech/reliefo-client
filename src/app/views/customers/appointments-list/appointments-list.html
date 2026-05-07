@@ -18,9 +18,9 @@
       <th></th>
       <th>Datum</th>
       <th>Zeit</th>
-      <th>Therapie</th>
+      <th>Massage</th>
       <th>Dauer (Minuten)</th>
-      <th>Preis (CHF)</th>
+      <th>auf Quittung</th>
       <th></th>
       <th></th>
     </tr>
@@ -32,7 +32,7 @@
       <td>{{ appointment.appointmentTimestamp | date:'HH:mm' }}</td>
       <td>{{ appointment.therapy.name }}</td>
       <td>{{ appointment.therapy.duration }}</td>
-      <td>{{ appointment.therapy.price | number:'1.2-2' }}</td>
+      <td>{{ appointment.bill?.customerBillNumber }}</td>
       <td class="w-10">
         <p-button [text]="true" severity="secondary" [routerLink]="['/kunden', customerId(), 'termine', appointment.id, 'bearbeiten']" ariaLabel="Termin bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>

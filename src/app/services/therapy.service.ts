@@ -13,6 +13,7 @@ export class TherapyService {
     return {
       ...therapy,
       validFrom: new Date(therapy.validFrom),
+      validTo: therapy.validTo ? new Date(therapy.validTo) : null,
       createdAt: new Date(therapy.createdAt),
       updatedAt: new Date(therapy.updatedAt),
     };
@@ -22,6 +23,7 @@ export class TherapyService {
     return {
       ...therapy,
       validFrom: therapy.validFrom.toISOString(),
+      validTo: therapy.validTo ? therapy.validTo.toISOString() : null,
     };
   }
 

@@ -3,11 +3,6 @@
 
   <div class="grid gap-y-4">
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <label for="therapyId" class="text-right font-medium">Massage ID</label>
-      <input pInputText id="therapyId" formControlName="therapyId" class="w-full" [disabled]="!isNew()" />
-    </div>
-
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <label for="name" class="text-right font-medium">
         Bezeichnung <span aria-hidden="true">*</span>
       </label>
@@ -39,6 +34,11 @@
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <label for="validFrom" class="text-right font-medium">Gültig von</label>
       <p-datepicker id="validFrom" formControlName="validFrom" class="w-full" dateFormat="dd.mm.yy" />
+    </div>
+
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="validTo" class="text-right font-medium">Gültig bis</label>
+      <p-datepicker id="validTo" formControlName="validTo" class="w-full" dateFormat="dd.mm.yy" />
     </div>
   </div>
 

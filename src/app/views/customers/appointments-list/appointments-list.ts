@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, combineLatest, of } from 'rxjs';
@@ -21,7 +21,6 @@ import { BillService } from '@/services/bill.service';
     ButtonModule,
     ConfirmPopupModule,
     DatePipe,
-    DecimalPipe,
     RouterLink,
     TableModule,
     Toast,

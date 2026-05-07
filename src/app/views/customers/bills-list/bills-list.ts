@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -12,6 +13,7 @@ import { BillService } from '@/services/bill.service';
   imports: [
     ButtonModule,
     DatePipe,
+    RouterLink,
     TableModule,
     TooltipModule,
   ],

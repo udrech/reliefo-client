@@ -10,26 +10,26 @@
 >
   <ng-template #header>
     <tr>
-      <th>ID</th>
-      <th>Massage ID</th>
       <th>Bezeichnung</th>
       <th>Bezeichnung auf Quittung</th>
       <th>Beschreibung</th>
       <th>Dauer (Minuten)</th>
       <th>Preis (CHF)</th>
+      <th>Gültig von</th>
+      <th>Gültig bis</th>
       <th></th>
       <th></th>
     </tr>
   </ng-template>
   <ng-template #body let-therapy>
     <tr>
-      <td>{{ therapy.id }}</td>
-      <td>{{ therapy.therapyId }}</td>
       <td>{{ therapy.name }}</td>
       <td>{{ therapy.nameOnBill }}</td>
       <td>{{ therapy.description }}</td>
       <td>{{ therapy.duration }}</td>
       <td>{{ therapy.price }}</td>
+      <td>{{ therapy.validFrom | date:'dd.MM.yyyy' }}</td>
+      <td>{{ therapy.validTo ? (therapy.validTo | date:'dd.MM.yyyy') : 'unbegrenzt' }}</td>
       <td class="w-10">
         <p-button [text]="true" severity="secondary" [routerLink]="['/massagen', therapy.id, 'bearbeiten']" ariaLabel="Massage bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>

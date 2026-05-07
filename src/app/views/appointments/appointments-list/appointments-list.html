@@ -7,7 +7,8 @@
       <th>Zeit</th>
       <th>Kunde</th>
       <th>Massage</th>
-      <!-- <th></th> -->
+      <th>Dauer (Minuten)</th>
+      <th>auf Quittung</th>
       <th></th>
     </tr>
   </ng-template>
@@ -17,11 +18,8 @@
       <td>{{ appointment.appointmentTimestamp | date:'HH:mm' }}</td>
       <td><a [routerLink]="['/kunden', appointment.customer.id]" class="font-bold">{{ appointment.customer.lastName }} {{ appointment.customer.firstName }}</a></td>
       <td>{{ appointment.therapy.name }}</td>
-      <!-- <td class="w-10">
-        <p-button [text]="true" severity="secondary" [routerLink]="['/appointments', appointment.id, 'bearbeiten']" ariaLabel="Termin bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
-          <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
-        </p-button>
-      </td> -->
+      <td>{{ appointment.therapy.duration }}</td>
+      <td>{{ appointment.bill?.customerBillNumber }}</td>
       <td class="w-10">
         <p-button [text]="true" severity="danger" (onClick)="deleteAppointment(appointment.id)" ariaLabel="Termin löschen" pTooltip="Löschen" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>

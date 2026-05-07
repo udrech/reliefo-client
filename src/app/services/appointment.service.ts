@@ -19,6 +19,7 @@ export class AppointmentService {
       therapy: appointment.therapy ? {
         ...appointment.therapy,
         validFrom: new Date(appointment.therapy.validFrom),
+        validTo: appointment.therapy.validTo ? new Date(appointment.therapy.validTo) : null,
         createdAt: new Date(appointment.therapy.createdAt),
         updatedAt: new Date(appointment.therapy.updatedAt),
       } : undefined,

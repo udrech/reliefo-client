@@ -64,6 +64,14 @@
               <span class="text-right font-medium">Versicherten-Nummer</span>
               <span>{{ customer()?.healthInsuranceId }}</span>
             </div>
+            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+              <span class="text-right font-medium">Erstellt am</span>
+              <span>{{ customer()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+            </div>
+            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+              <span class="text-right font-medium">Bearbeitet am</span>
+              <span>{{ customer()?.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+            </div>
           </div>
         </div>
       </p-tabpanel>
