@@ -25,8 +25,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 
-import { Appointment } from '../../models/appointment';
-import { AppointmentService } from '../../services/appointment.service';
+import { Appointment } from '@/models/appointment';
+import { AppointmentService } from '@/services/appointment.service';
 ```
 
 ## Angular Best Practices

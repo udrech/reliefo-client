@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
-import { NavItem } from '../../models/nav-item';
+import { NavItem } from '@/models/nav-item';
 
 @Component({
   selector: 'app-layout',

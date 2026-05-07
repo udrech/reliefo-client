@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { Customer, CustomerRaw } from '../models/customer';
-import { environment } from '../../environments/environment';
+import { Customer, CustomerRaw } from '@/models/customer';
+import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {

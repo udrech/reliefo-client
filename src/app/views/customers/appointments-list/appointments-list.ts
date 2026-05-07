@@ -14,6 +14,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Appointment } from '@/models/appointment';
 import { AppointmentService } from '@/services/appointment.service';
 import { BillService } from '@/services/bill.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-appointments-list',
@@ -99,7 +100,8 @@ export class AppointmentsList {
       this.billService.create({
         customerId: customerId,
         appointments: this.selectedAppointments(),
-      }).subscribe(() => {
+      }).subscribe(bill => {
+        window.open(`${environment.apiBaseUrl}/api/bills/${bill.id}/file`, '_blank');
         this.router.navigate(['/bills']);
       });
     }

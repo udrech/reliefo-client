@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { Appointment, AppointmentRaw, AppointmentPayload, AppointmentPayloadRaw } from '../models/appointment';
-import { environment } from '../../environments/environment';
+import { Appointment, AppointmentRaw, AppointmentPayload, AppointmentPayloadRaw } from '@/models/appointment';
+import { environment } from '@environments/environment';
 import { App } from '../app';
 
 @Injectable({ providedIn: 'root' })
