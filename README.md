@@ -16,7 +16,7 @@ Reliefo Therapy App Client
 
 * Die App wird allgemein für Therapien entwickelt.
 * Im Konkreten Anwendungsfall sind das Massagen.
-* Aus Gewohnheit werden Rechnungen als Quittungen bezeichnet, da sie den Kunden ausgehändigt werden.
+* Aus Gewohnheit werden Rechnungen als Quittungen bezeichnet, da sie dem Kunden ausgehändigt werden.
 * Für den Benutzer sichtbar wird überall Massagen und Quittungen statt Therapien und Rechnungen verwendet. Im Hintergrund (Code, API) bleiben die neutraleren Begriffe Therapien und Rechnungen bestehen.
 
 | Tabelle | NG Klasse | NG Interface | Bezeichnung (deutsch, für Benutzer sichtbar) |
