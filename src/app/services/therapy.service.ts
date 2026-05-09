@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Therapy, TherapyRaw } from '@/models/therapy';
 import { environment } from '@environments/environment';
@@ -29,6 +29,13 @@ export class TherapyService {
 
   getAll(): Observable<Therapy[]> {
     return this.http.get<TherapyRaw[]>(this.apiUrl).pipe(
+      map(therapies => therapies.map(this.convertFromApi))
+    );
+  }
+
+  getValid(d: Date): Observable<Therapy[]> {
+    const params = new HttpParams().set('date', d.toISOString().split('T')[0]);
+    return this.http.get<TherapyRaw[]>(`${this.apiUrl}/valid`, { params }).pipe(
       map(therapies => therapies.map(this.convertFromApi))
     );
   }

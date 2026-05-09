@@ -58,15 +58,17 @@ export class AppointmentsForm {
     )
   );
 
-  protected readonly therapies = toSignal(
-    this.therapyService.getAll(),
-    { initialValue: [] }
-  );
-
   protected readonly form = new FormGroup({
     therapyId: new FormControl<number | null>(null, { validators: Validators.required }),
     appointmentTimestamp: new FormControl<Date | null>(null, { validators: Validators.required }),
   });
+
+  protected readonly therapies = toSignal(
+    this.form.controls.appointmentTimestamp.valueChanges.pipe(
+      switchMap(d => d ? this.therapyService.getValid(d) : of([]))
+    ),
+    { initialValue: [] }
+  );
 
   constructor() {
     effect(() => {
