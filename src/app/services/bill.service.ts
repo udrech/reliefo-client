@@ -43,7 +43,9 @@ export class BillService {
   }
 
   create(bill: BillPayload): Observable<Bill> {
-    return this.http.post<BillRaw>(this.apiUrl, bill).pipe(
+    const payload = { ...bill };
+    payload.appointments = payload.appointments.sort((a, b) => new Date(a.appointmentTimestamp).getTime() - new Date(b.appointmentTimestamp).getTime());
+    return this.http.post<BillRaw>(this.apiUrl, payload).pipe(
       map(this.convertFromApi)
     );
   }
