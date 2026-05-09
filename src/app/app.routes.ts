@@ -35,7 +35,7 @@ export const routes: Routes = [
           import('./views/customers/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
       },
       {
-        path: 'kunden/:id/termine/:appointmentId/bearbeiten',
+        path: 'kunden/:id/termine/:aid/bearbeiten',
         loadComponent: () =>
           import('./views/customers/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
       },

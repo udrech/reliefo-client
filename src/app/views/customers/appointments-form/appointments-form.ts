@@ -44,15 +44,15 @@ export class AppointmentsForm {
   protected readonly isNew = computed(() => !this.appointmentId());
 
   protected readonly customer = toSignal(
-    this.route.params.pipe(
-      switchMap(params => this.customerService.getById(+params['id']))
+    this.route.paramMap.pipe(
+      switchMap(params => this.customerService.getById(+params.get('id')!))
     )
   );
 
   private readonly appointment = toSignal(
     this.route.paramMap.pipe(
       switchMap((params) => {
-        const id = params.get('appointmentId');
+        const id = params.get('aid');
         return id ? this.appointmentService.getById(Number(id)) : of(null);
       })
     )
