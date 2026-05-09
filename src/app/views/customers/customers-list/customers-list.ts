@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap, Subject } from 'rxjs';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -24,6 +25,8 @@ import { CustomerService } from '@/services/customer.service';
 })
 export class CustomersList {
   private readonly customerService = inject(CustomerService);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly messageService = inject(MessageService);
 
   private readonly refresh$ = new Subject<void>();
 
@@ -39,6 +42,17 @@ export class CustomersList {
   }
 
   protected deleteCustomer(id: number): void {
-    this.customerService.delete(id).subscribe(() => this.refresh$.next());
+    this.confirmationService.confirm({
+      message: 'Möchten sie den Kunden wirklich löschen?',
+      header: 'Kunden löschen',
+      rejectButtonProps: { label: 'Abbrechen', severity: 'secondary', outlined: true },
+      acceptButtonProps: { label: 'Löschen', severity: 'danger' },
+      accept: () => {
+        this.customerService.delete(id).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Kunden gelöscht', life: 3000 });
+          this.refresh$.next();
+        });
+      }
+    });
   }
 }

@@ -176,6 +176,42 @@ Style PrimeNG component wrappers and surrounding layout with Tailwind classes. A
 
 ---
 
+## Confirmation Dialogs
+
+Use `ConfirmationService` from `primeng/api` for all delete confirmations. Place `<p-confirmdialog />` and `<p-toast />` **once in the layout** component — never in individual views.
+
+- Provide `ConfirmationService` and `MessageService` in the layout's `providers` array.
+- In child views, inject both services and call `confirmationService.confirm()` directly — no local `providers`, no local `<p-confirmdialog />`.
+- Always use the compact inline style for `rejectButtonProps` and `acceptButtonProps`.
+- Do **not** add a `reject` callback — silently closing the dialog on cancel is the expected behavior.
+
+```typescript
+// ✅ Correct
+protected deleteItem(id: number): void {
+  this.confirmationService.confirm({
+    message: 'Möchten sie den Eintrag wirklich löschen?',
+    header: 'Eintrag löschen',
+    rejectButtonProps: { label: 'Abbrechen', severity: 'secondary', outlined: true },
+    acceptButtonProps: { label: 'Löschen', severity: 'danger' },
+    accept: () => {
+      this.myService.delete(id).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Eintrag gelöscht', life: 3000 });
+        this.refresh$.next();
+      });
+    }
+  });
+}
+
+// ❌ Wrong — multi-line button props, local providers, reject callback
+rejectButtonProps: {
+  label: 'Abbrechen',
+  severity: 'secondary',
+  outlined: true
+},
+```
+
+---
+
 ## Icons
 
 ### Always use Material Symbols Outlined

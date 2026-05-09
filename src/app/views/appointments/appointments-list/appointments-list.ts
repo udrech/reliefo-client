@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith, switchMap, Subject } from 'rxjs';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -24,6 +25,8 @@ import { AppointmentService } from '@/services/appointment.service';
 })
 export class AppointmentsList {
   private readonly appointmentService = inject(AppointmentService);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly messageService = inject(MessageService);
 
   private readonly refresh$ = new Subject<void>();
   
@@ -36,7 +39,18 @@ export class AppointmentsList {
   );
 
   protected deleteAppointment(id: number): void {
-    this.appointmentService.delete(id).subscribe(() => this.refresh$.next());
+    this.confirmationService.confirm({
+      message: 'Möchten sie den Termin wirklich löschen?',
+      header: 'Termin löschen',
+      rejectButtonProps: { label: 'Abbrechen', severity: 'secondary', outlined: true },
+      acceptButtonProps: { label: 'Löschen', severity: 'danger' },
+      accept: () => {
+        this.appointmentService.delete(id).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin gelöscht', life: 3000 });
+          this.refresh$.next();
+        });
+      }
+    });
   }
 
   protected appointmentIsToday(timestamp: string): boolean {
