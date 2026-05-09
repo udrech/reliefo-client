@@ -68,6 +68,8 @@ export const appConfig: ApplicationConfig = {
         monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
         today: 'Heute',
         clear: 'Löschen',
+        emptyMessage: 'Keine Ergebnisse gefunden',
+        emptyFilterMessage: 'Keine Ergebnisse gefunden',
       },
     }),
   ],
