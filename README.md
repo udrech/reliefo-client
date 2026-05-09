@@ -4,10 +4,10 @@ Reliefo Therapy App Client
 
 ## ToDo
 
+* Meldung wenn gespeichert
 * Termine auf PDF sortiert aufsteigend
-* Nur Therapien zur Auswahl welche am Termintag gültig sind
-* Löschen mit Rückfrage
 * Fehlermeldung wenn Löschen nicht möglich ist
+* Nur Therapien zur Auswahl welche am Termintag gültig sind
 * Therapien erstellen, bearbeiten, (löschen)
 * Termine heute -> gelb markieren
 * Geburtstag heute -> evtl. Banner
