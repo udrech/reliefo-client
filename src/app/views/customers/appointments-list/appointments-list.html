@@ -32,7 +32,7 @@
       <td>{{ appointment.appointmentTimestamp | date:'HH:mm' }}</td>
       <td>{{ appointment.therapy.name }}</td>
       <td>{{ appointment.therapy.duration }}</td>
-      <td>{{ appointment.bill?.customerBillNumber }}</td>
+      <td>{{ appointment.bill?.id }}</td>
       <td class="w-10">
         <p-button [text]="true" severity="secondary" [routerLink]="['/kunden', customerId(), 'termine', appointment.id, 'bearbeiten']" ariaLabel="Termin bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>

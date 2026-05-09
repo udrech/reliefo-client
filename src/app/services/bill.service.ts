@@ -14,6 +14,7 @@ export class BillService {
       ...bill,
       createdAt: new Date(bill.createdAt),
       updatedAt: new Date(bill.updatedAt),
+      deletedAt: bill.deletedAt ? new Date(bill.deletedAt) : null,
       customer: {
         ...bill.customer,
         dateOfBirth: bill.customer.dateOfBirth ? new Date(bill.customer.dateOfBirth) : null,

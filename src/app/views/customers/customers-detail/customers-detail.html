@@ -76,9 +76,10 @@
         </div>
       </p-tabpanel>
       <p-tabpanel [value]="1">
-        <app-appointments-list [customerId]="customer()?.id" /></p-tabpanel>
+        <app-appointments-list [customerId]="customer()?.id" />
+      </p-tabpanel>
       <p-tabpanel [value]="2">
-        <app-bills-list [bills]="bills()" />
+        <app-bills-list [customerId]="customer()?.id" />
       </p-tabpanel>
     </p-tabpanels>
   </p-tabs>
