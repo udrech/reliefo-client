@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap, map } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 
-import { AppointmentService } from '@/services/appointment.service';
-import { BillService } from '@/services/bill.service';
 import { CustomerService } from '@/services/customer.service';
 
 import { AppointmentsList } from '@/views/customers/appointments-list/appointments-list';
@@ -26,10 +24,7 @@ import { BillsList } from '@/views/customers/bills-list/bills-list';
 })
 export class CustomersDetail {
   private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly appointmentService = inject(AppointmentService);
   private readonly customerService = inject(CustomerService);
-  private readonly billService = inject(BillService);
 
   private getTabValue(tab: string): number {
     switch (tab) {
@@ -54,19 +49,5 @@ export class CustomersDetail {
     this.route.params.pipe(
       switchMap(params => this.customerService.getById(+params['id']))
     )
-  );
-
-  protected readonly appointments = toSignal(
-    this.route.params.pipe(
-      switchMap(params => this.appointmentService.getByCustomerId(+params['id']))
-    ),
-    { initialValue: [] }
-  );
-
-  protected readonly bills = toSignal(
-    this.route.params.pipe(
-      switchMap(params => this.billService.getByCustomerId(+params['id']))
-    ),
-    { initialValue: [] }
   );
 }
