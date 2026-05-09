@@ -20,10 +20,18 @@ export class TherapyService {
   }
 
   convertToApi(therapy: Omit<Therapy, 'id' | 'createdAt' | 'updatedAt'>): Omit<TherapyRaw, 'id' | 'createdAt' | 'updatedAt'> {
+    const validFrom = new Date(therapy.validFrom);
+    validFrom.setHours(0, 0, 0, 0);
+
+    const validTo = therapy.validTo ? new Date(therapy.validTo) : null;
+    if (validTo) {
+      validTo.setHours(23, 59, 59, 999);
+    }
+
     return {
       ...therapy,
-      validFrom: therapy.validFrom.toISOString(),
-      validTo: therapy.validTo ? therapy.validTo.toISOString() : null,
+      validFrom: validFrom.toISOString(),
+      validTo: validTo ? validTo.toISOString() : null,
     };
   }
 
