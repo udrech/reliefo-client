@@ -10,6 +10,7 @@
 >
   <ng-template #header>
     <tr>
+      <th><!-- Markierung --></th>
       <th pSortableColumn="lastName">Nachname <p-sortIcon field="lastName" /></th>
       <th pSortableColumn="firstName">Vorname <p-sortIcon field="firstName" /></th>
       <th>Geburtsdatum</th>
@@ -22,6 +23,7 @@
   </ng-template>
   <ng-template #body let-customer>
     <tr>
+      <td class="w-1" [class.bg-red-400]="customerHasBirthdayToday(customer.dateOfBirth)"></td>
       <td><a [routerLink]="['/kunden', customer.id]" class="font-bold">{{ customer.lastName }}</a></td>
       <td><a [routerLink]="['/kunden', customer.id]" class="font-bold">{{ customer.firstName }}</a></td>
       <td>{{ customer.dateOfBirth | date: 'dd.MM.yyyy' }}</td>

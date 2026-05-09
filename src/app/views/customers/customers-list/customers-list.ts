@@ -55,4 +55,10 @@ export class CustomersList {
       }
     });
   }
+
+  protected customerHasBirthdayToday(timestamp: string): boolean {
+    const birthDate = new Date(timestamp);
+    const today = new Date();
+    return birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth();    
+  }
 }
