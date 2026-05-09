@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,6 +17,7 @@ import { TherapyService } from '@/services/therapy.service';
   selector: 'app-appointments-form',
   imports: [
     ButtonModule,
+    DatePipe,
     DatePickerModule,
     ReactiveFormsModule,
     SelectModule,

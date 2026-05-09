@@ -7,21 +7,6 @@
 
   <div class="grid gap-y-4">
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <label for="therapyId" class="text-right font-medium">
-        Massage <span aria-hidden="true">*</span>
-      </label>
-      <p-select
-        id="therapyId"
-        formControlName="therapyId"
-        [options]="therapies()"
-        optionLabel="name"
-        optionValue="id"
-        placeholder="Massage auswählen"
-        class="w-full"
-      />
-    </div>
-
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <label for="appointmentTimestamp" class="text-right font-medium">
         Datum &amp; Uhrzeit <span aria-hidden="true">*</span>
       </label>
@@ -33,6 +18,23 @@
         [showTime]="true"
         hourFormat="24"
       />
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <label for="therapyId" class="text-right font-medium">
+        Massage <span aria-hidden="true">*</span>
+      </label>
+      <p-select
+        id="therapyId"
+        formControlName="therapyId"
+        [options]="therapies()"
+        optionValue="id"
+        placeholder="Massage auswählen"
+        class="w-full"
+      >
+        <ng-template let-option pTemplate="item">
+          {{ option.name }} (ab {{ option.validFrom | date: 'dd.MM.yyyy' }})
+        </ng-template>
+      </p-select>
     </div>
   </div>
 
