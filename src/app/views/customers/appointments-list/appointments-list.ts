@@ -70,6 +70,11 @@ export class AppointmentsList {
       return;
     }
 
+    if (this.selectedAppointments().length > 20) {
+      this.messageService.add({ severity: 'error', summary: 'Zu viele Termine ausgewählt', detail: 'Bitte wählen Sie maximal 20 Termine aus, um eine Quittung zu erstellen.' });
+      return;
+    }
+
     console.log('Creating bill for appointments:', this.selectedAppointments());
 
     const customerId = this.customerId();
