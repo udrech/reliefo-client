@@ -84,7 +84,7 @@ export class AppointmentsList {
         appointments: this.selectedAppointments(),
       }).subscribe(bill => {
         window.open(`${environment.apiBaseUrl}/api/bills/${bill.id}/file`, '_blank');
-        this.router.navigate(['/quittungen']);
+        this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'quittungen' } });
       });
     }
   }
