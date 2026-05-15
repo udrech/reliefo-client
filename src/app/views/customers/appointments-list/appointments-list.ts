@@ -77,6 +77,7 @@ export class AppointmentsList {
         appointments: this.selectedAppointments(),
       }).subscribe(bill => {
         window.open(`${environment.apiBaseUrl}/api/bills/${bill.id}/file`, '_blank');
+        this.selectedAppointments.set([]);
         this.store.loadBills();
         this.store.loadAppointments();
         this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'quittungen' } });
