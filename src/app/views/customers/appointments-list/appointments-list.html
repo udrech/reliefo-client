@@ -1,5 +1,5 @@
 <div class="flex justify-end mb-4 gap-2">
-  <p-button [routerLink]="['/kunden', customerId(), 'termine', 'neu']" ariaLabel="Neuen Termin erfassen">
+  <p-button [routerLink]="['/kunden', store.customerId(), 'termine', 'neu']" ariaLabel="Neuen Termin erfassen">
     <span class="material-symbols-outlined text-xl" aria-hidden="true">add</span>
     <span>Neuer Termin</span>
   </p-button>
@@ -34,7 +34,7 @@
       <td>{{ appointment.therapy.duration }}</td>
       <td>{{ appointment.bill?.id }}</td>
       <td class="w-10">
-        <p-button [text]="true" severity="secondary" [routerLink]="['/kunden', customerId(), 'termine', appointment.id, 'bearbeiten']" ariaLabel="Termin bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
+        <p-button [text]="true" severity="secondary" [routerLink]="['/kunden', store.customerId(), 'termine', appointment.id, 'bearbeiten']" ariaLabel="Termin bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
         </p-button>
       </td>

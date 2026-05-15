@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap, map } from 'rxjs';
+import { map } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 
-import { CustomerService } from '@/services/customer.service';
+import { CustomerDetailStore } from '@/views/customers/customers-detail/customer-detail.store';
 
 import { AppointmentsList } from '@/views/customers/appointments-list/appointments-list';
 import { BillsList } from '@/views/customers/bills-list/bills-list';
@@ -18,13 +18,18 @@ import { BillsList } from '@/views/customers/bills-list/bills-list';
     DatePipe,
     TabsModule,
   ],
+  providers: [CustomerDetailStore],
   templateUrl: './customers-detail.html',
   styleUrl: './customers-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomersDetail {
   private readonly route = inject(ActivatedRoute);
-  private readonly customerService = inject(CustomerService);
+  protected readonly store = inject(CustomerDetailStore);
+
+  private readonly routeCustomerId = toSignal(
+    this.route.params.pipe(map(params => +params['id']))
+  );
 
   private getTabValue(tab: string): number {
     switch (tab) {
@@ -45,9 +50,10 @@ export class CustomersDetail {
     { initialValue: 0 }
   );
 
-  protected readonly customer = toSignal(
-    this.route.params.pipe(
-      switchMap(params => this.customerService.getById(+params['id']))
-    )
-  );
+  constructor() {
+    effect(() => {
+      const id = this.routeCustomerId();
+      if (id) this.store.load(id);
+    });
+  }
 }

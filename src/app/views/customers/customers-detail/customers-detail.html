@@ -1,6 +1,6 @@
 <div class="card">
   <h1 class="text-3xl font-bold mb-6">
-    {{ customer()?.firstName }} {{ customer()?.lastName }}
+    {{ store.customer()?.firstName }} {{ store.customer()?.lastName }}
   </h1>
   <p-tabs [value]="activeTab()">
     <p-tablist>
@@ -14,72 +14,72 @@
           <div class="grid gap-y-4">
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Nachname</span>
-              <span>{{ customer()?.lastName }}</span>
+              <span>{{ store.customer()?.lastName }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Vorname</span>
-              <span>{{ customer()?.firstName }}</span>
+              <span>{{ store.customer()?.firstName }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Geburtsdatum</span>
-              <span>{{ customer()?.dateOfBirth | date:'dd.MM.yyyy' }}</span>
+              <span>{{ store.customer()?.dateOfBirth | date:'dd.MM.yyyy' }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Adresse</span>
-              <span>{{ customer()?.address }}</span>
+              <span>{{ store.customer()?.address }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">PLZ</span>
-              <span>{{ customer()?.zipCode }}</span>
+              <span>{{ store.customer()?.zipCode }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Ort</span>
-              <span>{{ customer()?.city }}</span>
+              <span>{{ store.customer()?.city }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Land</span>
-              <span>{{ customer()?.country }}</span>
+              <span>{{ store.customer()?.country }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Mobil</span>
-              <span>{{ customer()?.mobile }}</span>
+              <span>{{ store.customer()?.mobile }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Telefon</span>
-              <span>{{ customer()?.phone }}</span>
+              <span>{{ store.customer()?.phone }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">E-Mail</span>
-              <span>{{ customer()?.email }}</span>
+              <span>{{ store.customer()?.email }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">AHV-Nummer</span>
-              <span>{{ customer()?.socialSecurityNumber }}</span>
+              <span>{{ store.customer()?.socialSecurityNumber }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Krankenkasse</span>
-              <span>{{ customer()?.healthInsuranceProvider }}</span>
+              <span>{{ store.customer()?.healthInsuranceProvider }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Versicherten-Nummer</span>
-              <span>{{ customer()?.healthInsuranceId }}</span>
+              <span>{{ store.customer()?.healthInsuranceId }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Erstellt am</span>
-              <span>{{ customer()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+              <span>{{ store.customer()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
             </div>
             <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
               <span class="text-right font-medium">Bearbeitet am</span>
-              <span>{{ customer()?.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+              <span>{{ store.customer()?.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
             </div>
           </div>
         </div>
       </p-tabpanel>
       <p-tabpanel [value]="1">
-        <app-appointments-list [customerId]="customer()?.id" />
+        <app-appointments-list />
       </p-tabpanel>
       <p-tabpanel [value]="2">
-        <app-bills-list [customerId]="customer()?.id" />
+        <app-bills-list />
       </p-tabpanel>
     </p-tabpanels>
   </p-tabs>

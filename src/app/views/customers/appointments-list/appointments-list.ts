@@ -1,19 +1,19 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink, Router } from '@angular/router';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, combineLatest, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { environment } from '@environments/environment';
+
+import { CustomerDetailStore } from '@/views/customers/customers-detail/customer-detail.store';
+
 import { Appointment } from '@/models/appointment';
 import { AppointmentService } from '@/services/appointment.service';
 import { BillService } from '@/services/bill.service';
-import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-appointments-list',
@@ -30,23 +30,14 @@ import { environment } from '@environments/environment';
 })
 export class AppointmentsList {
   private readonly router = inject(Router);
-  private confirmationService = inject(ConfirmationService);
-  private messageService = inject(MessageService);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly messageService = inject(MessageService);
+  protected readonly store = inject(CustomerDetailStore);
   private readonly appointmentService = inject(AppointmentService);
   private readonly billService = inject(BillService);
 
-  private readonly refresh$ = new BehaviorSubject<void>(undefined);
-
   protected readonly selectedAppointments = signal<Appointment[]>([]);
-
-  readonly customerId = input<number>();
-
-  protected readonly appointments = toSignal(
-    combineLatest([toObservable(this.customerId), this.refresh$]).pipe(
-      switchMap(([id]) => id ? this.appointmentService.getByCustomerId(id) : of([]))
-    ),
-    { initialValue: [] }
-  );
+  protected readonly appointments = this.store.appointments;
 
   protected deleteAppointment(id: number): void {
     this.confirmationService.confirm({
@@ -58,7 +49,7 @@ export class AppointmentsList {
         this.appointmentService.delete(id).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin gelöscht', life: 3000 });
-            this.refresh$.next();
+            this.store.loadAppointments();
           },
           error: (err: HttpErrorResponse) => {
             if (err.status === 409) {
@@ -71,27 +62,23 @@ export class AppointmentsList {
   }
 
   protected createBill(): void {
-    // check if any selected appointments exist, otherwise notify the user
-    // use p-toast, show message at bottom center, with severity 'warn' and summary 'Keine Termine ausgewählt' and detail 'Bitte wählen Sie mindestens einen Termin aus, um eine Quittung zu erstellen.'
     if (this.selectedAppointments().length === 0) {
       this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Keine Termine ausgewählt' });
       return;
     }
-
     if (this.selectedAppointments().length > 20) {
       this.messageService.add({ severity: 'error', summary: 'Zu viele Termine ausgewählt', detail: 'Bitte wählen Sie maximal 20 Termine aus, um eine Quittung zu erstellen.' });
       return;
     }
-
-    console.log('Creating bill for appointments:', this.selectedAppointments());
-
-    const customerId = this.customerId();
+    const customerId = this.store.customerId();
     if (customerId) {
       this.billService.create({
-        customerId: customerId,
+        customerId,
         appointments: this.selectedAppointments(),
       }).subscribe(bill => {
         window.open(`${environment.apiBaseUrl}/api/bills/${bill.id}/file`, '_blank');
+        this.store.loadBills();
+        this.store.loadAppointments();
         this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'quittungen' } });
       });
     }

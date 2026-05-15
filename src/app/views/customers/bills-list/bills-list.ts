@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, combineLatest, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+
+import { CustomerDetailStore } from '@/views/customers/customers-detail/customer-detail.store';
 
 import { BillService } from '@/services/bill.service';
 
@@ -28,18 +27,10 @@ import { BillService } from '@/services/bill.service';
 export class BillsList {
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  protected readonly store = inject(CustomerDetailStore);
   private readonly billService = inject(BillService);
-
-  private readonly refresh$ = new BehaviorSubject<void>(undefined);
-
-  readonly customerId = input<number>();
-
-  protected readonly bills = toSignal(
-    combineLatest([toObservable(this.customerId), this.refresh$]).pipe(
-      switchMap(([id]) => id ? this.billService.getByCustomerId(id) : of([]))
-    ),
-    { initialValue: [] }
-  );
+  
+  protected readonly bills = this.store.bills;
 
   protected deleteBill(id: number): void {
     this.confirmationService.confirm({
@@ -51,7 +42,8 @@ export class BillsList {
         this.billService.delete(id).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Quittung gelöscht', life: 3000 });
-            this.refresh$.next();
+            this.store.loadBills();
+            this.store.loadAppointments();
           },
           error: (err: HttpErrorResponse) => {
             if (err.status === 409) {
@@ -63,3 +55,4 @@ export class BillsList {
     });
   }
 }
+
