@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { firstValueFrom, of, switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
@@ -26,6 +27,7 @@ export class TherapiesForm {
   private readonly therapyService = inject(TherapyService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
 
   private readonly routeId = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('id'))),
@@ -63,23 +65,24 @@ export class TherapiesForm {
     });
   }
 
-  protected async save(): Promise<void> {
+  protected save(): void {
     if (this.form.invalid) return;
     const value = this.form.getRawValue();
     const id = this.routeId();
-    try {
-      if (id) {
-        await firstValueFrom(this.therapyService.update(Number(id), value));
-      } else {
-        await firstValueFrom(this.therapyService.create(value));
-      }
-      await this.router.navigate(['/massagen']);
-    } catch (error) {
-      console.error('Error saving therapy:', error);
+    if (id) {
+      this.therapyService.update(Number(id), value).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Massage aktualisiert', life: 3000 });
+        this.router.navigate(['/massagen']);
+      });
+    } else {
+      this.therapyService.create(value).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Massage erstellt', life: 3000 });
+        this.router.navigate(['/massagen']);
+      });
     }
   }
 
-  protected async cancel(): Promise<void> {
-    await this.router.navigate(['/massagen']);
+  protected cancel(): void {
+    this.router.navigate(['/massagen']);
   }
 }

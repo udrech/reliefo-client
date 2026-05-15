@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { toSignal } from '@angular/core/rxjs-interop';
 import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
@@ -25,6 +26,7 @@ import { CustomerService } from '@/services/customer.service';
 export class CustomersForm {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
   private readonly customerService = inject(CustomerService);
 
   private readonly customerId = toSignal(
@@ -73,10 +75,12 @@ export class CustomersForm {
     const id = this.customerId();
     if (id) {
       this.customerService.update(Number(id), value).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Kunde aktualisiert', life: 3000 });
         this.router.navigate(['/kunden']);
       });
     } else {
       this.customerService.create(value).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Kunde erstellt', life: 3000 });
         this.router.navigate(['/kunden']);
       });
     }

@@ -4,7 +4,6 @@ Reliefo Therapy App Client
 
 ## ToDo
 
-* Meldung wenn gespeichert
 * Fehlermeldung wenn Löschen nicht möglich ist
 * Therapien erstellen, bearbeiten, (löschen)
 * Layout immer gleich class="card" ?

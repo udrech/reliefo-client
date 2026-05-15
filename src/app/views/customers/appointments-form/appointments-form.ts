@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { toSignal } from '@angular/core/rxjs-interop';
 import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
@@ -29,10 +30,11 @@ import { TherapyService } from '@/services/therapy.service';
 export class AppointmentsForm {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
   private readonly appointmentService = inject(AppointmentService);
   private readonly customerService = inject(CustomerService);
   private readonly therapyService = inject(TherapyService);
-
+  
   private readonly customerId = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('id')))
   );
@@ -97,22 +99,14 @@ export class AppointmentsForm {
     };
 
     if (id) {
-      this.appointmentService.update(Number(id), payload).subscribe({
-        next: () => {
-          this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
-        },
-        error: (err) => {
-          console.error('Update failed:', err);
-        },
+      this.appointmentService.update(Number(id), payload).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin aktualisiert', life: 3000 });
+        this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
       });
     } else {
-      this.appointmentService.create(payload).subscribe({
-        next: () => {
-          this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
-        },
-        error: (err) => {
-          console.error('Create failed:', err);
-        },
+      this.appointmentService.create(payload).subscribe(() => {
+        this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin erstellt', life: 3000 });
+        this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
       });
     }
   }
