@@ -25,9 +25,9 @@ import { BillService } from '@/services/bill.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BillsList {
-  private readonly billService = inject(BillService);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly billService = inject(BillService);
 
   private readonly refresh$ = new BehaviorSubject<void>(undefined);
 

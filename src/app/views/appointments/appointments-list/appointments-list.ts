@@ -24,9 +24,9 @@ import { AppointmentService } from '@/services/appointment.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentsList {
-  private readonly appointmentService = inject(AppointmentService);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly appointmentService = inject(AppointmentService);
 
   private readonly refresh$ = new Subject<void>();
   

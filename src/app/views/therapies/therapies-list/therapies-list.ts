@@ -24,9 +24,9 @@ import { TherapyService } from '@/services/therapy.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TherapiesList {
-  private readonly therapyService = inject(TherapyService);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly therapyService = inject(TherapyService);
 
   private readonly refresh$ = new Subject<void>();
 
