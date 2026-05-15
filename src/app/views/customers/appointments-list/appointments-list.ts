@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink, Router } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, combineLatest, of } from 'rxjs';
@@ -54,9 +55,16 @@ export class AppointmentsList {
       rejectButtonProps: { label: 'Abbrechen', severity: 'secondary', outlined: true },
       acceptButtonProps: { label: 'Löschen', severity: 'danger' },
       accept: () => {
-        this.appointmentService.delete(id).subscribe(() => {
-          this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin gelöscht', life: 3000 });
-          this.refresh$.next();
+        this.appointmentService.delete(id).subscribe({
+          next: () => {
+            this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin gelöscht', life: 3000 });
+            this.refresh$.next();
+          },
+          error: (err: HttpErrorResponse) => {
+            if (err.status === 409) {
+              this.messageService.add({ severity: 'error', summary: 'Fehler', detail: err.error, life: 5000 });
+            }
+          },
         });
       }
     });

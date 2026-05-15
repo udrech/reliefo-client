@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap, Subject } from 'rxjs';
@@ -48,10 +49,17 @@ export class CustomersList {
       rejectButtonProps: { label: 'Abbrechen', severity: 'secondary', outlined: true },
       acceptButtonProps: { label: 'Löschen', severity: 'danger' },
       accept: () => {
-        this.customerService.delete(id).subscribe(() => {
-          this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Kunden gelöscht', life: 3000 });
-          this.refresh$.next();
-        });
+        this.customerService.delete(id).subscribe({
+            next: () => {
+              this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Kunden gelöscht', life: 3000 });
+              this.refresh$.next();
+            },
+            error: (err: HttpErrorResponse) => {
+              if (err.status === 409) {
+                this.messageService.add({ severity: 'error', summary: 'Fehler', detail: err.error, life: 5000 });
+              }
+            },
+          });
       }
     });
   }
