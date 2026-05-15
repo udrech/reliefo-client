@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap, Subject } from 'rxjs';
+import { switchMap, Subject, startWith } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -32,14 +32,11 @@ export class TherapiesList {
 
   protected readonly therapies = toSignal(
     this.refresh$.pipe(
+      startWith(null),
       switchMap(() => this.therapyService.getAll())
     ),
     { initialValue: [] }
   );
-
-  constructor() {
-    this.refresh$.next();
-  }
 
   protected deleteTherapy(id: number): void {
     this.confirmationService.confirm({
