@@ -33,6 +33,8 @@ export class Layout {
     { label: 'Massagen', icon: 'massage', route: '/massagen' },
   ];
 
+  protected vesion = '1';
+
   protected toggleSidebar(): void {
     this.sidebarMinimized.update((v) => !v);
   }
