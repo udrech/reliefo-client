@@ -101,12 +101,12 @@ export class AppointmentsForm {
     if (id) {
       this.appointmentService.update(Number(id), payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin aktualisiert', life: 3000 });
-        this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
+        // this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
       });
     } else {
       this.appointmentService.create(payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin erstellt', life: 3000 });
-        this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
+        // this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'termine' } });
       });
     }
   }
