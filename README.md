@@ -4,8 +4,6 @@ Reliefo Therapy App Client
 
 ## ToDo
 
-* Fehlermeldung wenn Löschen nicht möglich ist
-* Therapien erstellen, bearbeiten, (löschen)
 * Layout immer gleich class="card" ?
 * Kundenname-Header als Component
 * Quittung Detail Ansicht mit Download PDF Button
