@@ -5,6 +5,10 @@
       <span>{{ customer()?.lastName }} {{ customer()?.firstName }}</span>
     </div>
     <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+      <span class="text-right font-medium">Quittung-Nr.</span>
+      <span>{{ bill()?.billNumber }}</span>
+    </div>
+    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
       <span class="text-right font-medium">Dateiname (intern)</span>
       <span>{{ bill()?.file }}</span>
     </div>

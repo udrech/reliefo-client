@@ -21,7 +21,7 @@
       <td><a [routerLink]="['/kunden', appointment.customer.id]" class="font-bold">{{ appointment.customer.lastName }} {{ appointment.customer.firstName }}</a></td>
       <td>{{ appointment.therapy.name }}</td>
       <td>{{ appointment.therapy.duration }}</td>
-      <td>{{ appointment.bill?.id }}</td>
+      <td>{{ appointment.bill?.billNumber }}</td>
       <td class="w-10">
         <p-button [text]="true" severity="danger" (onClick)="deleteAppointment(appointment.id)" ariaLabel="Termin löschen" pTooltip="Löschen" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
