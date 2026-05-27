@@ -2,18 +2,21 @@
 
 Reliefo Therapy App Client
 
-## ToDo
+## Ideen, Wünsche, ToDo
 
+* Doku: Wartung, Angular Update, etc.
 * Layout immer gleich class="card" ?
 * Kundenname-Header als Component
 * Quittung Detail Ansicht mit Download PDF Button
 * Falsche URL -> 404 Seite mit Link zurück zur Startseite
+* Google Termin Import
+* Statistiken: Anzahl Kunden, Anzahl Massagen pro Jahr / Monat / Kunde, Umsatz pro Jahr / Monat / Kunde
 
 ## Bezeichnungen
 
 * Die App wird allgemein für Therapien entwickelt.
-* Im Konkreten Anwendungsfall sind das Massagen.
-* Aus Gewohnheit werden Rechnungen als Quittungen bezeichnet, da sie dem Kunden ausgehändigt werden.
+* Im konkreten Anwendungsfall sind das Massagen.
+* Aus Gewohnheit werden Rechnungen als Quittungen bezeichnet, da sie dem Kunden nach der sofortigen Bezahlung ausgehändigt werden.
 * Für den Benutzer sichtbar wird überall Massagen und Quittungen statt Therapien und Rechnungen verwendet. Im Hintergrund (Code, API) bleiben die neutraleren Begriffe Therapien und Rechnungen bestehen.
 
 | Tabelle | NG Klasse | NG Interface | Bezeichnung (deutsch, für Benutzer sichtbar) |
