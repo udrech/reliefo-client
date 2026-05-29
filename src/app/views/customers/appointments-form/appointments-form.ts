@@ -89,7 +89,7 @@ export class AppointmentsForm {
     });
   }
 
-  protected save(): void {
+  protected save(mode: 'new' | 'back'): void {
     if (this.form.invalid) return;
     const { therapyId, appointmentDate, appointmentTime } = this.form.getRawValue();
     const id = this.appointmentId();
@@ -111,15 +111,24 @@ export class AppointmentsForm {
       appointmentTimestamp,
     };
 
+    const navigate = () => {
+      if (mode === 'new') {
+        this.form.reset();
+        this.router.navigate(['/kunden', String(customerId), 'termine', 'neu']);
+      } else {
+        this.router.navigate(['/kunden', String(customerId), 'termine']);
+      }
+    };
+
     if (id) {
       this.appointmentService.update(Number(id), payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin aktualisiert', life: 3000 });
-        this.router.navigate(['/kunden', String(customerId), 'termine']);
+        navigate();
       });
     } else {
       this.appointmentService.create(payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin erstellt', life: 3000 });
-        this.router.navigate(['/kunden', String(customerId), 'termine']);
+        navigate();
       });
     }
   }
