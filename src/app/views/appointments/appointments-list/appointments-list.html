@@ -10,6 +10,7 @@
       <th>Massage</th>
       <th>Dauer (Minuten)</th>
       <th>Quittung-Nr.</th>
+      <th><!-- Bearbeiten --></th>
       <th><!-- Löschen --></th>
     </tr>
   </ng-template>
@@ -23,6 +24,11 @@
       <td>{{ appointment.therapy.duration }}</td>
       <td>{{ appointment.bill?.billNumber }}</td>
       <td class="w-10">
+        <p-button [text]="true" severity="secondary" [routerLink]="['/kunden', appointment.customer.id, 'termine', appointment.id, 'bearbeiten']" ariaLabel="Termin bearbeiten" pTooltip="Bearbeiten" tooltipPosition="top">
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">edit</span>
+        </p-button>
+      </td>
+      <td class="w-10">
         <p-button [text]="true" severity="danger" (onClick)="deleteAppointment(appointment.id)" ariaLabel="Termin löschen" pTooltip="Löschen" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">delete</span>
         </p-button>
@@ -31,7 +37,7 @@
   </ng-template>
   <ng-template #emptymessage>
     <tr>
-      <td colspan="8" class="text-center py-8 text-content/50">Keine Termine gefunden.</td>
+      <td colspan="9" class="text-center py-8 text-content/50">Keine Termine gefunden.</td>
     </tr>
   </ng-template>
 </p-table>
