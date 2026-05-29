@@ -16,8 +16,11 @@
           formControlName="appointmentTimestamp"
           class="w-full"
           dateFormat="dd.mm.yy"
+          [showIcon]="true"
+          [showOnFocus]="false"
           [showTime]="true"
           hourFormat="24"
+          pInputMask="99.99.9999 99:99"
         />
       </div>
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
