@@ -1,0 +1,67 @@
+<h1 class="text-3xl font-bold mb-6">
+  {{ customer()?.firstName }} {{ customer()?.lastName }}
+</h1>
+
+<div class="p-5 bg-white">
+  <form [formGroup]="form" class="max-w-2xl">
+    <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Eintrag' : 'Eintrag bearbeiten' }}</h2>
+
+    <div class="grid gap-y-4">
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="historyDate" class="text-right font-medium">
+          Datum <span aria-hidden="true">*</span>
+        </label>
+        <p-datepicker
+          id="historyDate"
+          formControlName="historyDate"
+          class="w-full"
+          dateFormat="dd.mm.yy"
+          [showIcon]="true"
+          [showOnFocus]="false"
+        />
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="historyTime" class="text-right font-medium">
+          Uhrzeit <span aria-hidden="true">*</span>
+        </label>
+        <p-datepicker
+          id="historyTime"
+          formControlName="historyTime"
+          class="w-full"
+          timeOnly
+          hourFormat="24"
+          [showIcon]="true"
+          [showOnFocus]="false"
+        />
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="historyType" class="text-right font-medium">Typ</label>
+        <p-select
+          id="historyType"
+          formControlName="historyType"
+          [options]="typeOptions"
+          class="w-full"
+          placeholder="Typ auswählen"
+        />
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-start gap-x-4">
+        <label for="note" class="text-right font-medium pt-3">
+          Notiz <span aria-hidden="true">*</span>
+        </label>
+        <textarea
+          id="note"
+          pTextarea
+          formControlName="note"
+          class="w-full"
+          rows="6"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="flex gap-3 mt-8 justify-end">
+      <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
+      <p-button label="Speichern und Neu" severity="secondary" type="button" [disabled]="form.invalid" (onClick)="save('new')" />
+      <p-button label="Speichern und zurück" type="button" [disabled]="form.invalid" (onClick)="save('back')" />
+    </div>
+  </form>
+</div>

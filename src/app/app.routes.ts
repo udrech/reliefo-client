@@ -30,6 +30,16 @@ export const routes: Routes = [
           import('./views/customers/customers-form/customers-form').then((m) => m.CustomersForm),
       },
       {
+        path: 'kunden/:id/krankengeschichte/neu',
+        loadComponent: () =>
+          import('./views/customers/medicalhistoryrecords-form/medicalhistoryrecords-form').then((m) => m.MedicalhistoryrecordsForm),
+      },
+      {
+        path: 'kunden/:id/krankengeschichte/:mid/bearbeiten',
+        loadComponent: () =>
+          import('./views/customers/medicalhistoryrecords-form/medicalhistoryrecords-form').then((m) => m.MedicalhistoryrecordsForm),
+      },
+      {
         path: 'kunden/:id/termine/neu',
         loadComponent: () =>
           import('./views/customers/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
@@ -63,6 +73,11 @@ export const routes: Routes = [
             path: 'quittungen',
             loadComponent: () =>
               import('./views/customers/bills-list/bills-list').then((m) => m.BillsList),
+          },
+          {
+            path: 'krankengeschichte',
+            loadComponent: () =>
+              import('./views/customers/medicalhistoryrecords-list/medicalhistoryrecords-list').then((m) => m.MedicalhistoryrecordsList),
           },
         ],
       },

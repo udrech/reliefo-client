@@ -136,7 +136,7 @@ export class AppointmentsForm {
   protected cancel(): void {
     const customerId = this.customerId();
     if (customerId) {
-      this.router.navigate(['/kunden', String(customerId)]);
+      this.router.navigate(['/kunden', String(customerId), 'termine']);
     }
   }
 }

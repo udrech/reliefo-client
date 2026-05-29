@@ -28,7 +28,8 @@ export class CustomersDetail {
 
   private getTabFromUrl(url: string): number {
     if (url.includes('/termine')) return 1;
-    if (url.includes('/quittungen')) return 2;
+    if (url.includes('/krankengeschichte')) return 2;
+    if (url.includes('/quittungen')) return 3;
     return 0;
   }
 
