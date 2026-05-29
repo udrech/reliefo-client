@@ -4,9 +4,7 @@ Reliefo Therapy App Client
 
 ## Ideen, Wünsche, ToDo
 
-* Termin: Speichern und zurück, Speichern und neu
 * Tests auf iPad und Android
-* einfachere Datumseingabe
 * Doku: Wartung, Angular Update, etc.
 * Kundenname-Header als Component
 * Quittung Detail Ansicht mit Download PDF Button
