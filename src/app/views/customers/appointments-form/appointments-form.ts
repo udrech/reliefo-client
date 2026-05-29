@@ -62,11 +62,12 @@ export class AppointmentsForm {
 
   protected readonly form = new FormGroup({
     therapyId: new FormControl<number | null>(null, { validators: Validators.required }),
-    appointmentTimestamp: new FormControl<Date | null>(null, { validators: Validators.required }),
+    appointmentDate: new FormControl<Date | null>(null, { validators: Validators.required }),
+    appointmentTime: new FormControl<Date | null>(null, { validators: Validators.required }),
   });
 
   protected readonly therapies = toSignal(
-    this.form.controls.appointmentTimestamp.valueChanges.pipe(
+    this.form.controls.appointmentDate.valueChanges.pipe(
       switchMap(d => d ? this.therapyService.getValid(d) : of([]))
     ),
     { initialValue: [] }
@@ -76,26 +77,38 @@ export class AppointmentsForm {
     effect(() => {
       const appointment = this.appointment();
       if (appointment) {
-        untracked(() => this.form.patchValue({
-          therapyId: appointment.therapyId,
-          appointmentTimestamp: appointment.appointmentTimestamp,
-        }));
+        untracked(() => {
+          const timestamp = appointment.appointmentTimestamp;
+          this.form.patchValue({
+            therapyId: appointment.therapyId,
+            appointmentDate: new Date(timestamp.getFullYear(), timestamp.getMonth(), timestamp.getDate()),
+            appointmentTime: new Date(0, 0, 0, timestamp.getHours(), timestamp.getMinutes()),
+          });
+        });
       }
     });
   }
 
   protected save(): void {
     if (this.form.invalid) return;
-    const { therapyId, appointmentTimestamp } = this.form.getRawValue();
+    const { therapyId, appointmentDate, appointmentTime } = this.form.getRawValue();
     const id = this.appointmentId();
     const customerId = this.customerId();
     
-    if (!customerId) return;
+    if (!customerId || !appointmentDate || !appointmentTime) return;
+
+    const appointmentTimestamp = new Date(
+      appointmentDate.getFullYear(),
+      appointmentDate.getMonth(),
+      appointmentDate.getDate(),
+      appointmentTime.getHours(),
+      appointmentTime.getMinutes()
+    );
 
     const payload = {
       customerId: Number(customerId),
       therapyId: therapyId!,
-      appointmentTimestamp: appointmentTimestamp!,
+      appointmentTimestamp,
     };
 
     if (id) {

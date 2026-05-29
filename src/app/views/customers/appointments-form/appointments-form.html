@@ -8,19 +8,30 @@
 
     <div class="grid gap-y-4">
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <label for="appointmentTimestamp" class="text-right font-medium">
-          Datum &amp; Uhrzeit <span aria-hidden="true">*</span>
+        <label for="appointmentDate" class="text-right font-medium">
+          Datum <span aria-hidden="true">*</span>
         </label>
         <p-datepicker
-          id="appointmentTimestamp"
-          formControlName="appointmentTimestamp"
+          id="appointmentDate"
+          formControlName="appointmentDate"
           class="w-full"
           dateFormat="dd.mm.yy"
           [showIcon]="true"
           [showOnFocus]="false"
-          [showTime]="true"
+        />
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="appointmentTime" class="text-right font-medium">
+          Uhrzeit <span aria-hidden="true">*</span>
+        </label>
+        <p-datepicker
+          id="appointmentTime"
+          formControlName="appointmentTime"
+          class="w-full"
+          timeOnly
           hourFormat="24"
-          pInputMask="99.99.9999 99:99"
+          [showIcon]="true"
+          [showOnFocus]="false"
         />
       </div>
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
