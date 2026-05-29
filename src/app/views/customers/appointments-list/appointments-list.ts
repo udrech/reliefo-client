@@ -80,7 +80,7 @@ export class AppointmentsList {
         this.selectedAppointments.set([]);
         this.store.loadBills();
         this.store.loadAppointments();
-        // this.router.navigate(['/kunden', String(customerId)], { queryParams: { tab: 'quittungen' } });
+        this.router.navigate(['/kunden', String(customerId), 'quittungen']);
       });
     }
   }

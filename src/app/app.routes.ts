@@ -25,9 +25,9 @@ export const routes: Routes = [
           import('./views/customers/customers-form/customers-form').then((m) => m.CustomersForm),
       },
       {
-        path: 'kunden/:id',
+        path: 'kunden/:id/bearbeiten',
         loadComponent: () =>
-          import('./views/customers/customers-detail/customers-detail').then((m) => m.CustomersDetail),
+          import('./views/customers/customers-form/customers-form').then((m) => m.CustomersForm),
       },
       {
         path: 'kunden/:id/termine/neu',
@@ -40,9 +40,31 @@ export const routes: Routes = [
           import('./views/customers/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
       },
       {
-        path: 'kunden/:id/bearbeiten',
+        path: 'kunden/:id',
         loadComponent: () =>
-          import('./views/customers/customers-form/customers-form').then((m) => m.CustomersForm),
+          import('./views/customers/customers-detail/customers-detail').then((m) => m.CustomersDetail),
+        children: [
+          {
+            path: '',
+            redirectTo: 'kunde',
+            pathMatch: 'full',
+          },
+          {
+            path: 'kunde',
+            loadComponent: () =>
+              import('./views/customers/customers-info/customers-info').then((m) => m.CustomersInfo),
+          },
+          {
+            path: 'termine',
+            loadComponent: () =>
+              import('./views/customers/appointments-list/appointments-list').then((m) => m.AppointmentsList),
+          },
+          {
+            path: 'quittungen',
+            loadComponent: () =>
+              import('./views/customers/bills-list/bills-list').then((m) => m.BillsList),
+          },
+        ],
       },
       {
         path: 'termine',

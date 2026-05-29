@@ -1,33 +1,41 @@
-<div class="p-6 max-w-2xl">
-  <div class="grid gap-y-4">
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Kunde</span>
-      <span>{{ customer()?.lastName }} {{ customer()?.firstName }}</span>
-    </div>
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Quittung-Nr.</span>
-      <span>{{ bill()?.billNumber }}</span>
-    </div>
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Dateiname (intern)</span>
-      <span>{{ bill()?.file }}</span>
-    </div>
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Data</span>
-      <pre>{{ bill()?.data }}</pre>
-    </div>
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Erstellt am</span>
-      <span>{{ bill()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
-    </div>
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Bearbeitet am</span>
-      <span>{{ bill()?.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
-    </div>
+<div class="p-5 bg-white">
+  <div class="p-5 max-w-2xl">
+    <div class="grid gap-y-4">
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <span class="text-right font-medium">Kunde</span>
+        <span>{{ customer()?.lastName }} {{ customer()?.firstName }}</span>
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <span class="text-right font-medium">Quittung-Nr.</span>
+        <span>{{ bill()?.billNumber }}</span>
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <span class="text-right font-medium">Dateiname (intern)</span>
+        <span>{{ bill()?.filename }}</span>
+      </div>
+      <div class="grid grid-cols-[200px_1fr] gap-x-4">
+        <span class="text-right font-medium pt-3">Data</span>
+        <textarea 
+          pInputTextarea
+          [value]="bill()?.data"
+          readonly
+          rows="10"
+          class="w-full font-mono text-sm"
+        ></textarea>
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <span class="text-right font-medium">Erstellt am</span>
+        <span>{{ bill()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <span class="text-right font-medium">Bearbeitet am</span>
+        <span>{{ bill()?.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+      </div>
 
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <span class="text-right font-medium">Gelöscht am</span>
-      <span>{{ bill()?.deletedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <span class="text-right font-medium">Gelöscht am</span>
+        <span>{{ bill()?.deletedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+      </div>
     </div>
   </div>
 </div>

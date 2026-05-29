@@ -2,47 +2,49 @@
   {{ customer()?.firstName }} {{ customer()?.lastName }}
 </h1>
 
-<form [formGroup]="form" (ngSubmit)="save()" class="p-6 max-w-2xl">
-  <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Termin' : 'Termin bearbeiten' }}</h2>
+<div class="p-5 bg-white">
+  <form [formGroup]="form" (ngSubmit)="save()" class="max-w-2xl">
+    <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Termin' : 'Termin bearbeiten' }}</h2>
 
-  <div class="grid gap-y-4">
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <label for="appointmentTimestamp" class="text-right font-medium">
-        Datum &amp; Uhrzeit <span aria-hidden="true">*</span>
-      </label>
-      <p-datepicker
-        id="appointmentTimestamp"
-        formControlName="appointmentTimestamp"
-        class="w-full"
-        dateFormat="dd.mm.yy"
-        [showTime]="true"
-        hourFormat="24"
-      />
+    <div class="grid gap-y-4">
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="appointmentTimestamp" class="text-right font-medium">
+          Datum &amp; Uhrzeit <span aria-hidden="true">*</span>
+        </label>
+        <p-datepicker
+          id="appointmentTimestamp"
+          formControlName="appointmentTimestamp"
+          class="w-full"
+          dateFormat="dd.mm.yy"
+          [showTime]="true"
+          hourFormat="24"
+        />
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="therapyId" class="text-right font-medium">
+          Massage <span aria-hidden="true">*</span>
+        </label>
+        <p-select
+          id="therapyId"
+          formControlName="therapyId"
+          [options]="therapies()"
+          optionValue="id"
+          placeholder="Massage auswählen"
+          class="w-full"
+        >
+          <ng-template let-option pTemplate="item">
+            {{ option.name }} (gültig ab {{ option.validFrom | date: 'dd.MM.yyyy' }})
+          </ng-template>
+          <ng-template let-option pTemplate="selectedItem">
+            {{ option.name }} (gültig ab {{ option.validFrom | date: 'dd.MM.yyyy' }})
+          </ng-template>
+        </p-select>
+      </div>
     </div>
-    <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-      <label for="therapyId" class="text-right font-medium">
-        Massage <span aria-hidden="true">*</span>
-      </label>
-      <p-select
-        id="therapyId"
-        formControlName="therapyId"
-        [options]="therapies()"
-        optionValue="id"
-        placeholder="Massage auswählen"
-        class="w-full"
-      >
-        <ng-template let-option pTemplate="item">
-          {{ option.name }} (gültig ab {{ option.validFrom | date: 'dd.MM.yyyy' }})
-        </ng-template>
-        <ng-template let-option pTemplate="selectedItem">
-          {{ option.name }} (gültig ab {{ option.validFrom | date: 'dd.MM.yyyy' }})
-        </ng-template>
-      </p-select>
-    </div>
-  </div>
 
-  <div class="flex gap-3 mt-8 justify-end">
-    <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
-    <p-button label="Speichern" type="submit" [disabled]="form.invalid" />
-  </div>
-</form>
+    <div class="flex gap-3 mt-8 justify-end">
+      <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
+      <p-button label="Speichern" type="submit" [disabled]="form.invalid" />
+    </div>
+  </form>
+</div>

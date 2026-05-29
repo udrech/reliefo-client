@@ -1,86 +1,13 @@
 <div class="card">
-  <h1 class="text-3xl font-bold mb-6">
+  <h1 class="text-3xl font-bold mb-4">
     {{ store.customer()?.firstName }} {{ store.customer()?.lastName }}
   </h1>
   <p-tabs [value]="activeTab()">
     <p-tablist>
-      <p-tab [value]="0">Kunde</p-tab>
-      <p-tab [value]="1">Termine</p-tab>
-      <p-tab [value]="2">Quittungen</p-tab>
+      <p-tab [value]="0" (click)="navigate('kunde')">Kunde</p-tab>
+      <p-tab [value]="1" (click)="navigate('termine')">Termine</p-tab>
+      <p-tab [value]="2" (click)="navigate('quittungen')">Quittungen</p-tab>
     </p-tablist>
-    <p-tabpanels>
-      <p-tabpanel [value]="0">
-        <div class="p-6 max-w-2xl">
-          <div class="grid gap-y-4">
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Nachname</span>
-              <span>{{ store.customer()?.lastName }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Vorname</span>
-              <span>{{ store.customer()?.firstName }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Geburtsdatum</span>
-              <span>{{ store.customer()?.dateOfBirth | date:'dd.MM.yyyy' }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Adresse</span>
-              <span>{{ store.customer()?.address }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">PLZ</span>
-              <span>{{ store.customer()?.zipCode }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Ort</span>
-              <span>{{ store.customer()?.city }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Land</span>
-              <span>{{ store.customer()?.country }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Mobil</span>
-              <span>{{ store.customer()?.mobile }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Telefon</span>
-              <span>{{ store.customer()?.phone }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">E-Mail</span>
-              <span>{{ store.customer()?.email }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">AHV-Nummer</span>
-              <span>{{ store.customer()?.socialSecurityNumber }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Krankenkasse</span>
-              <span>{{ store.customer()?.healthInsuranceProvider }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Versicherten-Nummer</span>
-              <span>{{ store.customer()?.healthInsuranceId }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Erstellt am</span>
-              <span>{{ store.customer()?.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
-            </div>
-            <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-              <span class="text-right font-medium">Bearbeitet am</span>
-              <span>{{ store.customer()?.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</span>
-            </div>
-          </div>
-        </div>
-      </p-tabpanel>
-      <p-tabpanel [value]="1">
-        <app-appointments-list />
-      </p-tabpanel>
-      <p-tabpanel [value]="2">
-        <app-bills-list />
-      </p-tabpanel>
-    </p-tabpanels>
   </p-tabs>
+  <router-outlet />
 </div>

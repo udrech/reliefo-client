@@ -6,7 +6,7 @@ export interface Bill {
   customerId: number;
   customer: Customer;
   billNumber: number;
-  file: string;
+  filename: string;
   data: string;
   createdAt: Date;
   updatedAt: Date;
@@ -18,7 +18,7 @@ export interface BillRaw {
   customerId: number;
   customer: CustomerRaw;
   billNumber: number;
-  file: string;
+  filename: string;
   data: string;
   createdAt: string;
   updatedAt: string;

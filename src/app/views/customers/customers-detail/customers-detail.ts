@@ -1,21 +1,15 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { filter, map, merge, of } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 
 import { CustomerDetailStore } from '@/views/customers/customers-detail/customer-detail.store';
 
-import { AppointmentsList } from '@/views/customers/appointments-list/appointments-list';
-import { BillsList } from '@/views/customers/bills-list/bills-list';
-
 @Component({
   selector: 'app-customers-detail',
   imports: [
-    AppointmentsList,
-    BillsList,
-    DatePipe,
+    RouterOutlet,
     TabsModule,
   ],
   providers: [CustomerDetailStore],
@@ -25,30 +19,33 @@ import { BillsList } from '@/views/customers/bills-list/bills-list';
 })
 export class CustomersDetail {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   protected readonly store = inject(CustomerDetailStore);
 
   private readonly routeCustomerId = toSignal(
     this.route.params.pipe(map(params => +params['id']))
   );
 
-  private getTabValue(tab: string): number {
-    switch (tab) {
-      case 'termine':
-        return 1;
-      case 'quittungen':
-        return 2;
-      case 'kunde':
-      default:
-        return 0;
-    }
+  private getTabFromUrl(url: string): number {
+    if (url.includes('/termine')) return 1;
+    if (url.includes('/quittungen')) return 2;
+    return 0;
   }
 
   protected readonly activeTab = toSignal(
-    this.route.queryParamMap.pipe(
-      map(params => this.getTabValue(params.get('tab') || 'kunde'))
-    ),
-    { initialValue: 0 }
+    merge(
+      of(this.router.url),
+      this.router.events.pipe(
+        filter(e => e instanceof NavigationEnd),
+        map(e => (e as NavigationEnd).urlAfterRedirects),
+      ),
+    ).pipe(map(url => this.getTabFromUrl(url))),
+    { initialValue: 0 },
   );
+
+  protected navigate(segment: string): void {
+    this.router.navigate([segment], { relativeTo: this.route });
+  }
 
   constructor() {
     effect(() => {
