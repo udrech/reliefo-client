@@ -4,3 +4,8 @@ export interface CustomerStat {
   lastName: string;
   appointmentCount: number;
 }
+
+export interface MonthStat {
+  month: number;
+  appointmentCount: number;
+}

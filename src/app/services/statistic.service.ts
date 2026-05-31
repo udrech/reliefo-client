@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { CustomerStat } from '@/models/statistic';
+import { CustomerStat, MonthStat } from '@/models/statistic';
 import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -18,9 +18,9 @@ export class StatisticService {
     return this.http.get<{ year: number; count: number }[]>(`${this.apiUrl}/appointments-per-year`);
   }
 
-  getAppointmentsPerMonth(year: number): Observable<{ month: number; count: number }[]> {
+  getAppointmentsPerMonth(year: number): Observable<MonthStat[]> {
     const params = new HttpParams().set('year', year);
-    return this.http.get<{ month: number; count: number }[]>(`${this.apiUrl}/appointments-per-month`, { params });
+    return this.http.get<MonthStat[]>(`${this.apiUrl}/appointments-per-month`, { params });
   }
 
   getAppointmentsPerCustomer(year: number): Observable<CustomerStat[]> {

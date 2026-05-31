@@ -20,13 +20,48 @@ export class Statistics {
 
   private readonly currentYear = new Date().getFullYear();
 
-  private readonly stats = toSignal(
+  private readonly monthNames = [
+    'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
+  ];
+
+  private readonly appointmentsPerMonth = toSignal(
+    this.statisticService.getAppointmentsPerMonth(this.currentYear),
+    { initialValue: [] }
+  );
+
+  private readonly appointmentsPerCustomer = toSignal(
     this.statisticService.getAppointmentsPerCustomer(this.currentYear),
     { initialValue: [] }
   );
 
-  protected readonly chartData = computed(() => {
-    const stats = this.stats();
+  protected readonly appointmentsPerMonthData = computed(() => {
+    const stats = this.appointmentsPerMonth();
+    return {
+      labels: stats.map(s => this.monthNames[s.month - 1]),
+      datasets: [
+        {
+          label: 'Anzahl Massagen',
+          data: stats.map(s => s.appointmentCount),
+          backgroundColor: '#36A2EB',
+          hoverBackgroundColor: '#2993DC',
+        },
+      ],
+    };
+  });
+
+  protected readonly appointmentsPerMonthOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+
+  protected readonly appointmentsPerCustomerData = computed(() => {
+    const stats = this.appointmentsPerCustomer();
     return {
       labels: stats.map(s => `${s.firstName} ${s.lastName} (${s.appointmentCount})`),
       datasets: [
@@ -45,14 +80,14 @@ export class Statistics {
     };
   });
 
-  protected readonly chartOptions = {
+  protected readonly appointmentsPerCustomerOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'right',
       },
     },
-    responsive: true,
-    maintainAspectRatio: false,
   };
 }
 

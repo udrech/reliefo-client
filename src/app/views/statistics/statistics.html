@@ -3,17 +3,33 @@
 
   <p-tabs value="0">
     <p-tablist>
-      <p-tab value="0">Massagen pro Kunde (aktuelles Jahr)</p-tab>
+      <p-tab value="0">Anzahl Massagen pro Monat (aktuelles Jahr)</p-tab>
+      <p-tab value="1">Anzahl Massagen pro Kunde (aktuelles Jahr)</p-tab>
+
     </p-tablist>
     <p-tabpanels>
       <p-tabpanel value="0">
+        <div class="flex justify-center py-4">
+          <!-- appointment count per month in the current year -->
+          <div style="position: relative; height: 400px; width: 600px;">
+            <p-chart
+              type="bar"
+              [data]="appointmentsPerMonthData()"
+              [options]="appointmentsPerMonthOptions"
+              width="600"
+              height="400"
+            />
+          </div>
+        </div>
+      </p-tabpanel>
+      <p-tabpanel value="1">
         <div class="flex justify-center py-4">
           <!-- appointment count per customer in the current year -->
           <div style="position: relative; height: 400px; width: 600px;">
             <p-chart
               type="doughnut"
-              [data]="chartData()"
-              [options]="chartOptions"
+              [data]="appointmentsPerCustomerData()"
+              [options]="appointmentsPerCustomerOptions"
               width="600"
               height="400"
             />
