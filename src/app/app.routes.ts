@@ -111,6 +111,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./views/therapies/therapies-form/therapies-form').then((m) => m.TherapiesForm),
       },
+      {
+        path: 'statistiken',
+        loadComponent: () =>
+          import('./views/statistics/statistics').then((m) => m.Statistics),
+      }
     ],
   },
 ];

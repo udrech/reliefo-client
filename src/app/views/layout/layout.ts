@@ -38,6 +38,7 @@ export class Layout {
     { label: 'Termine', icon: 'calendar_month', route: '/termine' },
     { label: 'Quittungen', icon: 'receipt', route: '/quittungen' },
     { label: 'Massagen', icon: 'massage', route: '/massagen' },
+    { label: 'Statistiken', icon: 'bar_chart', route: '/statistiken' }
   ];
 
   // Client Version
