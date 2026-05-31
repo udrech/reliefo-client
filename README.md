@@ -4,6 +4,7 @@ Reliefo Therapy App Client
 
 ## Ideen, Wünsche, ToDo
 
+* Terminliste trennen in "Bevorstehende Termine" und "Vergangene Termine"
 * Tests auf iPad und Android
 * Doku: Wartung, Angular Update, etc.
 * Kundenname-Header als Component
