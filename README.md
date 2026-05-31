@@ -10,7 +10,14 @@ Reliefo Therapy App Client
 * Quittung Detail Ansicht mit Download PDF Button
 * Falsche URL -> 404 Seite mit Link zurück zur Startseite
 * Google Termin Import
-* Statistiken: Anzahl Kunden, Anzahl Massagen pro Jahr / Monat / Kunde, Umsatz pro Jahr / Monat / Kunde
+* Statistiken
+  * Anzahl Kunden
+  * Anzahl Massagen pro Jahr
+  * Anzahl Massagen pro Monat
+  * Anzahl Massagen pro Kunde
+  * Umsatz pro Jahr
+  * Umsatz pro Monat
+  * Umsatz pro Kunde
 
 ## Bezeichnungen
 
