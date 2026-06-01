@@ -3,7 +3,7 @@
 </h1>
 
 <div class="p-5 bg-white">
-  <form [formGroup]="form" class="max-w-2xl">
+  <form [formGroup]="form" (ngSubmit)="save()" class="max-w-2xl">
     <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Eintrag' : 'Eintrag bearbeiten' }}</h2>
 
     <div class="grid gap-y-4">
@@ -60,8 +60,7 @@
 
     <div class="flex gap-3 mt-8 justify-end">
       <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
-      <p-button label="Speichern und Neu" severity="secondary" type="button" [disabled]="form.invalid" (onClick)="save('new')" />
-      <p-button label="Speichern und zurück" type="button" [disabled]="form.invalid" (onClick)="save('back')" />
+      <p-button label="Speichern" type="submit" [disabled]="form.invalid" />
     </div>
   </form>
 </div>

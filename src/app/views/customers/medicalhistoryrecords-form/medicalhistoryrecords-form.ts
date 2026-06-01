@@ -84,7 +84,7 @@ export class MedicalhistoryrecordsForm {
     });
   }
 
-  protected save(mode: 'new' | 'back'): void {
+  protected save(): void {
     if (this.form.invalid) return;
     const { historyDate, historyTime, historyType, note } = this.form.getRawValue();
     const id = this.recordId();
@@ -107,24 +107,15 @@ export class MedicalhistoryrecordsForm {
       note,
     };
 
-    const navigate = () => {
-      if (mode === 'new') {
-        this.form.reset();
-        this.router.navigate(['/kunden', String(customerId), 'krankengeschichte', 'neu']);
-      } else {
-        this.router.navigate(['/kunden', String(customerId), 'krankengeschichte']);
-      }
-    };
-
     if (id) {
       this.medicalHistoryRecordService.update(Number(id), payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Eintrag aktualisiert', life: 3000 });
-        navigate();
+        this.router.navigate(['/kunden', String(customerId), 'krankengeschichte']);
       });
     } else {
       this.medicalHistoryRecordService.create(payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Eintrag erstellt', life: 3000 });
-        navigate();
+        this.router.navigate(['/kunden', String(customerId), 'krankengeschichte']);
       });
     }
   }
