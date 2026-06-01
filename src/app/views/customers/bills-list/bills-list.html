@@ -12,9 +12,9 @@
       <td><a [routerLink]="['/quittungen', bill.id]" class="font-bold">{{ bill.billNumber }}</a></td>
       <td>{{ bill.createdAt | date:'dd.MM.yyyy HH:mm' }}</td>
       <td class="w-10">
-        <a [href]="bill.fileUrl" target="_blank" ariaLabel="Quittung herunterladen" pTooltip="Herunterladen" tooltipPosition="top">
+        <p-button [text]="true" (onClick)="downloadBill(bill)" ariaLabel="Quittung herunterladen" pTooltip="Herunterladen" tooltipPosition="top">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">download</span>
-        </a>
+        </p-button>
       </td>
       <td class="w-10">
         <p-button [text]="true" severity="danger" (onClick)="deleteBill(bill.id)" ariaLabel="Quittung löschen" pTooltip="Löschen" tooltipPosition="top">

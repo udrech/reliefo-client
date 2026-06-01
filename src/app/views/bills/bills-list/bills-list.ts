@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { Bill } from '@/models/bill';
 import { BillService } from '@/services/bill.service';
 
 @Component({
@@ -38,6 +39,17 @@ export class BillsList {
     ),
     { initialValue: [] }
   );
+
+  protected downloadBill(bill: Bill): void {
+    this.billService.download(bill.id).subscribe(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = bill.filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  }
 
   protected deleteBill(id: number): void {
     this.confirmationService.confirm({
