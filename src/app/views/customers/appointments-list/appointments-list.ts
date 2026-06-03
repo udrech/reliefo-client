@@ -7,8 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { environment } from '@environments/environment';
-
 import { CustomerDetailStore } from '@/views/customers/customers-detail/customer-detail.store';
 
 import { Appointment } from '@/models/appointment';
@@ -114,7 +112,14 @@ export class AppointmentsList {
         customerId,
         appointments: this.selectedAppointments(),
       }).subscribe(bill => {
-        window.open(`${environment.apiBaseUrl}/api/bills/${bill.id}/file`, '_blank');
+        this.billService.download(bill.id).subscribe(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = bill.filename;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
         this.selectedAppointments.set([]);
         this.store.loadBills();
         this.store.loadAppointments();
