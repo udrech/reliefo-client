@@ -14,7 +14,7 @@ export class Start implements OnInit, OnDestroy {
   private redirectTimer?: ReturnType<typeof setTimeout>;
 
   ngOnInit(): void {
-    this.redirectTimer = setTimeout(() => this.router.navigate(['/kunden']), 3000);
+    this.redirectTimer = setTimeout(() => this.router.navigate(['/termine']), 3000);
   }
 
   ngOnDestroy(): void {

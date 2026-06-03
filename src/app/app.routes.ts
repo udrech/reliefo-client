@@ -11,7 +11,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'kunden',
+        redirectTo: 'termine',
         pathMatch: 'full',
       },
       {
@@ -56,7 +56,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'kunde',
+            redirectTo: 'termine',
             pathMatch: 'full',
           },
           {
