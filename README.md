@@ -6,11 +6,11 @@ Reliefo Therapy App Client
 
 * Terminliste trennen in "Bevorstehende Termine" und "Vergangene Termine"
 * Tests auf iPad und Android
+* Google Termin Import
 * Doku: Wartung, Angular Update, etc.
 * Kundenname-Header als Component
 * Quittung Detail Ansicht mit Download PDF Button
 * Falsche URL -> 404 Seite mit Link zurück zur Startseite
-* Google Termin Import
 * Statistiken
   * Anzahl Kunden
   * Anzahl Massagen pro Jahr
