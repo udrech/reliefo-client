@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink, Router } from '@angular/router';
@@ -38,6 +38,44 @@ export class AppointmentsList {
 
   protected readonly selectedAppointments = signal<Appointment[]>([]);
   protected readonly appointments = this.store.appointments;
+
+  private readonly getStoredFilter = (): 'today' | 'past' | 'all' => {
+    const stored = localStorage.getItem('appointmentFilter');
+    return stored === 'today' || stored === 'past' || stored === 'all' ? stored : 'today';
+  };
+
+  readonly selectedFilter = signal<'today' | 'past' | 'all'>(this.getStoredFilter());
+
+  constructor() {
+    effect(() => {
+      localStorage.setItem('appointmentFilter', this.selectedFilter());
+    });
+  }
+
+  private readonly getFilteredAppointments = (
+    appointments: Appointment[],
+    filter: 'today' | 'past' | 'all'
+  ): Appointment[] => {
+    if (filter === 'all') return appointments;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (filter === 'today') {
+      return appointments.filter(appointment => new Date(appointment.appointmentTimestamp) >= today);
+    }
+
+    // filter === 'past'
+    return appointments.filter(appointment => new Date(appointment.appointmentTimestamp) < today);
+  };
+
+  protected readonly filteredAppointments = computed(() =>
+    this.getFilteredAppointments(this.appointments(), this.selectedFilter())
+  );
+
+  protected selectFilter(filter: 'today' | 'past' | 'all'): void {
+    this.selectedFilter.set(filter);
+  }
 
   protected deleteAppointment(id: number): void {
     this.confirmationService.confirm({
