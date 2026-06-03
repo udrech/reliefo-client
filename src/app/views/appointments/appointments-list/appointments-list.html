@@ -1,5 +1,23 @@
+<div class="flex justify-start p-3 bg-white gap-2">
+  <p-button
+    label="ab heute"
+    [outlined]="selectedFilter() !== 'today'"
+    (onClick)="selectFilter('today')"
+  ></p-button>
+  <p-button
+    label="vergangene"
+    [outlined]="selectedFilter() !== 'past'"
+    (onClick)="selectFilter('past')"
+  ></p-button>
+  <p-button
+    label="alle"
+    [outlined]="selectedFilter() !== 'all'"
+    (onClick)="selectFilter('all')"
+  ></p-button>
+</div>
+
 <p-table
-  [value]="appointments()"
+  [value]="filteredAppointments()"
 >
   <ng-template #header>
     <tr>
