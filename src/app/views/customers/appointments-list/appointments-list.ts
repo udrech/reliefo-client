@@ -102,8 +102,8 @@ export class AppointmentsList {
       this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Keine Termine ausgewählt' });
       return;
     }
-    if (this.selectedAppointments().length > 20) {
-      this.messageService.add({ severity: 'error', summary: 'Zu viele Termine ausgewählt', detail: 'Bitte wählen Sie maximal 20 Termine aus, um eine Quittung zu erstellen.' });
+    if (this.selectedAppointments().length > 25) {
+      this.messageService.add({ severity: 'error', summary: 'Zu viele Termine ausgewählt', detail: 'Bitte wählen Sie maximal 25 Termine aus, um eine Quittung zu erstellen.' });
       return;
     }
     const customerId = this.store.customerId();
