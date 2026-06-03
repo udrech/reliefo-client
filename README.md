@@ -20,6 +20,25 @@ Reliefo Therapy App Client
   * Umsatz pro Monat
   * Umsatz pro Kunde
 
+## Testfall Liste
+
+* Kunde erstellen
+* Kunde bearbeiten
+* Kunde löschen
+* Termin erstellen
+* Termin bearbeiten
+* Termin löschen
+* Quittung erstellen
+* Quittung herunterladen
+* Quittung löschen
+* Massage erstellen
+* Massage bearbeiten
+* Massage löschen
+* Krankengeschichte Eintrag erstellen
+* Krankengeschichte Eintrag bearbeiten
+* Krankengeschichte Eintrag löschen
+* Statistik anzeigen
+
 ## Bezeichnungen
 
 * Die App wird allgemein für Therapien entwickelt.
