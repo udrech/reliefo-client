@@ -35,7 +35,7 @@
   <ng-template #body let-appointment>
     <tr>
       <td class="w-1" [class.bg-red-400]="appointmentIsToday(appointment.appointmentTimestamp)"></td>
-      <td>{{ appointment.appointmentTimestamp | date:'dd.MM.yyyy' }}</td>
+      <td><a [routerLink]="['/kunden', appointment.customer.id, 'termine', appointment.id, 'bearbeiten']" class="font-bold">{{ appointment.appointmentTimestamp | date:'dd.MM.yyyy' }}</a></td>
       <td>{{ appointment.appointmentTimestamp | date:'HH:mm' }}</td>
       <td><a [routerLink]="['/kunden', appointment.customer.id]" class="font-bold">{{ appointment.customer.lastName }} {{ appointment.customer.firstName }}</a></td>
       <td>{{ appointment.therapy.name }}</td>

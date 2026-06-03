@@ -47,7 +47,7 @@
   <ng-template #body let-appointment>
     <tr>
       <td>@if (appointment.billId === null || appointment.billId === undefined) {<p-tableCheckbox [value]="appointment" />}</td>
-      <td>{{ appointment.appointmentTimestamp | date:'dd.MM.yyyy' }}</td>
+      <td><a [routerLink]="['/kunden', store.customerId(), 'termine', appointment.id, 'bearbeiten']" class="font-bold">{{ appointment.appointmentTimestamp | date:'dd.MM.yyyy' }}</a></td>
       <td>{{ appointment.appointmentTimestamp | date:'HH:mm' }}</td>
       <td>{{ appointment.therapy.name }}</td>
       <td>{{ appointment.therapy.duration }}</td>
