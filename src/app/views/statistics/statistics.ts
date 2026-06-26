@@ -1,15 +1,22 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { DecimalPipe, registerLocaleData } from '@angular/common';
+import localeDeCH from '@angular/common/locales/de-CH';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ChartModule } from 'primeng/chart';
 import { TabsModule } from 'primeng/tabs';
+import { TableModule } from 'primeng/table';
 
 import { StatisticService } from '@/services/statistic.service';
+
+registerLocaleData(localeDeCH);
 
 @Component({
   selector: 'app-statistics',
   imports: [
     ChartModule,
     TabsModule,
+    TableModule,
+    DecimalPipe,
   ],
   templateUrl: './statistics.html',
   styleUrl: './statistics.css',
@@ -32,6 +39,11 @@ export class Statistics {
 
   private readonly appointmentsPerCustomer = toSignal(
     this.statisticService.getAppointmentsPerCustomer(this.currentYear),
+    { initialValue: [] }
+  );
+
+  private readonly incomePerMonth = toSignal(
+    this.statisticService.getIncomePerMonth(this.currentYear),
     { initialValue: [] }
   );
 
@@ -89,5 +101,16 @@ export class Statistics {
       },
     },
   };
+
+  protected readonly incomePerMonthData = computed(() => {
+    return this.incomePerMonth().map(stat => ({
+      month: this.monthNames[stat.month - 1],
+      income: stat.income || 0,
+    }));
+  });
+
+  protected readonly incomeTotal = computed(() => {
+    return this.incomePerMonth().reduce((sum, stat) => sum + (stat.income || 0), 0);
+  });
 }
 

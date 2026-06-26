@@ -5,6 +5,7 @@
     <p-tablist>
       <p-tab value="0">Anzahl Massagen pro Monat (aktuelles Jahr)</p-tab>
       <p-tab value="1">Anzahl Massagen pro Kunde (aktuelles Jahr)</p-tab>
+      <p-tab value="2">Einnahmen pro Monat (aktuelles Jahr)</p-tab>
 
     </p-tablist>
     <p-tabpanels>
@@ -34,6 +35,36 @@
               height="400"
             />
           </div>
+        </div>
+      </p-tabpanel>
+      <p-tabpanel value="2">
+        <!-- income per month in the current year -->
+        <div class="py-4">
+          <p-table [value]="incomePerMonthData()">
+            <ng-template #header>
+              <tr>
+                <th>Monat</th>
+                <th style="text-align: right">Einnahmen (CHF)</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-income>
+              <tr>
+                <td>{{ income.month }}</td>
+                <td style="text-align: right">{{ income.income | number:'1.2-2':'de-CH' }}</td>
+              </tr>
+            </ng-template>
+            <ng-template #footer>
+              <tr>
+                <td class="font-bold p-3">Total (CHF)</td>
+                <td class="font-bold p-3" style="text-align: right">{{ incomeTotal() | number:'1.2-2':'de-CH' }}</td>
+              </tr>
+            </ng-template>
+            <ng-template #emptymessage>
+              <tr>
+                <td colspan="2" class="text-center py-8 text-content/50">Keine Einnahmen gefunden.</td>
+              </tr>
+            </ng-template>
+          </p-table>
         </div>
       </p-tabpanel>
     </p-tabpanels>
