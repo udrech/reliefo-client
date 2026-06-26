@@ -47,6 +47,11 @@ export class Statistics {
     { initialValue: [] }
   );
 
+  private readonly incomePerCustomer = toSignal(
+    this.statisticService.getIncomePerCustomer(this.currentYear),
+    { initialValue: [] }
+  );
+
   protected readonly appointmentsPerMonthData = computed(() => {
     const stats = this.appointmentsPerMonth();
     return {
@@ -111,6 +116,19 @@ export class Statistics {
 
   protected readonly incomeTotal = computed(() => {
     return this.incomePerMonth().reduce((sum, stat) => sum + (stat.income || 0), 0);
+  });
+
+  protected readonly incomePerCustomerData = computed(() => {
+    return this.incomePerCustomer()
+      .map(stat => ({
+        name: `${stat.firstName} ${stat.lastName}`,
+        income: stat.income || 0,
+      }))
+      .sort((a, b) => b.income - a.income);
+  });
+
+  protected readonly incomePerCustomerTotal = computed(() => {
+    return this.incomePerCustomer().reduce((sum, stat) => sum + (stat.income || 0), 0);
   });
 }
 

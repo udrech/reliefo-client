@@ -14,3 +14,10 @@ export interface IncomePerMonthStat {
   month: number;
   income: number;
 }
+
+export interface IncomePerCustomerStat {
+  customerId: number;
+  firstName: string;
+  lastName: string;
+  income: number;
+}
