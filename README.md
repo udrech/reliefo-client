@@ -174,6 +174,17 @@ rm -rf ../reliefo-api/wwwroot/*
 cp -r dist/reliefo-client/browser/* ../reliefo-api/wwwroot/
 ```
 
+## PrimeNG DatePicker DateFormat
+
+⚠️ **Important:** In PrimeNG's `dateFormat` attribute, the format specifier `yy` actually means a **4-digit year** (e.g., `2026`), not a 2-digit year as might be expected from other frameworks. This is counterintuitive but confirmed in PrimeNG's implementation.
+
+* `dd.mm.yy` → `27.06.2026` (4-digit year)
+* Input masks are also added to all datepickers for better UX:
+  * Date: `pInputMask="99.99.9999"` (dd.mm.yyyy format)
+  * Time: `pInputMask="99:99"` (HH:mm format)
+
+---
+
 ## Vergleich Lade-Logik
 
 ```typecript

@@ -21,6 +21,7 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogModule } from 'primeng/dialog';
+import { InputMaskModule } from 'primeng/inputmask';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
@@ -38,6 +39,7 @@ interface DrawingPoint {
     ButtonModule,
     DatePickerModule,
     DialogModule,
+    InputMaskModule,
     NgOptimizedImage,
     ReactiveFormsModule,
     SelectModule,

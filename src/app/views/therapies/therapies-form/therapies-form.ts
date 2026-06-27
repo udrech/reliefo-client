@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { TherapyService } from '@/services/therapy.service';
@@ -16,6 +17,7 @@ import { TherapyService } from '@/services/therapy.service';
   imports: [
     ButtonModule,
     DatePickerModule,
+    InputMaskModule,
     InputTextModule,
     ReactiveFormsModule,
   ],
