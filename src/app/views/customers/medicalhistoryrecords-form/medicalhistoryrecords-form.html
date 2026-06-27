@@ -35,7 +35,18 @@
         />
       </div>
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <label for="historyType" class="text-right font-medium">Typ</label>
+        <div class="flex items-center justify-end gap-2">
+          <label for="historyType" class="text-right font-medium">Typ</label>
+          <button
+            type="button"
+            (click)="openHistoryTypeInfo()"
+            class="info-button"
+            title="Informationen zu den Krankengeschichte-Typen"
+            aria-label="Informationen zu den Krankengeschichte-Typen"
+          >
+            ?
+          </button>
+        </div>
         <p-select
           id="historyType"
           formControlName="historyType"
@@ -64,3 +75,43 @@
     </div>
   </form>
 </div>
+
+<p-dialog
+  [visible]="showHistoryTypeInfo()"
+  (visibleChange)="showHistoryTypeInfo.set($event)"
+  header="Typ"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+  [maximizable]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+>
+  <div class="space-y-3 text-sm">
+    <div>
+      <strong>Anamnese</strong> – Beschwerden, Schmerzort, Schmerzcharakter, Auslöser
+    </div>
+    <div>
+      <strong>Vorerkrankungen</strong> – z. B. Bandscheibenvorfall, Fibromyalgie
+    </div>
+    <div>
+      <strong>Medikamente</strong> – v. a. Schmerzmittel, Muskelrelaxantien, Antikoagulanzien
+    </div>
+    <div>
+      <strong>Allergien</strong> – Massageöle, Entzündungen, Thromboserisiko
+    </div>
+    <div>
+      <strong>Befunde / Status</strong> – Muskeltonus, Triggerpunkte, Beweglichkeit, Haltung
+    </div>
+    <div>
+      <strong>Vitalparameter</strong> – optional, bei Risikopatienten
+    </div>
+    <div>
+      <strong>Verlauf</strong> – Reaktion auf Behandlung, Fortschritt
+    </div>
+    <div>
+      <strong>Therapieplan</strong> – Ziele (Schmerzreduktion, Mobilität etc.)
+    </div>
+    <div>
+      <strong>Übungen / Empfehlungen</strong> – Dehnen, Haltung, Heimprogramm
+    </div>
+  </div>
+</p-dialog>

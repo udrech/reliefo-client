@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
+import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
@@ -18,6 +19,7 @@ import { MedicalHistoryRecordService } from '@/services/medicalhistoryrecord';
   imports: [
     ButtonModule,
     DatePickerModule,
+    DialogModule,
     ReactiveFormsModule,
     SelectModule,
     TextareaModule,
@@ -33,6 +35,8 @@ export class MedicalhistoryrecordsForm {
   private readonly medicalHistoryRecordService = inject(MedicalHistoryRecordService);
   private readonly customerService = inject(CustomerService);
 
+  protected readonly showHistoryTypeInfo = signal(false);
+
   private readonly customerId = toSignal(
     this.route.paramMap.pipe(map(params => params.get('id')))
   );
@@ -44,6 +48,7 @@ export class MedicalhistoryrecordsForm {
   protected readonly typeOptions = [
     'Allergien',
     'Anamnese',
+    'Befunde / Status',
     'Medikamente',
     'Therapieplan / Ziele',
     'Übungen / Empfehlungen',
@@ -134,5 +139,9 @@ export class MedicalhistoryrecordsForm {
     if (customerId) {
       this.router.navigate(['/kunden', String(customerId), 'krankengeschichte']);
     }
+  }
+
+  protected openHistoryTypeInfo(): void {
+    this.showHistoryTypeInfo.set(true);
   }
 }
