@@ -41,7 +41,16 @@ export class MedicalhistoryrecordsForm {
     this.route.paramMap.pipe(map(params => params.get('mid')))
   );
 
-  protected readonly typeOptions = ['Anamnese', 'Allergien', 'Medikamente', 'Vorerkrankungen', 'Verlauf'];
+  protected readonly typeOptions = [
+    'Allergien',
+    'Anamnese',
+    'Medikamente',
+    'Therapieplan / Ziele',
+    'Übungen / Empfehlungen',
+    'Verlauf',
+    'Vitalparameter',
+    'Vorerkrankungen',
+  ];
 
   protected readonly isNew = computed(() => !this.recordId());
 
