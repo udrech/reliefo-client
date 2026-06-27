@@ -3,70 +3,103 @@
 </h1>
 
 <div class="p-5 bg-white">
-  <form [formGroup]="form" (ngSubmit)="save()" class="max-w-2xl">
+  <form [formGroup]="form" (ngSubmit)="save()" class="max-w-5xl">
     <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Eintrag' : 'Eintrag bearbeiten' }}</h2>
 
-    <div class="grid gap-y-4">
-      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <label for="historyDate" class="text-right font-medium">
-          Datum <span aria-hidden="true">*</span>
-        </label>
-        <p-datepicker
-          id="historyDate"
-          formControlName="historyDate"
-          class="w-full"
-          dateFormat="dd.mm.yy"
-          [showIcon]="true"
-          [showOnFocus]="false"
-        />
-      </div>
-      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <label for="historyTime" class="text-right font-medium">
-          Uhrzeit <span aria-hidden="true">*</span>
-        </label>
-        <p-datepicker
-          id="historyTime"
-          formControlName="historyTime"
-          class="w-full"
-          timeOnly
-          hourFormat="24"
-          [showIcon]="true"
-          [showOnFocus]="false"
-        />
-      </div>
-      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <div class="flex items-center justify-end gap-2">
-          <label for="historyType" class="text-right font-medium">Typ</label>
-          <button
-            type="button"
-            (click)="openHistoryTypeInfo()"
-            class="info-button"
-            title="Informationen zu den Krankengeschichte-Typen"
-            aria-label="Informationen zu den Krankengeschichte-Typen"
-          >
-            ?
-          </button>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      <div class="grid gap-y-4">
+        <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+          <label for="historyDate" class="text-right font-medium">
+            Datum <span aria-hidden="true">*</span>
+          </label>
+          <p-datepicker
+            id="historyDate"
+            formControlName="historyDate"
+            class="w-full"
+            dateFormat="dd.mm.yy"
+            [showIcon]="true"
+            [showOnFocus]="false"
+          />
         </div>
-        <p-select
-          id="historyType"
-          formControlName="historyType"
-          [options]="typeOptions"
-          class="w-full"
-          placeholder="Typ auswählen"
-        />
+        <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+          <label for="historyTime" class="text-right font-medium">
+            Uhrzeit <span aria-hidden="true">*</span>
+          </label>
+          <p-datepicker
+            id="historyTime"
+            formControlName="historyTime"
+            class="w-full"
+            timeOnly
+            hourFormat="24"
+            [showIcon]="true"
+            [showOnFocus]="false"
+          />
+        </div>
+        <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+          <div class="flex items-center justify-end gap-2">
+            <label for="historyType" class="text-right font-medium">Typ</label>
+            <button
+              type="button"
+              (click)="openHistoryTypeInfo()"
+              class="info-button"
+              title="Informationen zu den Krankengeschichte-Typen"
+              aria-label="Informationen zu den Krankengeschichte-Typen"
+            >
+              ?
+            </button>
+          </div>
+          <p-select
+            id="historyType"
+            formControlName="historyType"
+            [options]="typeOptions"
+            class="w-full"
+            placeholder="Typ auswählen"
+          />
+        </div>
+        <div class="grid grid-cols-[200px_1fr] items-start gap-x-4">
+          <label for="note" class="text-right font-medium pt-3">
+            Notiz <span aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id="note"
+            pTextarea
+            formControlName="note"
+            class="w-full"
+            rows="6"
+          ></textarea>
+        </div>
       </div>
-      <div class="grid grid-cols-[200px_1fr] items-start gap-x-4">
-        <label for="note" class="text-right font-medium pt-3">
-          Notiz <span aria-hidden="true">*</span>
-        </label>
-        <textarea
-          id="note"
-          pTextarea
-          formControlName="note"
-          class="w-full"
-          rows="6"
-        ></textarea>
+
+      <div class="flex flex-col items-center gap-3">
+        <div #diagramContainer class="relative w-full max-w-sm select-none">
+          <img
+            #diagramImage
+            ngSrc="images/body_diagram_gemini1.png"
+            alt="Körperdiagramm"
+            width="682"
+            height="696"
+            class="w-full h-auto"
+            draggable="false"
+            (load)="onImageLoad()"
+          />
+          <canvas
+            #diagramCanvas
+            class="absolute top-0 left-0 w-full h-full touch-none cursor-crosshair"
+            (pointerdown)="onPointerDown($event)"
+            (pointermove)="onPointerMove($event)"
+            (pointerup)="onPointerUp()"
+            (pointerleave)="onPointerUp()"
+          ></canvas>
+        </div>
+        <button type="button" class="text-sm text-gray-500 underline" (click)="clearDrawing()">
+          Markierungen entfernen
+        </button>
       </div>
+    </div>
+
+    <div class="mt-6">
+      <p class="text-sm font-medium text-gray-500">Rohdaten Markierungen (Prototyp)</p>
+      <pre class="text-xs bg-gray-50 border p-2 rounded max-h-40 overflow-auto">{{ drawingDataJson() }}</pre>
     </div>
 
     <div class="flex gap-3 mt-8 justify-end">
