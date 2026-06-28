@@ -1,0 +1,86 @@
+<h1 class="text-3xl font-bold mb-6">Termin erfassen</h1>
+
+<div class="p-5 bg-white">
+  <form [formGroup]="form" class="max-w-2xl">
+    <h2 class="text-xl font-semibold mb-6">{{ isNew() ? 'Neuer Termin' : 'Termin bearbeiten' }}</h2>
+
+    <div class="grid gap-y-4">
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="customerId" class="text-right font-medium">
+          Kunde <span aria-hidden="true">*</span>
+        </label>
+        <p-select
+          id="customerId"
+          formControlName="customerId"
+          [options]="customers()"
+          optionValue="id"
+          optionLabel="lastName"
+          placeholder="Kunde auswählen"
+          class="w-full"
+        >
+          <ng-template let-option pTemplate="item">
+            {{ option.lastName }} {{ option.firstName }}
+          </ng-template>
+          <ng-template let-option pTemplate="selectedItem">
+            {{ option.lastName }} {{ option.firstName }}
+          </ng-template>
+        </p-select>
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="appointmentDate" class="text-right font-medium">
+          Datum <span aria-hidden="true">*</span>
+        </label>
+        <p-datepicker
+          id="appointmentDate"
+          formControlName="appointmentDate"
+          class="w-full"
+          dateFormat="dd.mm.yy"
+          pInputMask="99.99.9999"
+          [showIcon]="true"
+          [showOnFocus]="false"
+        />
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="appointmentTime" class="text-right font-medium">
+          Uhrzeit <span aria-hidden="true">*</span>
+        </label>
+        <p-datepicker
+          id="appointmentTime"
+          formControlName="appointmentTime"
+          class="w-full"
+          timeOnly
+          hourFormat="24"
+          pInputMask="99:99"
+          [showIcon]="true"
+          [showOnFocus]="false"
+        />
+      </div>
+      <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
+        <label for="therapyId" class="text-right font-medium">
+          Massage <span aria-hidden="true">*</span>
+        </label>
+        <p-select
+          id="therapyId"
+          formControlName="therapyId"
+          [options]="therapies()"
+          optionValue="id"
+          placeholder="Massage auswählen"
+          class="w-full"
+        >
+          <ng-template let-option pTemplate="item">
+            {{ option.name }} (gültig ab {{ option.validFrom | date: 'dd.MM.yyyy' }})
+          </ng-template>
+          <ng-template let-option pTemplate="selectedItem">
+            {{ option.name }} (gültig ab {{ option.validFrom | date: 'dd.MM.yyyy' }})
+          </ng-template>
+        </p-select>
+      </div>
+    </div>
+
+    <div class="flex gap-3 mt-8 justify-end">
+      <p-button label="Abbrechen" severity="secondary" type="button" (onClick)="cancel()" />
+      <p-button label="Speichern und Neu" type="button" [disabled]="form.invalid" (onClick)="save('new')" />
+      <p-button label="Speichern und zurück" type="button" [disabled]="form.invalid" (onClick)="save('back')" />
+    </div>
+  </form>
+</div>

@@ -87,6 +87,16 @@ export const routes: Routes = [
           import('./views/appointments/appointments-list/appointments-list').then((m) => m.AppointmentsList),
       },
       {
+        path: 'termine/neu',
+        loadComponent: () =>
+          import('./views/appointments/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
+      },
+      {
+        path: 'termine/:aid/bearbeiten',
+        loadComponent: () =>
+          import('./views/appointments/appointments-form/appointments-form').then((m) => m.AppointmentsForm),
+      },
+      {
         path: 'quittungen',
         loadComponent: () =>
           import('./views/bills/bills-list/bills-list').then((m) => m.BillsList),
