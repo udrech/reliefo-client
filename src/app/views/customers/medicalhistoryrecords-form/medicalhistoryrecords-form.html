@@ -76,7 +76,7 @@
         <div #diagramContainer class="relative w-full max-w-sm select-none">
           <img
             #diagramImage
-            ngSrc="images/body_diagram_gemini1.png"
+            [ngSrc]="imagePath()"
             alt="Körperdiagramm"
             width="682"
             height="696"

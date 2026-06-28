@@ -8,6 +8,8 @@ export interface MedicalHistoryRecord {
   historyTimestamp: Date;
   historyType: string | null;
   note: string;
+  markings: string | null; // JSON
+  markingsImage: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,6 +22,8 @@ export interface MedicalHistoryRecordRaw {
   historyTimestamp: string;
   historyType: string | null;
   note: string;
+  markings: string | null; // JSON
+  markingsImage: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -30,6 +34,8 @@ export interface MedicalHistoryRecordPayload {
   historyTimestamp: Date;
   historyType: string | null;
   note: string;
+  markings: string | null; // JSON
+  markingsImage: string | null;
 }
 
 // wird ans API gesendet
@@ -38,4 +44,6 @@ export interface MedicalHistoryRecordPayloadRaw {
   historyTimestamp: string;
   historyType: string | null;
   note: string;
+  markings: string | null; // JSON
+  markingsImage: string | null;
 }

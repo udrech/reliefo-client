@@ -35,6 +35,11 @@ interface DrawingPoint {
   y: number;
 }
 
+interface Stroke {
+  points: DrawingPoint[];
+  lineWidth: number;
+}
+
 @Component({
   selector: 'app-medicalhistoryrecords-form',
   imports: [
@@ -67,11 +72,12 @@ export class MedicalhistoryrecordsForm {
   private readonly diagramContainer = viewChild.required<ElementRef<HTMLElement>>('diagramContainer');
   private readonly diagramCanvas = viewChild.required<ElementRef<HTMLCanvasElement>>('diagramCanvas');
 
+  private static readonly DEFAULT_DIAGRAM_IMAGE = 'body_diagram_gemini1.png';
   private static readonly DRAW_COLOR = '#dc2626';
   protected readonly lineWidth = signal(10);
   protected readonly lineWidthOptions = [5, 10, 15];
 
-  protected readonly strokes = signal<DrawingPoint[][]>([]);
+  protected readonly strokes = signal<Stroke[]>([]);
 
   private resizeObserver: ResizeObserver | null = null;
   private isDrawing = false;
@@ -98,6 +104,10 @@ export class MedicalhistoryrecordsForm {
   ];
 
   protected readonly isNew = computed(() => !this.recordId());
+  protected readonly imagePath = computed(() => {
+    const imageName = this.record()?.markingsImage || MedicalhistoryrecordsForm.DEFAULT_DIAGRAM_IMAGE;
+    return `images/${imageName}`;
+  });
 
   protected readonly customer = toSignal(
     this.route.paramMap.pipe(
@@ -133,6 +143,15 @@ export class MedicalhistoryrecordsForm {
             historyType: record.historyType,
             note: record.note,
           });
+          if (record.markings) {
+            try {
+              const parsedMarkings = JSON.parse(record.markings);
+              this.strokes.set(parsedMarkings);
+              this.redrawAll();
+            } catch (e) {
+              console.error('Failed to parse markings:', e);
+            }
+          }
         });
       }
     });
@@ -166,6 +185,8 @@ export class MedicalhistoryrecordsForm {
       historyTimestamp,
       historyType: historyType ?? null,
       note,
+      markings: this.strokes().length > 0 ? JSON.stringify(this.strokes()) : null,
+      markingsImage: this.record()?.markingsImage || MedicalhistoryrecordsForm.DEFAULT_DIAGRAM_IMAGE,
     };
 
     if (id) {
@@ -216,7 +237,12 @@ export class MedicalhistoryrecordsForm {
 
     const ctx = this.diagramCanvas().nativeElement.getContext('2d');
     if (ctx) {
-      this.drawStroke(ctx, this.currentStroke);
+      const canvas = this.diagramCanvas().nativeElement;
+      this.configureContext(ctx, this.lineWidth());
+      const { x, y } = this.currentStroke[0];
+      ctx.beginPath();
+      ctx.arc(x * canvas.width, y * canvas.height, this.lineWidth() / 2, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
@@ -231,7 +257,7 @@ export class MedicalhistoryrecordsForm {
     const point = this.getNormalizedPoint(event);
     this.currentStroke.push(point);
 
-    this.configureContext(ctx);
+    this.configureContext(ctx, this.lineWidth());
     ctx.beginPath();
     ctx.moveTo(previous.x * canvas.width, previous.y * canvas.height);
     ctx.lineTo(point.x * canvas.width, point.y * canvas.height);
@@ -241,7 +267,10 @@ export class MedicalhistoryrecordsForm {
   protected onPointerUp(): void {
     if (!this.isDrawing || !this.currentStroke) return;
     this.isDrawing = false;
-    const stroke = this.currentStroke;
+    const stroke: Stroke = {
+      points: this.currentStroke,
+      lineWidth: this.lineWidth(),
+    };
     this.currentStroke = null;
     this.strokes.update(strokes => [...strokes, stroke]);
   }
@@ -275,31 +304,33 @@ export class MedicalhistoryrecordsForm {
     }
   }
 
-  private drawStroke(ctx: CanvasRenderingContext2D, stroke: DrawingPoint[]): void {
-    if (stroke.length === 0) return;
-    const canvas = ctx.canvas;
-    this.configureContext(ctx);
+  private drawStroke(ctx: CanvasRenderingContext2D, stroke: Stroke): void {
+    const { points, lineWidth } = stroke;
+    if (points.length === 0) return;
 
-    if (stroke.length === 1) {
-      const { x, y } = stroke[0];
+    const canvas = ctx.canvas;
+    this.configureContext(ctx, lineWidth);
+
+    if (points.length === 1) {
+      const { x, y } = points[0];
       ctx.beginPath();
-      ctx.arc(x * canvas.width, y * canvas.height, this.lineWidth() / 2, 0, Math.PI * 2);
+      ctx.arc(x * canvas.width, y * canvas.height, lineWidth / 2, 0, Math.PI * 2);
       ctx.fill();
       return;
     }
 
     ctx.beginPath();
-    ctx.moveTo(stroke[0].x * canvas.width, stroke[0].y * canvas.height);
-    for (const point of stroke.slice(1)) {
+    ctx.moveTo(points[0].x * canvas.width, points[0].y * canvas.height);
+    for (const point of points.slice(1)) {
       ctx.lineTo(point.x * canvas.width, point.y * canvas.height);
     }
     ctx.stroke();
   }
 
-  private configureContext(ctx: CanvasRenderingContext2D): void {
+  private configureContext(ctx: CanvasRenderingContext2D, lineWidth: number = this.lineWidth()): void {
     ctx.fillStyle = MedicalhistoryrecordsForm.DRAW_COLOR;
     ctx.strokeStyle = MedicalhistoryrecordsForm.DRAW_COLOR;
-    ctx.lineWidth = this.lineWidth();
+    ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
   }

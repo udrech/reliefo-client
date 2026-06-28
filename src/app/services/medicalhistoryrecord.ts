@@ -25,6 +25,8 @@ export class MedicalHistoryRecordService {
       historyTimestamp: record.historyTimestamp.toISOString(),
       historyType: record.historyType,
       note: record.note,
+      markings: record.markings,
+      markingsImage: record.markingsImage,
     };
   }
 
