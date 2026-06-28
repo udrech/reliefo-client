@@ -1,8 +1,8 @@
-# reliefo-client
+﻿# reliefo-client
 
 Reliefo Therapy App Client
 
-## Ideen, Wünsche, ToDo
+## Ideen, WÃ¼nsche, ToDo
 
 * Terminliste trennen in "Bevorstehende Termine" und "Vergangene Termine"
 * Tests auf iPad und Android
@@ -10,7 +10,7 @@ Reliefo Therapy App Client
 * Doku: Wartung, Angular Update, etc.
 * Kundenname-Header als Component
 * Quittung Detail Ansicht mit Download PDF Button
-* Falsche URL -> 404 Seite mit Link zurück zur Startseite
+* Falsche URL -> 404 Seite mit Link zurÃ¼ck zur Startseite
 * Statistiken
   * Anzahl Kunden
   * Anzahl Massagen pro Jahr
@@ -24,29 +24,29 @@ Reliefo Therapy App Client
 
 * Kunde erstellen
 * Kunde bearbeiten
-* Kunde löschen
+* Kunde lÃ¶schen
 * Termin erstellen
 * Termin bearbeiten
-* Termin löschen
+* Termin lÃ¶schen
 * Quittung erstellen
 * Quittung herunterladen
-* Quittung löschen
+* Quittung lÃ¶schen
 * Massage erstellen
 * Massage bearbeiten
-* Massage löschen
+* Massage lÃ¶schen
 * Krankengeschichte Eintrag erstellen
 * Krankengeschichte Eintrag bearbeiten
-* Krankengeschichte Eintrag löschen
+* Krankengeschichte Eintrag lÃ¶schen
 * Statistik anzeigen
 
 ## Bezeichnungen
 
-* Die App wird allgemein für Therapien entwickelt.
+* Die App wird allgemein fÃ¼r Therapien entwickelt.
 * Im konkreten Anwendungsfall sind das Massagen.
-* Aus Gewohnheit werden Rechnungen als Quittungen bezeichnet, da sie dem Kunden nach der sofortigen Bezahlung ausgehändigt werden.
-* Für den Benutzer sichtbar wird überall Massagen und Quittungen statt Therapien und Rechnungen verwendet. Im Hintergrund (Code, API) bleiben die neutraleren Begriffe Therapien und Rechnungen bestehen.
+* Aus Gewohnheit werden Rechnungen als Quittungen bezeichnet, da sie dem Kunden nach der sofortigen Bezahlung ausgehÃ¤ndigt werden.
+* FÃ¼r den Benutzer sichtbar wird Ã¼berall Massagen und Quittungen statt Therapien und Rechnungen verwendet. Im Hintergrund (Code, API) bleiben die neutraleren Begriffe Therapien und Rechnungen bestehen.
 
-| Tabelle | NG Klasse | NG Interface | Bezeichnung (deutsch, für Benutzer sichtbar) |
+| Tabelle | NG Klasse | NG Interface | Bezeichnung (deutsch, fÃ¼r Benutzer sichtbar) |
 | --- | --- | --- | --- |
 | appointments | AppointmentsXy | Appointment | Termine |
 | customers | CustomersXy | Customer | Kunden |
@@ -60,24 +60,24 @@ Reliefo Therapy App Client
   * Termine
     * Neuer Termin
     * Termin bearbeiten
-    * Termin löschen
+    * Termin lÃ¶schen
   * Quittungen
     * Neue Quittung
-    * Quittung löschen
+    * Quittung lÃ¶schen
   * Krankengeschichte
     * Neuer KG Eintrag
     * KG Eintrag bearbeiten
-    * KG Eintrag löschen
+    * KG Eintrag lÃ¶schen
 * Termine
   * Termin bearbeiten
-  * Termin löschen
+  * Termin lÃ¶schen
 * Quittungen
-  * Quittung löschen
+  * Quittung lÃ¶schen
 * Massagen
   * Neue Massage
   * Neue Version
   * Massage bearbeiten
-  * Massage löschen
+  * Massage lÃ¶schen
 
 ## App Navigation
 
@@ -92,18 +92,18 @@ Reliefo Therapy App Client
 
 | Bereich | Farbe | HEX-Code | Beschreibung / Anwendung |
 | --- | --- | --- | --- |
-| Primär | Kupfer-Gold | #C28E58 | Hauptfarbe für Buttons, das Logo und wichtige Highlights. |
-| Sekundär | Salbei-Grün | #A8C2B0 | Für die fließenden Linien, Statusanzeigen oder sanfte Akzente. |
-| Hintergrund | Creme-Weiß | #F9F7F2 | Haupt-Hintergrund der App (wirkt weicher und edler als Reinweiß). |
-| Oberflächen | Leinen-Beige | #E5DCD0 | Für Karten-Elemente (Cards), Trennlinien oder Eingabefelder. |
-| Text | Dunkles Taupe | #4A433D | Für Texte; bietet hohen Kontrast bei natürlicherer Anmutung als Schwarz. |
+| PrimÃ¤r | Kupfer-Gold | #C28E58 | Hauptfarbe fÃ¼r Buttons, das Logo und wichtige Highlights. |
+| SekundÃ¤r | Salbei-GrÃ¼n | #A8C2B0 | FÃ¼r die flieÃŸenden Linien, Statusanzeigen oder sanfte Akzente. |
+| Hintergrund | Creme-WeiÃŸ | #F9F7F2 | Haupt-Hintergrund der App (wirkt weicher und edler als ReinweiÃŸ). |
+| OberflÃ¤chen | Leinen-Beige | #E5DCD0 | FÃ¼r Karten-Elemente (Cards), Trennlinien oder Eingabefelder. |
+| Text | Dunkles Taupe | #4A433D | FÃ¼r Texte; bietet hohen Kontrast bei natÃ¼rlicherer Anmutung als Schwarz. |
 
-Design-Empfehlungen für die Umsetzung:
+Design-Empfehlungen fÃ¼r die Umsetzung:
 
-* **Primärfarbe (Brand):** Ich empfehle den Kupfer-Gold-Ton (#C59467) deines Logos als Primärfarbe für wichtige Schaltflächen zu verwenden.
-* **Weißraum:** Nutze das Warme Elfenbein großzügig. Es spiegelt die hellen Handtücher und das Licht im Bild wider und lässt die App „atmen".
+* **PrimÃ¤rfarbe (Brand):** Ich empfehle den Kupfer-Gold-Ton (#C59467) deines Logos als PrimÃ¤rfarbe fÃ¼r wichtige SchaltflÃ¤chen zu verwenden.
+* **WeiÃŸraum:** Nutze das Warme Elfenbein groÃŸzÃ¼gig. Es spiegelt die hellen HandtÃ¼cher und das Licht im Bild wider und lÃ¤sst die App â€žatmen".
 * **Abgerundete Ecken:** Passend zum verspielten Logo und der weichen Polsterung der Liege sollten alle UI-Elemente (Buttons, Bilder) stark abgerundete Ecken (z. B. 16px oder mehr) haben.
-* **Schriftart:** Eine serifenlose, leicht „puffy" wirkende Schriftart würde den verspielten Charakter des Logos im Interface fortführen.
+* **Schriftart:** Eine serifenlose, leicht â€žpuffy" wirkende Schriftart wÃ¼rde den verspielten Charakter des Logos im Interface fortfÃ¼hren.
 
 ## Angular CLI
 
@@ -118,6 +118,19 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+### Troubleshooting
+
+If `ng serve` produces a page with broken layout or styling, it's likely a cache issue. Try these steps:
+
+1. **Hard refresh the browser:** Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac)
+2. **Clear Angular CLI cache:**
+
+   ```bash
+   rm -rf .angular
+   ```
+
+3. **Restart `ng serve`**
 
 ### Code scaffolding
 
@@ -176,9 +189,9 @@ cp -r dist/reliefo-client/browser/* ../reliefo-api/wwwroot/
 
 ## PrimeNG DatePicker DateFormat
 
-⚠️ **Important:** In PrimeNG's `dateFormat` attribute, the format specifier `yy` actually means a **4-digit year** (e.g., `2026`), not a 2-digit year as might be expected from other frameworks. This is counterintuitive but confirmed in PrimeNG's implementation.
+âš ï¸ **Important:** In PrimeNG's `dateFormat` attribute, the format specifier `yy` actually means a **4-digit year** (e.g., `2026`), not a 2-digit year as might be expected from other frameworks. This is counterintuitive but confirmed in PrimeNG's implementation.
 
-* `dd.mm.yy` → `27.06.2026` (4-digit year)
+* `dd.mm.yy` â†’ `27.06.2026` (4-digit year)
 * Input masks are also added to all datepickers for better UX:
   * Date: `pInputMask="99.99.9999"` (dd.mm.yyyy format)
   * Time: `pInputMask="99:99"` (HH:mm format)
@@ -241,20 +254,20 @@ export class AppointmentsList {
 }
 ```
 
-## Vergleich der Lade-Ansätze
+## Vergleich der Lade-AnsÃ¤tze
 
-### Übersicht
+### Ãœbersicht
 
 | Ansatz | Wo | Lifecycle | Angular-Stil | Empfehlung |
 | --- | --- | --- | --- | --- |
-| `constructor()` | Klassen-Konstruktor | Vor der Initialisierung | Klassisch | ⚠️ Vermeiden für async |
-| `implements OnInit` + `ngOnInit()` | Lifecycle-Hook | Nach der Initialisierung | Klassisch | ✅ OK, aber veraltet |
-| `toSignal()` | Klassenfeld | Reaktiv / deklarativ | Modern | ✅✅ Bevorzugt |
-| `signal<T>([])` + `ngOnInit()` | Hybrid | Nach der Initialisierung | Teilweise modern | ⚠️ Mischform |
+| `constructor()` | Klassen-Konstruktor | Vor der Initialisierung | Klassisch | âš ï¸ Vermeiden fÃ¼r async |
+| `implements OnInit` + `ngOnInit()` | Lifecycle-Hook | Nach der Initialisierung | Klassisch | âœ… OK, aber veraltet |
+| `toSignal()` | Klassenfeld | Reaktiv / deklarativ | Modern | âœ…âœ… Bevorzugt |
+| `signal<T>([])` + `ngOnInit()` | Hybrid | Nach der Initialisierung | Teilweise modern | âš ï¸ Mischform |
 
 ---
 
-### 1. `constructor()` — Laden im Konstruktor
+### 1. `constructor()` â€” Laden im Konstruktor
 
 ```typescript
 constructor() {
@@ -262,23 +275,23 @@ constructor() {
 }
 ```
 
-**Was passiert:** Der Konstruktor wird aufgerufen, sobald Angular die Klasse instanziiert — noch bevor Inputs oder der DOM verfügbar sind.
+**Was passiert:** Der Konstruktor wird aufgerufen, sobald Angular die Klasse instanziiert â€” noch bevor Inputs oder der DOM verfÃ¼gbar sind.
 
-**`takeUntilDestroyed()`** wird benötigt, weil das Observable sonst nach der Zerstörung der Komponente weiter feuern würde (Memory Leak). Im `constructor()` ist `DestroyRef` automatisch verfügbar.
+**`takeUntilDestroyed()`** wird benÃ¶tigt, weil das Observable sonst nach der ZerstÃ¶rung der Komponente weiter feuern wÃ¼rde (Memory Leak). Im `constructor()` ist `DestroyRef` automatisch verfÃ¼gbar.
 
 **Vorteile:**
 
-* Kein Interface (`OnInit`) nötig
+* Kein Interface (`OnInit`) nÃ¶tig
 * `takeUntilDestroyed()` funktioniert ohne expliziten `DestroyRef`
 
 **Nachteile:**
 
 * Konstruktoren sollten keine Seiteneffekte haben (Best Practice)
-* Inputs sind noch nicht gesetzt — gefährlich bei parameterabhängigem Laden
+* Inputs sind noch nicht gesetzt â€” gefÃ¤hrlich bei parameterabhÃ¤ngigem Laden
 
 ---
 
-### 2. `implements OnInit` + `ngOnInit()` — Klassischer Lifecycle-Hook
+### 2. `implements OnInit` + `ngOnInit()` â€” Klassischer Lifecycle-Hook
 
 ```typescript
 export class CustomersForm implements OnInit {
@@ -288,14 +301,14 @@ export class CustomersForm implements OnInit {
 }
 ```
 
-**Was passiert:** `ngOnInit()` ist ein Angular Lifecycle-Hook, der **nach** dem Setzen der Inputs ausgeführt wird. `implements OnInit` ist ein TypeScript-Interface, das sicherstellt, dass die Methode korrekt implementiert ist.
+**Was passiert:** `ngOnInit()` ist ein Angular Lifecycle-Hook, der **nach** dem Setzen der Inputs ausgefÃ¼hrt wird. `implements OnInit` ist ein TypeScript-Interface, das sicherstellt, dass die Methode korrekt implementiert ist.
 
-**`implements OnInit`** ist rein ein TypeScript-Vertrag (Interface). Angular ruft `ngOnInit()` unabhängig davon auf — aber das Interface hilft dem Compiler, Tippfehler (`ngOniNit`) zu erkennen.
+**`implements OnInit`** ist rein ein TypeScript-Vertrag (Interface). Angular ruft `ngOnInit()` unabhÃ¤ngig davon auf â€” aber das Interface hilft dem Compiler, Tippfehler (`ngOniNit`) zu erkennen.
 
 **Vorteile:**
 
-* Inputs sind verfügbar
-* Klar strukturiert und verständlich
+* Inputs sind verfÃ¼gbar
+* Klar strukturiert und verstÃ¤ndlich
 
 **Nachteile:**
 
@@ -304,7 +317,7 @@ export class CustomersForm implements OnInit {
 
 ---
 
-### 3. `toSignal()` — Moderner, reaktiver Ansatz ✅ Empfohlen
+### 3. `toSignal()` â€” Moderner, reaktiver Ansatz âœ… Empfohlen
 
 ```typescript
 export class CustomersDetail {
@@ -316,13 +329,13 @@ export class CustomersDetail {
 }
 ```
 
-**Was passiert:** `toSignal()` konvertiert ein Observable direkt in ein Signal. Angular verwaltet das Abonnement automatisch — kein manuelles `subscribe()`, kein `unsubscribe()`, kein Lifecycle-Hook nötig.
+**Was passiert:** `toSignal()` konvertiert ein Observable direkt in ein Signal. Angular verwaltet das Abonnement automatisch â€” kein manuelles `subscribe()`, kein `unsubscribe()`, kein Lifecycle-Hook nÃ¶tig.
 
 **Vorteile:**
 
-* Vollständig deklarativ — kein Boilerplate
+* VollstÃ¤ndig deklarativ â€” kein Boilerplate
 * Automatisches Cleanup durch Angular
-* Reaktiv: aktualisiert sich automatisch bei Route-Änderungen
+* Reaktiv: aktualisiert sich automatisch bei Route-Ã„nderungen
 * Kompatibel mit `ChangeDetectionStrategy.OnPush`
 
 **Nachteile:**
@@ -332,7 +345,7 @@ export class CustomersDetail {
 
 ---
 
-### 4. `signal<Appointment[]>([])` + `ngOnInit()` — Hybridansatz
+### 4. `signal<Appointment[]>([])` + `ngOnInit()` â€” Hybridansatz
 
 ```typescript
 protected readonly appointments = signal<Appointment[]>([]);
@@ -342,19 +355,19 @@ ngOnInit(): void {
 }
 ```
 
-**Was passiert:** Ein Signal wird manuell mit einem leeren Array initialisiert. In `ngOnInit()` wird das Observable abonniert und das Signal mit den Daten befüllt.
+**Was passiert:** Ein Signal wird manuell mit einem leeren Array initialisiert. In `ngOnInit()` wird das Observable abonniert und das Signal mit den Daten befÃ¼llt.
 
 **`signal<Appointment[]>([])`** erstellt ein beschreibbares Signal mit dem Typ `Appointment[]` und dem Startwert `[]`. Der Typ wird explizit angegeben, weil TypeScript `[]` allein nicht als `Appointment[]` inferieren kann.
 
 **Vorteile:**
 
 * Template rendert sofort mit leerem Array (kein `undefined`)
-* Vertraut für Entwickler, die Signals kennen aber Observables vermeiden wollen
+* Vertraut fÃ¼r Entwickler, die Signals kennen aber Observables vermeiden wollen
 
 **Nachteile:**
 
 * Mischform: imperatives `subscribe()` mit reaktivem Signal
-* Kein automatisches Cleanup — erfordert `takeUntilDestroyed()`
+* Kein automatisches Cleanup â€” erfordert `takeUntilDestroyed()`
 * `toSignal()` macht dasselbe eleganter
 
 ---
@@ -368,4 +381,5 @@ In modernem Angular (v17+) ist **`toSignal()`** der bevorzugte Ansatz:
 readonly data = toSignal(this.myService.getAll(), { initialValue: [] });
 ```
 
-`ngOnInit()` bleibt sinnvoll, wenn Inputs vor dem Laden benötigt werden und `toSignal()` nicht passt. `constructor()` sollte für Datenladen vermieden werden.
+`ngOnInit()` bleibt sinnvoll, wenn Inputs vor dem Laden benÃ¶tigt werden und `toSignal()` nicht passt. `constructor()` sollte fÃ¼r Datenladen vermieden werden.
+
