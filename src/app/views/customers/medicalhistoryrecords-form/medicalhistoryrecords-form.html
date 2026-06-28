@@ -93,15 +93,39 @@
             (pointerleave)="onPointerUp()"
           ></canvas>
         </div>
-        <button type="button" class="text-sm text-gray-500 underline" (click)="clearDrawing()">
-          Markierungen entfernen
-        </button>
+        <div class="flex flex-row items-center gap-6">
+          <div class="flex flex-row items-center gap-4">
+            <p class="text-sm font-medium whitespace-nowrap">Strichbreite</p>
+            <div class="flex flex-row gap-4">
+              @for (width of lineWidthOptions; track width) {
+                <div class="flex items-center gap-2">
+                  <p-radiobutton
+                    [value]="width"
+                    [ngModel]="lineWidth()"
+                    (ngModelChange)="lineWidth.set($any($event))"
+                    [ngModelOptions]="{standalone: true}"
+                    [inputId]="'lineWidth-' + width"
+                  />
+                  <label [for]="'lineWidth-' + width" class="cursor-pointer text-sm">
+                    {{ getLineWidthLabel(width) }}
+                  </label>
+                </div>
+              }
+            </div>
+          </div>
+          <p-button
+            [text]="true"
+            severity="danger"
+            type="button"
+            (onClick)="clearDrawing()"
+            ariaLabel="Markierungen entfernen"
+            pTooltip="Markierungen entfernen"
+            tooltipPosition="top"
+          >
+            <span class="material-symbols-outlined text-xl" aria-hidden="true">delete_outline</span>
+          </p-button>
+        </div>
       </div>
-    </div>
-
-    <div class="mt-6">
-      <p class="text-sm font-medium text-gray-500">Rohdaten Markierungen (Prototyp)</p>
-      <pre class="text-xs bg-gray-50 border p-2 rounded max-h-40 overflow-auto">{{ drawingDataJson() }}</pre>
     </div>
 
     <div class="flex gap-3 mt-8 justify-end">

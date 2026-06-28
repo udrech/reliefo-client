@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,8 +22,10 @@ import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogModule } from 'primeng/dialog';
 import { InputMaskModule } from 'primeng/inputmask';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { CustomerService } from '@/services/customer.service';
 import { MedicalHistoryRecordService } from '@/services/medicalhistoryrecord';
@@ -39,11 +41,14 @@ interface DrawingPoint {
     ButtonModule,
     DatePickerModule,
     DialogModule,
+    FormsModule,
     InputMaskModule,
     NgOptimizedImage,
+    RadioButtonModule,
     ReactiveFormsModule,
     SelectModule,
     TextareaModule,
+    TooltipModule,
   ],
   templateUrl: './medicalhistoryrecords-form.html',
   styleUrl: './medicalhistoryrecords-form.css',
@@ -63,10 +68,10 @@ export class MedicalhistoryrecordsForm {
   private readonly diagramCanvas = viewChild.required<ElementRef<HTMLCanvasElement>>('diagramCanvas');
 
   private static readonly DRAW_COLOR = '#dc2626';
-  private static readonly LINE_WIDTH = 5;
+  protected readonly lineWidth = signal(10);
+  protected readonly lineWidthOptions = [5, 10, 15];
 
   protected readonly strokes = signal<DrawingPoint[][]>([]);
-  protected readonly drawingDataJson = computed(() => JSON.stringify(this.strokes(), null, 2));
 
   private resizeObserver: ResizeObserver | null = null;
   private isDrawing = false;
@@ -187,6 +192,19 @@ export class MedicalhistoryrecordsForm {
     this.showHistoryTypeInfo.set(true);
   }
 
+  protected getLineWidthLabel(width: number): string {
+    switch (width) {
+      case 5:
+        return 'Schmal';
+      case 10:
+        return 'Mittel';
+      case 15:
+        return 'Breit';
+      default:
+        return `${width}px`;
+    }
+  }
+
   protected onImageLoad(): void {
     this.resizeCanvasToContainer();
   }
@@ -265,7 +283,7 @@ export class MedicalhistoryrecordsForm {
     if (stroke.length === 1) {
       const { x, y } = stroke[0];
       ctx.beginPath();
-      ctx.arc(x * canvas.width, y * canvas.height, MedicalhistoryrecordsForm.LINE_WIDTH / 2, 0, Math.PI * 2);
+      ctx.arc(x * canvas.width, y * canvas.height, this.lineWidth() / 2, 0, Math.PI * 2);
       ctx.fill();
       return;
     }
@@ -281,7 +299,7 @@ export class MedicalhistoryrecordsForm {
   private configureContext(ctx: CanvasRenderingContext2D): void {
     ctx.fillStyle = MedicalhistoryrecordsForm.DRAW_COLOR;
     ctx.strokeStyle = MedicalhistoryrecordsForm.DRAW_COLOR;
-    ctx.lineWidth = MedicalhistoryrecordsForm.LINE_WIDTH;
+    ctx.lineWidth = this.lineWidth();
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
   }
