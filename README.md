@@ -4,7 +4,6 @@ Reliefo Therapy App Client
 
 ## Ideen, Wünsche, ToDo
 
-* Terminliste trennen in "Bevorstehende Termine" und "Vergangene Termine"
 * Tests auf iPad und Android
 * Google Termin Import
 * Doku: Wartung, Angular Update, etc.
@@ -14,11 +13,6 @@ Reliefo Therapy App Client
 * Statistiken
   * Anzahl Kunden
   * Anzahl Massagen pro Jahr
-  * Anzahl Massagen pro Monat
-  * Anzahl Massagen pro Kunde
-  * Umsatz pro Jahr
-  * Umsatz pro Monat
-  * Umsatz pro Kunde
 
 ## Testfall Liste
 
