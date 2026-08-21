@@ -3,13 +3,14 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { of, switchMap } from 'rxjs';
+import { combineLatest, of, startWith, Subject, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { SelectModule } from 'primeng/select';
+import { TableModule } from 'primeng/table';
 
 import { AppointmentService } from '@/services/appointment.service';
 import { CustomerService } from '@/services/customer.service';
@@ -25,6 +26,7 @@ import { combineDateAndTime, toDateParts, toTimeParts } from '@/utils/date.utils
     KeyFilterModule,
     ReactiveFormsModule,
     SelectModule,
+    TableModule,
   ],
   templateUrl: './appointments-form.html',
   styleUrl: './appointments-form.css',
@@ -86,6 +88,21 @@ export class AppointmentsForm {
     { initialValue: [] }
   );
 
+  private readonly refresh$ = new Subject<void>();
+
+  protected readonly appointments = toSignal(
+    combineLatest([this.route.paramMap, this.refresh$.pipe(startWith(null))]).pipe(
+      switchMap(([params]) => this.appointmentService.getByCustomerId(+params.get('id')!))
+    ),
+    { initialValue: [] }
+  );
+
+  protected readonly upcomingAppointments = computed(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return this.appointments().filter(a => new Date(a.appointmentTimestamp) >= today);
+  });
+
   constructor() {
     effect(() => {
       const appointment = this.appointment();
@@ -137,11 +154,13 @@ export class AppointmentsForm {
     if (id) {
       this.appointmentService.update(Number(id), payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin aktualisiert', life: 3000 });
+        this.refresh$.next();
         navigate();
       });
     } else {
       this.appointmentService.create(payload).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Termin erstellt', life: 3000 });
+        this.refresh$.next();
         navigate();
       });
     }

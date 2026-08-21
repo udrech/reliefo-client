@@ -110,4 +110,32 @@
       <p-button label="Speichern und zurück" type="button" [disabled]="form.invalid" (onClick)="save('back')" />
     </div>
   </form>
+
+  <div class="mt-8">
+    <h3 class="text-lg font-semibold mb-6">Bereits vorhandene Termine</h3>
+
+    <p-table [value]="upcomingAppointments()">
+      <ng-template #header>
+        <tr>
+          <th>Datum</th>
+          <th>Zeit</th>
+          <th>Massage</th>
+          <th>Dauer (Minuten)</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-appointment>
+        <tr>
+          <td>{{ appointment.appointmentTimestamp | date:'dd.MM.yyyy' }}</td>
+          <td>{{ appointment.appointmentTimestamp | date:'HH:mm' }}</td>
+          <td>{{ appointment.therapy.name }}</td>
+          <td>{{ appointment.therapy.duration }}</td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="4" class="text-center py-8 text-content/50">Keine Termine gefunden.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
