@@ -27,33 +27,63 @@
         </p-select>
       </div>
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <label for="appointmentDate" class="text-right font-medium">
+        <label for="appointmentDay" class="text-right font-medium">
           Datum <span aria-hidden="true">*</span>
         </label>
-        <p-datepicker
-          id="appointmentDate"
-          formControlName="appointmentDate"
-          class="w-full"
-          dateFormat="dd.mm.yy"
-          pInputMask="99.99.9999"
-          [showIcon]="true"
-          [showOnFocus]="false"
-        />
+        <div class="flex items-center gap-1" formGroupName="appointmentDate">
+          <p-inputnumber
+            inputId="appointmentDay"
+            formControlName="day"
+            [useGrouping]="false"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="0"
+            inputStyleClass="w-12 text-center"
+            placeholder="tt"
+          />
+          <span>.</span>
+          <p-inputnumber
+            formControlName="month"
+            [useGrouping]="false"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="0"
+            inputStyleClass="w-12 text-center"
+            placeholder="mm"
+          />
+          <span>.</span>
+          <p-inputnumber
+            formControlName="year"
+            [useGrouping]="false"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="0"
+            inputStyleClass="w-20 text-center"
+            placeholder="jjjj"
+          />
+        </div>
       </div>
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <label for="appointmentTime" class="text-right font-medium">
+        <label for="appointmentHour" class="text-right font-medium">
           Uhrzeit <span aria-hidden="true">*</span>
         </label>
-        <p-datepicker
-          id="appointmentTime"
-          formControlName="appointmentTime"
-          class="w-full"
-          timeOnly
-          hourFormat="24"
-          pInputMask="99:99"
-          [showIcon]="true"
-          [showOnFocus]="false"
-        />
+        <div class="flex items-center gap-1" formGroupName="appointmentTime">
+          <p-inputnumber
+            inputId="appointmentHour"
+            formControlName="hour"
+            [useGrouping]="false"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="0"
+            inputStyleClass="w-12 text-center"
+            placeholder="hh"
+          />
+          <span>:</span>
+          <p-inputnumber
+            formControlName="minute"
+            [useGrouping]="false"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="0"
+            inputStyleClass="w-12 text-center"
+            placeholder="mm"
+          />
+        </div>
       </div>
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
         <label for="therapyId" class="text-right font-medium">

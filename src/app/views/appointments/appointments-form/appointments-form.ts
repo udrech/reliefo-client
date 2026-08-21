@@ -7,21 +7,20 @@ import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 
 import { AppointmentService } from '@/services/appointment.service';
 import { CustomerService } from '@/services/customer.service';
 import { TherapyService } from '@/services/therapy.service';
+import { combineDateAndTime, toDateParts, toTimeParts } from '@/utils/date.utils';
 
 @Component({
   selector: 'app-appointments-form',
   imports: [
     ButtonModule,
     DatePipe,
-    DatePickerModule,
-    InputMaskModule,
+    InputNumberModule,
     ReactiveFormsModule,
     SelectModule,
   ],
@@ -60,12 +59,22 @@ export class AppointmentsForm {
   protected readonly form = new FormGroup({
     customerId: new FormControl<number | null>(null, { validators: Validators.required }),
     therapyId: new FormControl<number | null>(null, { validators: Validators.required }),
-    appointmentDate: new FormControl<Date | null>(null, { validators: Validators.required }),
-    appointmentTime: new FormControl<Date | null>(null, { validators: Validators.required }),
+    appointmentDate: new FormGroup({
+      day: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(31)] }),
+      month: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(12)] }),
+      year: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1000), Validators.max(9999)] }),
+    }),
+    appointmentTime: new FormGroup({
+      hour: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(23)] }),
+      minute: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(59)] }),
+    }),
   });
 
   protected readonly therapies = toSignal(
     this.form.controls.appointmentDate.valueChanges.pipe(
+      map(({ day, month, year }) =>
+        day != null && month != null && year != null ? combineDateAndTime({ day, month, year }, { hour: 0, minute: 0 }) : null
+      ),
       switchMap(d => d ? this.therapyService.getValid(d) : of([]))
     ),
     { initialValue: [] }
@@ -80,8 +89,8 @@ export class AppointmentsForm {
           this.form.patchValue({
             customerId: appointment.customerId,
             therapyId: appointment.therapyId,
-            appointmentDate: new Date(timestamp.getFullYear(), timestamp.getMonth(), timestamp.getDate()),
-            appointmentTime: new Date(0, 0, 0, timestamp.getHours(), timestamp.getMinutes()),
+            appointmentDate: toDateParts(timestamp),
+            appointmentTime: toTimeParts(timestamp),
           });
         });
       }
@@ -93,14 +102,15 @@ export class AppointmentsForm {
     const { customerId, therapyId, appointmentDate, appointmentTime } = this.form.getRawValue();
     const id = this.appointmentId();
 
-    if (!customerId || !appointmentDate || !appointmentTime) return;
+    if (
+      !customerId || !therapyId ||
+      appointmentDate.day == null || appointmentDate.month == null || appointmentDate.year == null ||
+      appointmentTime.hour == null || appointmentTime.minute == null
+    ) return;
 
-    const appointmentTimestamp = new Date(
-      appointmentDate.getFullYear(),
-      appointmentDate.getMonth(),
-      appointmentDate.getDate(),
-      appointmentTime.getHours(),
-      appointmentTime.getMinutes()
+    const appointmentTimestamp = combineDateAndTime(
+      { day: appointmentDate.day, month: appointmentDate.month, year: appointmentDate.year },
+      { hour: appointmentTime.hour, minute: appointmentTime.minute }
     );
 
     const payload = {
