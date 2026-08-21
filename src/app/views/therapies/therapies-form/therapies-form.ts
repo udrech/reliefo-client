@@ -6,19 +6,18 @@ import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 import { TherapyService } from '@/services/therapy.service';
+import { combineDateParts, toDateParts } from '@/utils/date.utils';
 
 @Component({
   selector: 'app-therapies-form',
   imports: [
     ButtonModule,
-    DatePickerModule,
-    InputMaskModule,
     InputTextModule,
+    KeyFilterModule,
     ReactiveFormsModule,
   ],
   templateUrl: './therapies-form.html',
@@ -48,28 +47,52 @@ export class TherapiesForm {
     { initialValue: null }
   );
 
+  private readonly today = toDateParts(new Date());
+
   protected readonly form = new FormGroup({
     name: new FormControl('', { validators: Validators.required, nonNullable: true }),
     nameOnBill: new FormControl('', { validators: Validators.required, nonNullable: true }),
     description: new FormControl<string | null>(null),
     duration: new FormControl<number | null>(null),
     price: new FormControl(0, { nonNullable: true }),
-    validFrom: new FormControl<Date>(new Date(), { nonNullable: true }),
-    validTo: new FormControl<Date | null>(null),
+    validFrom: new FormGroup({
+      day: new FormControl<string | null>(this.today.day, { validators: [Validators.required, Validators.min(1), Validators.max(31)] }),
+      month: new FormControl<string | null>(this.today.month, { validators: [Validators.required, Validators.min(1), Validators.max(12)] }),
+      year: new FormControl<string | null>(this.today.year, { validators: [Validators.required, Validators.min(1000), Validators.max(9999)] }),
+    }),
+    validTo: new FormGroup({
+      day: new FormControl<string | null>(null, { validators: [Validators.min(1), Validators.max(31)] }),
+      month: new FormControl<string | null>(null, { validators: [Validators.min(1), Validators.max(12)] }),
+      year: new FormControl<string | null>(null, { validators: [Validators.min(1000), Validators.max(9999)] }),
+    }),
   });
 
   constructor() {
     effect(() => {
       const therapy = this.therapy();
       if (therapy) {
-        untracked(() => this.form.patchValue(therapy));
+        untracked(() => this.form.patchValue({
+          ...therapy,
+          validFrom: toDateParts(therapy.validFrom),
+          validTo: therapy.validTo ? toDateParts(therapy.validTo) : { day: null, month: null, year: null },
+        }));
       }
     });
   }
 
   protected save(): void {
     if (this.form.invalid) return;
-    const value = this.form.getRawValue();
+    const { validFrom, validTo, ...rest } = this.form.getRawValue();
+    if (!validFrom.day || !validFrom.month || !validFrom.year) return;
+
+    const value = {
+      ...rest,
+      validFrom: combineDateParts({ day: validFrom.day, month: validFrom.month, year: validFrom.year }),
+      validTo: validTo.day && validTo.month && validTo.year
+        ? combineDateParts({ day: validTo.day, month: validTo.month, year: validTo.year })
+        : null,
+    };
+
     const id = this.routeId();
     if (id) {
       this.therapyService.update(Number(id), value).subscribe(() => {
@@ -86,5 +109,12 @@ export class TherapiesForm {
 
   protected cancel(): void {
     this.router.navigate(['/massagen']);
+  }
+
+  protected focusNextOnFilled(event: Event, next: HTMLInputElement): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length >= input.maxLength) {
+      next.focus();
+    }
   }
 }

@@ -33,13 +33,91 @@
       </div>
 
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
-        <label for="validFrom" class="text-right font-medium">Gültig von</label>
-        <p-datepicker id="validFrom" formControlName="validFrom" class="w-full" dateFormat="dd.mm.yy" pInputMask="99.99.9999" [showIcon]="true" [showOnFocus]="false" />
+        <label for="validFrom" class="text-right font-medium">
+          Gültig von <span aria-hidden="true">*</span>
+        </label>
+        <div class="flex items-center gap-1" formGroupName="validFrom">
+          <input
+            pInputText
+            id="validFrom"
+            formControlName="day"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="2"
+            class="w-12 text-center"
+            placeholder="tt"
+            (input)="focusNextOnFilled($event, validFromMonthInput)"
+          />
+          <span>.</span>
+          <input
+            #validFromMonthInput
+            pInputText
+            formControlName="month"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="2"
+            class="w-12 text-center"
+            placeholder="mm"
+            (input)="focusNextOnFilled($event, validFromYearInput)"
+          />
+          <span>.</span>
+          <input
+            #validFromYearInput
+            pInputText
+            formControlName="year"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="4"
+            class="w-20 text-center"
+            placeholder="jjjj"
+          />
+        </div>
       </div>
 
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
         <label for="validTo" class="text-right font-medium">Gültig bis</label>
-        <p-datepicker id="validTo" formControlName="validTo" class="w-full" dateFormat="dd.mm.yy" pInputMask="99.99.9999" [showIcon]="true" [showOnFocus]="false" />
+        <div class="flex items-center gap-1" formGroupName="validTo">
+          <input
+            pInputText
+            id="validTo"
+            formControlName="day"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="2"
+            class="w-12 text-center"
+            placeholder="tt"
+            (input)="focusNextOnFilled($event, validToMonthInput)"
+          />
+          <span>.</span>
+          <input
+            #validToMonthInput
+            pInputText
+            formControlName="month"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="2"
+            class="w-12 text-center"
+            placeholder="mm"
+            (input)="focusNextOnFilled($event, validToYearInput)"
+          />
+          <span>.</span>
+          <input
+            #validToYearInput
+            pInputText
+            formControlName="year"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="4"
+            class="w-20 text-center"
+            placeholder="jjjj"
+          />
+        </div>
       </div>
     </div>
 

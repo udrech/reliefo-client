@@ -7,21 +7,22 @@ import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { SelectModule } from 'primeng/select';
 
 import { AppointmentService } from '@/services/appointment.service';
 import { CustomerService } from '@/services/customer.service';
 import { TherapyService } from '@/services/therapy.service';
+import { combineDateAndTime, toDateParts, toTimeParts } from '@/utils/date.utils';
 
 @Component({
   selector: 'app-appointments-form',
   imports: [
     ButtonModule,
     DatePipe,
-    DatePickerModule,
-    InputMaskModule,
+    InputTextModule,
+    KeyFilterModule,
     ReactiveFormsModule,
     SelectModule,
   ],
@@ -64,12 +65,22 @@ export class AppointmentsForm {
 
   protected readonly form = new FormGroup({
     therapyId: new FormControl<number | null>(null, { validators: Validators.required }),
-    appointmentDate: new FormControl<Date | null>(null, { validators: Validators.required }),
-    appointmentTime: new FormControl<Date | null>(null, { validators: Validators.required }),
+    appointmentDate: new FormGroup({
+      day: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(31)] }),
+      month: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(12)] }),
+      year: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(1000), Validators.max(9999)] }),
+    }),
+    appointmentTime: new FormGroup({
+      hour: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(23)] }),
+      minute: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(59)] }),
+    }),
   });
 
   protected readonly therapies = toSignal(
     this.form.controls.appointmentDate.valueChanges.pipe(
+      map(({ day, month, year }) =>
+        day && month && year ? combineDateAndTime({ day, month, year }, { hour: '0', minute: '0' }) : null
+      ),
       switchMap(d => d ? this.therapyService.getValid(d) : of([]))
     ),
     { initialValue: [] }
@@ -83,8 +94,8 @@ export class AppointmentsForm {
           const timestamp = appointment.appointmentTimestamp;
           this.form.patchValue({
             therapyId: appointment.therapyId,
-            appointmentDate: new Date(timestamp.getFullYear(), timestamp.getMonth(), timestamp.getDate()),
-            appointmentTime: new Date(0, 0, 0, timestamp.getHours(), timestamp.getMinutes()),
+            appointmentDate: toDateParts(timestamp),
+            appointmentTime: toTimeParts(timestamp),
           });
         });
       }
@@ -96,15 +107,16 @@ export class AppointmentsForm {
     const { therapyId, appointmentDate, appointmentTime } = this.form.getRawValue();
     const id = this.appointmentId();
     const customerId = this.customerId();
-    
-    if (!customerId || !appointmentDate || !appointmentTime) return;
 
-    const appointmentTimestamp = new Date(
-      appointmentDate.getFullYear(),
-      appointmentDate.getMonth(),
-      appointmentDate.getDate(),
-      appointmentTime.getHours(),
-      appointmentTime.getMinutes()
+    if (
+      !customerId || !therapyId ||
+      !appointmentDate.day || !appointmentDate.month || !appointmentDate.year ||
+      !appointmentTime.hour || !appointmentTime.minute
+    ) return;
+
+    const appointmentTimestamp = combineDateAndTime(
+      { day: appointmentDate.day, month: appointmentDate.month, year: appointmentDate.year },
+      { hour: appointmentTime.hour, minute: appointmentTime.minute }
     );
 
     const payload = {
@@ -139,6 +151,13 @@ export class AppointmentsForm {
     const customerId = this.customerId();
     if (customerId) {
       this.router.navigate(['/kunden', String(customerId), 'termine']);
+    }
+  }
+
+  protected focusNextOnFilled(event: Event, next: HTMLInputElement): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length >= input.maxLength) {
+      next.focus();
     }
   }
 }

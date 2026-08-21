@@ -27,3 +27,7 @@ export function toTimeParts(date: Date): TimeParts {
 export function combineDateAndTime(date: DateParts, time: TimeParts): Date {
   return new Date(Number(date.year), Number(date.month) - 1, Number(date.day), Number(time.hour), Number(time.minute));
 }
+
+export function combineDateParts(date: DateParts): Date {
+  return new Date(Number(date.year), Number(date.month) - 1, Number(date.day));
+}

@@ -19,9 +19,9 @@ import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
 import { DialogModule } from 'primeng/dialog';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
@@ -29,6 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { CustomerService } from '@/services/customer.service';
 import { MedicalHistoryRecordService } from '@/services/medicalhistoryrecord';
+import { combineDateAndTime, toDateParts, toTimeParts } from '@/utils/date.utils';
 
 interface DrawingPoint {
   x: number;
@@ -44,10 +45,10 @@ interface Stroke {
   selector: 'app-medicalhistoryrecords-form',
   imports: [
     ButtonModule,
-    DatePickerModule,
     DialogModule,
     FormsModule,
-    InputMaskModule,
+    InputTextModule,
+    KeyFilterModule,
     NgOptimizedImage,
     RadioButtonModule,
     ReactiveFormsModule,
@@ -124,9 +125,18 @@ export class MedicalhistoryrecordsForm {
     )
   );
 
+  private readonly now = { ...toDateParts(new Date()), ...toTimeParts(new Date()) };
+
   protected readonly form = new FormGroup({
-    historyDate: new FormControl<Date | null>(new Date(), { validators: Validators.required }),
-    historyTime: new FormControl<Date | null>(new Date(), { validators: Validators.required }),
+    historyDate: new FormGroup({
+      day: new FormControl<string | null>(this.now.day, { validators: [Validators.required, Validators.min(1), Validators.max(31)] }),
+      month: new FormControl<string | null>(this.now.month, { validators: [Validators.required, Validators.min(1), Validators.max(12)] }),
+      year: new FormControl<string | null>(this.now.year, { validators: [Validators.required, Validators.min(1000), Validators.max(9999)] }),
+    }),
+    historyTime: new FormGroup({
+      hour: new FormControl<string | null>(this.now.hour, { validators: [Validators.required, Validators.min(0), Validators.max(23)] }),
+      minute: new FormControl<string | null>(this.now.minute, { validators: [Validators.required, Validators.min(0), Validators.max(59)] }),
+    }),
     historyType: new FormControl<string | null>(null),
     note: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
   });
@@ -138,8 +148,8 @@ export class MedicalhistoryrecordsForm {
         untracked(() => {
           const timestamp = record.historyTimestamp;
           this.form.patchValue({
-            historyDate: new Date(timestamp.getFullYear(), timestamp.getMonth(), timestamp.getDate()),
-            historyTime: new Date(0, 0, 0, timestamp.getHours(), timestamp.getMinutes()),
+            historyDate: toDateParts(timestamp),
+            historyTime: toTimeParts(timestamp),
             historyType: record.historyType,
             note: record.note,
           });
@@ -170,14 +180,15 @@ export class MedicalhistoryrecordsForm {
     const id = this.recordId();
     const customerId = this.customerId();
 
-    if (!customerId || !historyDate || !historyTime) return;
+    if (
+      !customerId ||
+      !historyDate.day || !historyDate.month || !historyDate.year ||
+      !historyTime.hour || !historyTime.minute
+    ) return;
 
-    const historyTimestamp = new Date(
-      historyDate.getFullYear(),
-      historyDate.getMonth(),
-      historyDate.getDate(),
-      historyTime.getHours(),
-      historyTime.getMinutes()
+    const historyTimestamp = combineDateAndTime(
+      { day: historyDate.day, month: historyDate.month, year: historyDate.year },
+      { hour: historyTime.hour, minute: historyTime.minute }
     );
 
     const payload = {
@@ -211,6 +222,13 @@ export class MedicalhistoryrecordsForm {
 
   protected openHistoryTypeInfo(): void {
     this.showHistoryTypeInfo.set(true);
+  }
+
+  protected focusNextOnFilled(event: Event, next: HTMLInputElement): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length >= input.maxLength) {
+      next.focus();
+    }
   }
 
   protected getLineWidthLabel(width: number): string {

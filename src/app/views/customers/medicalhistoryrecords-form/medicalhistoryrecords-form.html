@@ -12,30 +12,76 @@
           <label for="historyDate" class="text-right font-medium">
             Datum <span aria-hidden="true">*</span>
           </label>
-          <p-datepicker
-            id="historyDate"
-            formControlName="historyDate"
-            class="w-full"
-            dateFormat="dd.mm.yy"
-            pInputMask="99.99.9999"
-            [showIcon]="true"
-            [showOnFocus]="false"
-          />
+          <div class="flex items-center gap-1" formGroupName="historyDate">
+            <input
+              pInputText
+              id="historyDate"
+              formControlName="day"
+              pKeyFilter="pint"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="2"
+              class="w-12 text-center"
+              placeholder="tt"
+              (input)="focusNextOnFilled($event, historyMonthInput)"
+            />
+            <span>.</span>
+            <input
+              #historyMonthInput
+              pInputText
+              formControlName="month"
+              pKeyFilter="pint"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="2"
+              class="w-12 text-center"
+              placeholder="mm"
+              (input)="focusNextOnFilled($event, historyYearInput)"
+            />
+            <span>.</span>
+            <input
+              #historyYearInput
+              pInputText
+              formControlName="year"
+              pKeyFilter="pint"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="4"
+              class="w-20 text-center"
+              placeholder="jjjj"
+            />
+          </div>
         </div>
         <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
           <label for="historyTime" class="text-right font-medium">
             Uhrzeit <span aria-hidden="true">*</span>
           </label>
-          <p-datepicker
-            id="historyTime"
-            formControlName="historyTime"
-            class="w-full"
-            timeOnly
-            hourFormat="24"
-            pInputMask="99:99"
-            [showIcon]="true"
-            [showOnFocus]="false"
-          />
+          <div class="flex items-center gap-1" formGroupName="historyTime">
+            <input
+              pInputText
+              id="historyTime"
+              formControlName="hour"
+              pKeyFilter="pint"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="2"
+              class="w-12 text-center"
+              placeholder="hh"
+              (input)="focusNextOnFilled($event, historyMinuteInput)"
+            />
+            <span>:</span>
+            <input
+              #historyMinuteInput
+              pInputText
+              formControlName="minute"
+              pKeyFilter="pint"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="2"
+              class="w-12 text-center"
+              placeholder="mm"
+            />
+          </div>
         </div>
         <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
           <div class="flex items-center justify-end gap-2">

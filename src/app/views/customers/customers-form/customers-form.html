@@ -19,7 +19,45 @@
 
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
         <label for="dateOfBirth" class="text-right font-medium">Geburtsdatum</label>
-        <p-datepicker id="dateOfBirth" formControlName="dateOfBirth" class="w-full" dateFormat="dd.mm.yy" pInputMask="99.99.9999" [showIcon]="true" [showOnFocus]="false" />
+        <div class="flex items-center gap-1" formGroupName="dateOfBirth">
+          <input
+            pInputText
+            id="dateOfBirth"
+            formControlName="day"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="2"
+            class="w-12 text-center"
+            placeholder="tt"
+            (input)="focusNextOnFilled($event, dateOfBirthMonthInput)"
+          />
+          <span>.</span>
+          <input
+            #dateOfBirthMonthInput
+            pInputText
+            formControlName="month"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="2"
+            class="w-12 text-center"
+            placeholder="mm"
+            (input)="focusNextOnFilled($event, dateOfBirthYearInput)"
+          />
+          <span>.</span>
+          <input
+            #dateOfBirthYearInput
+            pInputText
+            formControlName="year"
+            pKeyFilter="pint"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="4"
+            class="w-20 text-center"
+            placeholder="jjjj"
+          />
+        </div>
       </div>
 
       <div class="grid grid-cols-[200px_1fr] items-center gap-x-4">
