@@ -31,3 +31,8 @@ export function combineDateAndTime(date: DateParts, time: TimeParts): Date {
 export function combineDateParts(date: DateParts): Date {
   return new Date(Number(date.year), Number(date.month) - 1, Number(date.day));
 }
+
+export function toLocalDateString(date: Date): string {
+  const { day, month, year } = toDateParts(date);
+  return `${year}-${month}-${day}`;
+}

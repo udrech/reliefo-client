@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Therapy, TherapyRaw } from '@/models/therapy';
+import { toLocalDateString } from '@/utils/date.utils';
 import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -42,7 +43,7 @@ export class TherapyService {
   }
 
   getValid(d: Date): Observable<Therapy[]> {
-    const params = new HttpParams().set('date', d.toISOString().split('T')[0]);
+    const params = new HttpParams().set('date', toLocalDateString(d));
     return this.http.get<TherapyRaw[]>(`${this.apiUrl}/valid`, { params }).pipe(
       map(therapies => therapies.map(this.convertFromApi))
     );
