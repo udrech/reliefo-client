@@ -1,29 +1,29 @@
 export interface DateParts {
-  day: number;
-  month: number;
-  year: number;
+  day: string;
+  month: string;
+  year: string;
 }
 
 export interface TimeParts {
-  hour: number;
-  minute: number;
+  hour: string;
+  minute: string;
 }
 
 export function toDateParts(date: Date): DateParts {
   return {
-    day: date.getDate(),
-    month: date.getMonth() + 1,
-    year: date.getFullYear(),
+    day: String(date.getDate()).padStart(2, '0'),
+    month: String(date.getMonth() + 1).padStart(2, '0'),
+    year: String(date.getFullYear()),
   };
 }
 
 export function toTimeParts(date: Date): TimeParts {
   return {
-    hour: date.getHours(),
-    minute: date.getMinutes(),
+    hour: String(date.getHours()).padStart(2, '0'),
+    minute: String(date.getMinutes()).padStart(2, '0'),
   };
 }
 
-export function combineDateAndTime(date: any, time: any): Date {
-  return new Date(date.year, date.month - 1, date.day, time.hour, time.minute);
+export function combineDateAndTime(date: DateParts, time: TimeParts): Date {
+  return new Date(Number(date.year), Number(date.month) - 1, Number(date.day), Number(time.hour), Number(time.minute));
 }

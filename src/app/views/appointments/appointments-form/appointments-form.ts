@@ -7,7 +7,8 @@ import { of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { SelectModule } from 'primeng/select';
 
 import { AppointmentService } from '@/services/appointment.service';
@@ -20,7 +21,8 @@ import { combineDateAndTime, toDateParts, toTimeParts } from '@/utils/date.utils
   imports: [
     ButtonModule,
     DatePipe,
-    InputNumberModule,
+    InputTextModule,
+    KeyFilterModule,
     ReactiveFormsModule,
     SelectModule,
   ],
@@ -60,20 +62,20 @@ export class AppointmentsForm {
     customerId: new FormControl<number | null>(null, { validators: Validators.required }),
     therapyId: new FormControl<number | null>(null, { validators: Validators.required }),
     appointmentDate: new FormGroup({
-      day: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(31)] }),
-      month: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(12)] }),
-      year: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1000), Validators.max(9999)] }),
+      day: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(31)] }),
+      month: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(12)] }),
+      year: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(1000), Validators.max(9999)] }),
     }),
     appointmentTime: new FormGroup({
-      hour: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(23)] }),
-      minute: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(59)] }),
+      hour: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(23)] }),
+      minute: new FormControl<string | null>(null, { validators: [Validators.required, Validators.min(0), Validators.max(59)] }),
     }),
   });
 
   protected readonly therapies = toSignal(
     this.form.controls.appointmentDate.valueChanges.pipe(
       map(({ day, month, year }) =>
-        day != null && month != null && year != null ? combineDateAndTime({ day, month, year }, { hour: 0, minute: 0 }) : null
+        day && month && year ? combineDateAndTime({ day, month, year }, { hour: '0', minute: '0' }) : null
       ),
       switchMap(d => d ? this.therapyService.getValid(d) : of([]))
     ),
@@ -104,8 +106,8 @@ export class AppointmentsForm {
 
     if (
       !customerId || !therapyId ||
-      appointmentDate.day == null || appointmentDate.month == null || appointmentDate.year == null ||
-      appointmentTime.hour == null || appointmentTime.minute == null
+      !appointmentDate.day || !appointmentDate.month || !appointmentDate.year ||
+      !appointmentTime.hour || !appointmentTime.minute
     ) return;
 
     const appointmentTimestamp = combineDateAndTime(
@@ -143,5 +145,12 @@ export class AppointmentsForm {
 
   protected cancel(): void {
     this.router.navigate(['/termine']);
+  }
+
+  protected focusNextOnFilled(event: Event, next: HTMLInputElement): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length >= input.maxLength) {
+      next.focus();
+    }
   }
 }
