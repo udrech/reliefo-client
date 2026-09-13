@@ -4,6 +4,11 @@ Reliefo Therapy App Client
 
 ## Ideen, Wünsche, ToDo
 
+* Termin Eingabe
+  * DropDown als Suchfeld (Vorname, Nachname)
+  * Liste und Formular kombiniert für Übersicht über vorhandene Termine
+  * Warnung wenn Termin bereits existiert (gleiche Zeit, gleicher Kunde)
+* Tests auf iPad und Android
 * Google Termin Import
 * Doku: Wartung, Angular Update, etc.
 * Kundenname-Header als Component
