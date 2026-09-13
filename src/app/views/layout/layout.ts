@@ -43,7 +43,7 @@ export class Layout {
 
   // Client Version
   protected version = '4';
-  protected releaseDate = 'xx.08.2026';
+  protected releaseDate = '13.09.2026';
 
   protected get apiVersion(): string {
     return this.versionInfo().version;
