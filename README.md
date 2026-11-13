@@ -140,6 +140,17 @@ Add-Content $PROFILE '(&mise activate pwsh) | Out-String | Invoke-Expression'
 
 Danach alle Terminals und VS Code neu starten. Prüfen mit `node --version` und `mise doctor`.
 
+### Angular CLI global installieren
+
+mise verwaltet globale npm-Pakete pro Node-Version. Nach jedem Wechsel auf eine neue Node-Version muss die Angular CLI daher erneut installiert und die Shims neu erzeugt werden, sonst schlägt `ng` mit `command not found` fehl:
+
+```powershell
+npm install -g @angular/cli
+mise reshim
+```
+
+Prüfen mit `ng version`.
+
 ### Kommandos
 
 | Kommando | Beschreibung |
