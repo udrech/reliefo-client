@@ -102,6 +102,60 @@ Design-Empfehlungen für die Umsetzung:
 * **Abgerundete Ecken:** Passend zum verspielten Logo und der weichen Polsterung der Liege sollten alle UI-Elemente (Buttons, Bilder) stark abgerundete Ecken (z. B. 16px oder mehr) haben.
 * **Schriftart:** Eine serifenlose, leicht „puffy" wirkende Schriftart würde den verspielten Charakter des Logos im Interface fortführen.
 
+## Node.js
+
+Node.js wird mit [mise](https://mise.jdx.dev/) verwaltet.
+
+### Installation
+
+[mise via PowerShell installieren](https://mise.jdx.dev/installing-mise.html#windows-script):
+
+```powershell
+irm https://mise.run/powershell | iex
+```
+
+Node.js global installieren:
+
+```powershell
+mise use --global node@lts
+```
+
+### node, npm und npx überall verfügbar machen
+
+Shims-Verzeichnis zum Benutzer-`Path` hinzufügen (für cmd.exe, VS Code, IDEs):
+
+```powershell
+$shims = "$env:LOCALAPPDATA\mise\shims"
+$userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+if (($userPath -split ';') -notcontains $shims) {
+    [Environment]::SetEnvironmentVariable('Path', "$shims;$userPath", 'User')
+}
+```
+
+PowerShell aktivieren (optional, pro PowerShell-Version einmal). Die Aktivierung wird nur für `[env]`-Variablen aus `mise.toml` benötigt; `node`, `npm` und `npx` laufen auch ohne sie über die Shims (inkl. projektspezifischer Versionen):
+
+```powershell
+Add-Content $PROFILE '(&mise activate pwsh) | Out-String | Invoke-Expression'
+```
+
+Danach alle Terminals und VS Code neu starten. Prüfen mit `node --version` und `mise doctor`.
+
+### Kommandos
+
+| Kommando | Beschreibung |
+| --- | --- |
+| `mise use --global node@24` | Version global setzen (installiert falls nötig) |
+| `mise use node@24` | Version nur fürs Projekt setzen (`mise.toml`) |
+| `mise install node@22` | Version installieren |
+| `mise uninstall node@22` | Version entfernen |
+| `mise ls` | Installierte Versionen anzeigen |
+| `mise ls-remote node` | Verfügbare Versionen anzeigen |
+| `mise upgrade` | Tools aktualisieren |
+| `mise prune` | Ungenutzte Versionen entfernen |
+| `mise which node` | Pfad zur verwendeten `node.exe` |
+| `mise reshim` | Shims neu erzeugen (nach `npm install -g`) |
+| `mise self-update` | mise aktualisieren |
+
 ## Angular CLI
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
