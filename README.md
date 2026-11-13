@@ -281,6 +281,15 @@ npm run build && npm test && npm run lint
 > Migrations-Code prüfen: `$safeNavigationMigration(...)` entfernen und `ChangeDetectionStrategy.Eager` durch `OnPush` ersetzen.
 > Danach die PrimeNG-Komponenten visuell prüfen und das Theme (`definePreset`) mit dem PrimeNG-Migrationsguide abgleichen.
 
+## PrimeUI Lizenz
+
+Ab PrimeNG 22 ist ein Lizenz-Key nötig (Community License, kostenlos, jährlich erneuern: <https://primeui.store/primeui>).
+Der Key liegt in `src/environments/primeui-license.ts` (nicht in Git). Nach einem frischen Clone:
+
+```bash
+cp src/environments/primeui-license.example.ts src/environments/primeui-license.ts   # Key eintragen
+```
+
 ## Datum- und Zeit-Eingabe
 
 Date and time fields do **not** use PrimeNG's `p-datepicker`. Instead, each field is a nested `FormGroup` of plain `pInputText` segments (`day`/`month`/`year` or `hour`/`minute`), styled with `pKeyFilter="pint"` and auto-advancing focus between segments via `focusNextOnFilled()`. See [appointments-form.html](src/app/views/appointments/appointments-form/appointments-form.html) as the reference implementation.

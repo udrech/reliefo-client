@@ -5,6 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 
+import { primeUiLicense } from '@environments/primeui-license';
 import { routes } from './app.routes';
 
 const ReliefoTheme = definePreset(Aura, {
@@ -55,6 +56,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withXhr()),
     providePrimeNG({
+      license: primeUiLicense,
       theme: {
         preset: ReliefoTheme,
         options: { darkModeSelector: false },
