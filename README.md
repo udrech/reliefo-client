@@ -268,13 +268,17 @@ npm run build && npm test && npm run lint
 Immer nur eine Major-Version pro Schritt. Zuerst die Breaking Changes im [Update Guide](https://angular.dev/update-guide) prüfen. Der Git-Stand muss sauber sein, am besten auf einem eigenen Branch.
 
 ```bash
-npx ng update @angular/core@22 @angular/cli@22   # inkl. Code-Migrationen, TypeScript prüfen
-npx ng update primeng@22
-npm install @primeuix/themes@3 @angular/cdk@22   # Peer-Dependencies von PrimeNG
-npm install -D angular-eslint@22 typescript-eslint@latest
+git switch -c angular-22
+# Alle voneinander abhängigen Pakete in EINEM Aufruf (sonst Peer-Konflikte PrimeNG ↔ Angular ↔ angular-eslint)
+npx ng update @angular/core@22 @angular/cli@22 @angular/cdk@22 primeng@22 angular-eslint@22
+npm install @primeuix/themes@3
+npm install -D typescript-eslint@latest
 npm run build && npm test && npm run lint
 ```
 
+> `@angular/cdk` muss direkt in `package.json` stehen, damit `ng update` es aktualisieren kann.
+>
+> Migrations-Code prüfen: `$safeNavigationMigration(...)` entfernen und `ChangeDetectionStrategy.Eager` durch `OnPush` ersetzen.
 > Danach die PrimeNG-Komponenten visuell prüfen und das Theme (`definePreset`) mit dem PrimeNG-Migrationsguide abgleichen.
 
 ## Datum- und Zeit-Eingabe
