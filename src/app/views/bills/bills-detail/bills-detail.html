@@ -17,7 +17,7 @@
         <span class="text-right font-medium pt-3">Data</span>
         <textarea 
           pInputTextarea
-          [value]="bill()?.data"
+          [value]="bill()?.data ?? ''"
           readonly
           rows="10"
           class="w-full font-mono text-sm"

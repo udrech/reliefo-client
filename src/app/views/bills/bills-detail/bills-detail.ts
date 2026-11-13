@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -13,6 +13,7 @@ import { CustomerService } from '@/services/customer.service';
     DatePipe,
   ],
   templateUrl: './bills-detail.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './bills-detail.css',
 })
 export class BillsDetail {
