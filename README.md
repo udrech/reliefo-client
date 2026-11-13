@@ -249,6 +249,34 @@ rm -rf ../reliefo-api/wwwroot/*
 cp -r dist/reliefo-client/browser/* ../reliefo-api/wwwroot/
 ```
 
+## Pakete aktualisieren
+
+### Minor/Patch-Updates (innerhalb der Major-Version)
+
+```bash
+npx npm-check-updates -u --target minor   # oder: npm update
+npm install
+npm run build && npm test && npm run lint
+```
+
+> Bei `ERESOLVE`-Fehlern (Peer-Konflikte durch den alten Lockfile, z. B. `@angular/cdk` via PrimeNG): `rm -rf node_modules package-lock.json && npm install`
+>
+> Kein `ncu -u` ohne `--target`: Angular-Majors nur über `ng update` und TypeScript nur in der von Angular unterstützten Version (`npm view @angular/compiler-cli peerDependencies`).
+
+### Angular Major-Update (z. B. 21 → 22)
+
+Immer nur eine Major-Version pro Schritt. Zuerst die Breaking Changes im [Update Guide](https://angular.dev/update-guide) prüfen. Der Git-Stand muss sauber sein, am besten auf einem eigenen Branch.
+
+```bash
+npx ng update @angular/core@22 @angular/cli@22   # inkl. Code-Migrationen, TypeScript prüfen
+npx ng update primeng@22
+npm install @primeuix/themes@3 @angular/cdk@22   # Peer-Dependencies von PrimeNG
+npm install -D angular-eslint@22 typescript-eslint@latest
+npm run build && npm test && npm run lint
+```
+
+> Danach die PrimeNG-Komponenten visuell prüfen und das Theme (`definePreset`) mit dem PrimeNG-Migrationsguide abgleichen.
+
 ## Datum- und Zeit-Eingabe
 
 Date and time fields do **not** use PrimeNG's `p-datepicker`. Instead, each field is a nested `FormGroup` of plain `pInputText` segments (`day`/`month`/`year` or `hour`/`minute`), styled with `pKeyFilter="pint"` and auto-advancing focus between segments via `focusNextOnFilled()`. See [appointments-form.html](src/app/views/appointments/appointments-form/appointments-form.html) as the reference implementation.
