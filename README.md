@@ -114,10 +114,11 @@ Node.js wird mit [mise](https://mise.jdx.dev/) verwaltet.
 irm https://mise.run/powershell | iex
 ```
 
-Node.js global installieren:
+Die Node.js-Version wird projektspezifisch in der [mise.toml](mise.toml) festgelegt.
 
 ```powershell
-mise use --global node@lts
+mise install node@lts
+mise use node@lts
 ```
 
 ### node, npm und npx überall verfügbar machen
@@ -155,10 +156,11 @@ Prüfen mit `ng version`.
 
 | Kommando | Beschreibung |
 | --- | --- |
-| `mise use --global node@24` | Version global setzen (installiert falls nötig) |
-| `mise use node@24` | Version nur fürs Projekt setzen (`mise.toml`) |
-| `mise install node@22` | Version installieren |
-| `mise uninstall node@22` | Version entfernen |
+| `mise install node@lts` | Version installieren |
+| `mise use node@26.3.1` | Version fürs Projekt setzen (schreibt `mise.toml`) |
+| `mise install` | Die in `mise.toml` festgelegten Versionen installieren |
+| `mise install --global node@lts` | Version global installieren |
+| `mise uninstall node@26.3.1` | Version entfernen |
 | `mise ls` | Installierte Versionen anzeigen |
 | `mise ls-remote node` | Verfügbare Versionen anzeigen |
 | `mise upgrade` | Tools aktualisieren |
